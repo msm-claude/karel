@@ -105,13 +105,14 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       inv[j * rw + i] = y * world.w + x;
     }
 
-  const maxLevels = 6;
-  const W = Math.min((cssW / (rw + rh)) * 0.92, (cssH / ((rw + rh) / 2 + maxLevels * 0.7)) * 0.92, 52);
+  const maxLevels = 10; // bricks per tile cap
+  const W = Math.min((cssW / (rw + rh)) * 0.92, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * 0.92, 52);
   const H = W / 2;
-  const Z = W * 0.62;
+  const Z = W * 0.62; // Karel's unit height
+  const BZ = W * 0.31; // one brick: half a unit, so tall stacks stay readable
   const FZ = W * 0.28;
   const ox = cssW / 2 + ((rh - rw) * W) / 2;
-  const oy = (cssH - (rw + rh) * H) / 2 + maxLevels * 0.25 * Z;
+  const oy = (cssH - (rw + rh) * H) / 2 + maxLevels * 0.12 * Z;
   const sx = (i: number, j: number) => ox + (i - j) * W;
   const sy = (i: number, j: number) => oy + (i + j) * H;
 
@@ -247,8 +248,8 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       box(i, j, W, 0, FZ, [P.floorTop, P.floorLeft, P.floorRight], wx * 31 + wy);
       let z = FZ;
       for (let k = 0; k < t.bricks; k++) {
-        box(i, j, W, z, z + Z, [P.brickTop, P.brickLeft, P.brickRight], wx * 31 + wy + k * 7);
-        z += Z;
+        box(i, j, W, z, z + BZ, [P.brickTop, P.brickLeft, P.brickRight], wx * 31 + wy + k * 7);
+        z += BZ;
       }
       if (t.mark) markAt(i, j, z);
       if (i === ki && j === kj) karelAt(i, j, z, rel, t.mark);
