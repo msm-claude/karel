@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Karel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Fira+Code:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/ui/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand"><i></i>Karel</div>
+      <span class="roomname" id="roomname"></span>
+      <div class="sp"></div>
+      <div class="lang" id="lang"></div>
+      <button class="pill" id="share"></button>
+    </header>
+    <main class="main">
+      <section class="stage">
+        <div class="world">
+          <div class="hud" id="hud"></div>
+          <div class="rot">
+            <button id="rotL" title="">↺</button>
+            <button id="rotR" title="">↻</button>
+          </div>
+          <canvas id="cv"></canvas>
+        </div>
+        <div class="hotbar">
+          <button class="slot run" id="run"><span></span><small>F5</small></button>
+          <button class="slot" id="step"><span></span><small>F10</small></button>
+          <button class="slot" id="stop"><span></span><small>Esc</small></button>
+          <label class="slot wide" id="speedSlot"><span></span><input type="range" id="speed" min="1" max="5" step="1" /></label>
+          <button class="slot" id="reset"><span></span><small></small></button>
+        </div>
+      </section>
+      <section class="right">
+        <nav class="tabs" id="tabs">
+          <button data-tab="program" class="on"></button>
+          <button data-tab="room"></button>
+          <button data-tab="reference"></button>
+        </nav>
+        <div class="tab on" id="tab-program"><div class="ed" id="ed"></div></div>
+        <div class="tab" id="tab-room">
+          <div class="form">
+            <div class="row">
+              <label><span id="lblW"></span><input type="number" id="roomW" min="1" max="30" /></label>
+              <label><span id="lblH"></span><input type="number" id="roomH" min="1" max="30" /></label>
+              <button class="pill" id="newRoom"></button>
+            </div>
+            <label class="col"><span id="lblCode"></span><textarea id="roomCode" rows="4" spellcheck="false"></textarea></label>
+            <div class="row">
+              <button class="pill" id="applyMap"></button>
+              <button class="pill" id="captureRoom"></button>
+            </div>
+            <div class="row">
+              <button class="pill" id="download"></button>
+              <button class="pill" id="upload"></button>
+              <input type="file" id="uploadFile" accept=".karel,.txt" hidden />
+            </div>
+          </div>
+        </div>
+        <div class="tab" id="tab-reference"><div class="ref" id="ref"></div></div>
+        <footer class="foot"><span id="status"></span><span id="saved"></span></footer>
+      </section>
+    </main>
+    <div class="toast" id="toast"></div>
+    <script type="module" src="./src/ui/main.ts"></script>
+  </body>
+</html>

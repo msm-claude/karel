@@ -1,0 +1,22 @@
+(* Karel v1 grammar. Terminals in quotes are canonical keywords; each locale
+   maps its own words onto them (src/lang). Whitespace separates tokens,
+   newlines carry no meaning, `#` starts a comment to end of line. *)
+
+program     = { definition | statement } ;
+definition  = procDef | condDef ;
+procDef     = "proc" IDENT block "end" ;
+condDef     = "cond" IDENT block "end" ;          (* body ends with "true" | "false" *)
+block       = { statement } ;
+statement   = primitive | call | result | repeat | while | if ;
+primitive   = "step" | "left" | "right" | "place" | "pick" | "mark" | "unmark" ;
+call        = IDENT ;
+result      = "true" | "false" ;
+repeat      = "repeat" expr "times" block "end" ;
+while       = "while" cond block "end" ;
+if          = "if" cond "then" block [ "else" block ] "end" ;
+cond        = ( "is" | "isNot" ) predicate ;
+predicate   = "wall" | "brick" | "marked" | "vacant" | IDENT ;
+expr        = NUMBER ;                              (* v1: literal only *)
+
+IDENT       = letter { letter | digit | "_" | "-" } ;  (* not a keyword in the current locale *)
+NUMBER      = digit { digit } ;
