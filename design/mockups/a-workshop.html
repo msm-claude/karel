@@ -1,0 +1,63 @@
+<!doctype html><html lang="sk"><head><meta charset="utf-8"><title>Karel — A: Dielňa</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c1a17;--panel:#25221e;--line:#3a352e;--ink:#e8e2d6;--dim:#8f877a;--oak:#d98b3a;--gold:#e9c46a}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 "JetBrains Mono",monospace}
+.top{height:52px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);gap:24px}
+.brand{font-weight:800;font-size:18px;letter-spacing:-.02em}
+.brand i{display:inline-block;width:14px;height:14px;background:var(--oak);margin-right:10px;vertical-align:-1px;box-shadow:inset -4px -4px 0 #a8621f}
+.room{color:var(--dim)}
+.top .sp{flex:1}
+.lang{display:flex;border:1px solid var(--line)}
+.lang span{padding:5px 10px;color:var(--dim)}.lang .on{background:var(--ink);color:var(--bg);font-weight:600}
+.btn{padding:6px 12px;border:1px solid var(--line);color:var(--ink);background:transparent}
+.btn.pri{background:var(--oak);border-color:var(--oak);color:#1c1a17;font-weight:600}
+.main{display:grid;grid-template-columns:38% 1fr;height:calc(100% - 52px)}
+.left{display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--panel)}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs span{padding:10px 16px;color:var(--dim)}.tabs .on{color:var(--ink);box-shadow:inset 0 -2px var(--oak)}
+.ed{flex:1;overflow:hidden;padding:12px 0;font-size:15px;line-height:1.6}
+.ln{display:flex;position:relative}.ln .n{width:52px;text-align:right;padding-right:16px;color:#5a5449;user-select:none}
+.ln.active{background:#3a2e1c}.ln.active .n{color:var(--oak)}
+.kw{color:#c7a0ff}.cmd{color:#7fd1a8}.pred{color:#f0b56b}.num{color:#f5f0e8}.id{color:#e8e2d6}
+.ac{position:absolute;left:180px;top:26px;background:#141210;border:1px solid var(--line);min-width:220px;z-index:2;font-size:13px}
+.ac div{display:flex;justify-content:space-between;padding:6px 10px;gap:16px}.ac div span{color:var(--dim)}.ac .sel{background:#3a2e1c}
+.ctl{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
+.ctl .btn{padding:8px 14px}
+.speed{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--dim)}
+.speed i{display:inline-block;width:110px;height:4px;background:var(--line);position:relative}
+.speed i:after{content:"";position:absolute;left:60%;top:-5px;width:14px;height:14px;background:var(--ink)}
+.right{position:relative;display:flex;flex-direction:column}
+canvas{flex:1;width:100%;height:100%;display:block}
+.rot{position:absolute;right:20px;top:16px;display:flex;gap:6px}
+.rot .btn{width:36px;height:36px;padding:0;display:grid;place-items:center;font-size:16px}
+.status{display:flex;gap:28px;padding:10px 20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+.status b{color:var(--ink);font-weight:600}
+.msg{position:absolute;left:20px;top:16px;color:var(--dim);font-size:13px}
+</style></head><body>
+<div class="top"><div class="brand"><i></i>karel</div><span class="room">schody-a-mur</span><div class="sp"></div>
+<div class="lang"><span class="on">SK</span><span>CZ</span><span>EN</span></div><button class="btn">Odkaz na miestnosť</button></div>
+<div class="main">
+ <div class="left">
+  <div class="tabs"><span class="on">program.karel</span><span>miestnosť</span></div>
+  <div class="ed" id="ed"></div>
+  <div class="ctl"><button class="btn pri">Spusti</button><button class="btn">Krok</button><button class="btn">Zastav</button>
+   <div class="speed">rýchlosť <i></i></div></div>
+ </div>
+ <div class="right">
+  <div class="msg">beží: domov, riadok 14</div>
+  <div class="rot"><button class="btn">↺</button><button class="btn">↻</button></div>
+  <canvas id="cv"></canvas>
+  <div class="status"><span>Karel <b>3, 6</b> smer <b>východ</b></span><span>kroky <b>27</b></span><span>tehly v ruke <b>∞</b></span><span>pohľad <b>SV</b></span></div>
+ </div>
+</div>
+<script src="iso.js"></script><script src="editor.js"></script>
+<script>
+KarelEditor.mountEditor(document.getElementById('ed'),{activeLine:14,cursorLine:20,complete:[['opakuj','opakuj … krát'],['označ','označ pole'],['odznač','odznač pole']]});
+document.fonts.ready.then(()=>KarelIso.renderWorld(document.getElementById('cv'),{view:0,maxTile:48,palette:{
+ floorTop:'#6b4f33',floorLeft:'#463222',floorRight:'#56402a',
+ brickTop:'#9a948a',brickLeft:'#5c5750',brickRight:'#77726a',
+ mark:'#e9c46a',markInner:'#f6dc98',pit:'#0e0d0b',plate:'#151310',
+ karelTop:'#f0a04a',karelLeft:'#a8621f',karelRight:'#d98b3a',karelDark:'#3a2f24',visor:'#1c1a17'}}));
+</script></body></html>
