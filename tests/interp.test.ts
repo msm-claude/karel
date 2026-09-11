@@ -70,6 +70,15 @@ describe('interpreter golden runs', () => {
     const climb = go('poloz poloz krok');
     expect(climb.ok).toBe(false);
     if (!climb.ok) expect(climb.code).toBe('tooHigh');
+    // can drop any height: start on a 5-high stack, step onto the ground
+    const tower = emptyWorld(5, 4);
+    tower.tiles[15]!.bricks = 5;
+    const drop = go('krok', tower);
+    expect(drop.ok).toBe(true);
+    expect(drop.world.karel.x).toBe(1);
+    // volno agrees with step
+    const vac = go('ak je volno tak krok koniec', tower);
+    expect(vac.world.karel.x).toBe(1);
   });
 
   it('mark twice is an error, unmark restores', () => {

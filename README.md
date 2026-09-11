@@ -36,8 +36,8 @@ koniec`, predicates `mur`, `tehla`, `znacka`, `volno`. `#` starts a comment.
 Input is matched without diacritics and case, so `Vľavo` works too.
 Grammar: [`docs/grammar.ebnf`](docs/grammar.ebnf).
 
-Rules follow the original: a step is allowed when the height difference is at
-most one brick; a brick can be placed when the stack in front is at most one
+Rules follow the original: a step is allowed when the tile ahead is at most
+one brick higher (dropping down any height is fine); a brick can be placed when the stack in front is at most one
 below or nine above Karel, up to ten per tile; a mark sits on Karel's own tile.
 
 ## Room links

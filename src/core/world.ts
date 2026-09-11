@@ -1,6 +1,8 @@
 // World model and rules. Pure, DOM-free. Semantics follow the original Karel 3D:
 // a grid of tiles {removed, bricks, mark}, Karel {x, y, dir}. Wall = room edge
 // or a removed tile. Mark is on Karel's tile, bricks are handled in front.
+// Step: the tile ahead may be at most one brick higher; any drop is allowed
+// (verified against karelrobot.cz source, see the school checker).
 
 export type Dir = 0 | 1 | 2 | 3; // 0 east (+x), 1 north (-y), 2 west (-x), 3 south (+y)
 
@@ -95,10 +97,10 @@ export function isMark(world: World): boolean {
   return currentTile(world).mark;
 }
 
-/** Karel can step forward: not a wall and the height difference is at most 1. */
+/** Karel can step forward: not a wall and the tile ahead is at most one brick higher. Jumping down any height is fine. */
 export function isVacant(world: World): boolean {
   const f = frontTile(world);
-  return f !== undefined && Math.abs(f.bricks - currentTile(world).bricks) <= 1;
+  return f !== undefined && f.bricks - currentTile(world).bricks <= 1;
 }
 
 // Commands. Each mutates the world in place and throws KarelRuntimeError when
@@ -107,7 +109,7 @@ export function isVacant(world: World): boolean {
 export function step(world: World): void {
   const f = frontTile(world);
   if (!f) throw new KarelRuntimeError('wall');
-  if (Math.abs(f.bricks - currentTile(world).bricks) > 1) throw new KarelRuntimeError('tooHigh');
+  if (f.bricks - currentTile(world).bricks > 1) throw new KarelRuntimeError('tooHigh');
   const { dir } = world.karel;
   world.karel.x += DX[dir];
   world.karel.y += DY[dir];
