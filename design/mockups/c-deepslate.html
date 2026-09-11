@@ -1,0 +1,52 @@
+<!doctype html><html lang="sk"><head><meta charset="utf-8"><title>Karel — C: Hlbina</title>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1419;--panel:#141b22;--line:#243040;--ink:#c9d4de;--dim:#6f8195;--cyan:#4fd1c5;--amber:#f4b400}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Mono",monospace}
+.main{display:grid;grid-template-columns:42% 1fr;height:100%}
+.left{display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--line)}
+.head{display:flex;align-items:baseline;gap:16px;padding:16px 20px 10px;border-bottom:1px solid var(--line)}
+.brand{font:700 20px/1 "Silkscreen",monospace;color:var(--cyan);letter-spacing:.02em}
+.file{color:var(--dim)}.head .sp{flex:1}.head .lang{color:var(--dim);font-size:12px}.head .lang b{color:var(--ink)}
+.ed{flex:1;overflow:hidden;padding:10px 0;font-size:15px;line-height:1.65}
+.ln{display:flex}.ln .n{width:56px;text-align:right;padding-right:16px;color:#3b4a5c;user-select:none}
+.ln.active{background:#1b2a2f}.ln.active .n{color:var(--cyan)}
+.ln.active .c:before{content:"▶";color:var(--cyan);margin-left:-18px;margin-right:6px;font-size:11px}
+.kw{color:#9ecbff}.cmd{color:#7ee787}.pred{color:#ffa657}.num{color:#fff}.id{color:#c9d4de}
+.keys{display:flex;gap:6px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+.k{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);background:#0f1419;color:var(--ink)}
+.k kbd{font:11px "Silkscreen",monospace;color:var(--bg);background:var(--ink);padding:2px 5px}
+.k.pri{border-color:var(--cyan);color:var(--cyan)}.k.pri kbd{background:var(--cyan)}
+.right{position:relative;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#182028 0%,var(--bg)70%)}
+canvas{flex:1;width:100%;height:100%;display:block}
+.hud{position:absolute;padding:14px 18px;color:var(--dim);font-size:13px;line-height:1.7}
+.hud b{color:var(--ink);font-weight:600}
+.tl{left:0;top:0}.tr{right:0;top:0;text-align:right}.bl{left:0;bottom:0}.br{right:0;bottom:0;text-align:right}
+.hud .big{font:700 15px "Silkscreen",monospace;color:var(--amber)}
+.share{position:absolute;right:18px;bottom:14px;padding:6px 12px;border:1px solid var(--line);color:var(--ink);background:transparent;font:inherit}
+</style></head><body>
+<div class="main">
+ <div class="left">
+  <div class="head"><span class="brand">KAREL</span><span class="file">schody-a-mur.karel</span><span class="sp"></span><span class="lang"><b>sk</b> cz en</span></div>
+  <div class="ed" id="ed"></div>
+  <div class="keys"><span class="k pri"><kbd>F5</kbd>spusti</span><span class="k"><kbd>F10</kbd>krok</span><span class="k"><kbd>ESC</kbd>zastav</span>
+   <span class="k"><kbd>Q</kbd><kbd>E</kbd>otoč pohľad</span><span class="k"><kbd>-</kbd><kbd>+</kbd>rýchlosť 3/5</span></div>
+ </div>
+ <div class="right">
+  <div class="hud tl"><span class="big">SCHODY A MÚR</span><br>10 × 8, pohľad zo severovýchodu</div>
+  <div class="hud tr">Karel <b>3, 6</b><br>smer <b>východ</b><br>značka <b>nie</b>, tehla vpredu <b>áno</b></div>
+  <div class="hud bl">beží <b>domov</b>, riadok 14<br>kroky <b>27</b></div>
+  <canvas id="cv"></canvas>
+  <button class="share">odkaz na miestnosť</button>
+ </div>
+</div>
+<script src="iso.js"></script><script src="editor.js"></script>
+<script>
+KarelEditor.mountEditor(document.getElementById('ed'),{activeLine:14});
+document.fonts.ready.then(()=>KarelIso.renderWorld(document.getElementById('cv'),{view:0,maxTile:50,outline:'#0b0f13',palette:{
+ floorTop:'#3a4451',floorLeft:'#222a33',floorRight:'#2c353f',
+ brickTop:'#5f6d82',brickLeft:'#38424f',brickRight:'#4a5665',
+ mark:'#f4b400',markInner:'#ffe08a',pit:'#06090c',plate:null,
+ karelTop:'#f2f6f9',karelLeft:'#a9b6c2',karelRight:'#d2dbe3',karelDark:'#1d252d',visor:'#4fd1c5'}}));
+</script></body></html>
