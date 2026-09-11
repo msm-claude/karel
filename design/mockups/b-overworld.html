@@ -52,7 +52,7 @@ canvas{width:100%;height:100%;display:block}
 <script src="iso.js"></script><script src="editor.js"></script>
 <script>
 KarelEditor.mountEditor(document.getElementById('ed'),{activeLine:14});
-document.fonts.ready.then(()=>KarelIso.renderWorld(document.getElementById('cv'),{view:0,maxTile:52,palette:{
+document.fonts.ready.then(()=>KarelIso.renderWorld(document.getElementById('cv'),{view:0,maxTile:52,outline:'rgba(23,33,43,.6)',palette:{
  floorTop:'#5cb531',floorLeft:'#6e4526',floorRight:'#8a5a33',
  brickTop:'#a6a6a6',brickLeft:'#6a6a6a',brickRight:'#868686',
  mark:'#ffd23f',markInner:'#fff0a8',pit:'#2a1c10',plate:'rgba(23,33,43,.18)',

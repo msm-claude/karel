@@ -1,29 +1,29 @@
 // Mock editor: highlight the Slovak program, line numbers, optional autocomplete popup.
-const PROGRAM = `príkaz schody
-  opakuj 3 krát
-    polož
+const PROGRAM = `prikaz schody
+  opakuj 3 krat
+    poloz
     krok
   koniec
 koniec
 
-podmienka voľná-cesta
-  nie je múr
+podmienka volna-cesta
+  nie je mur
 koniec
 
-príkaz domov
-  kým je voľná-cesta
+prikaz domov
+  kym je volna-cesta
     krok
   koniec
-  vľavo
+  vlavo
 koniec
 
 schody
 vpravo
 domov`;
 
-const KW = ['príkaz','koniec','opakuj','krát','kým','ak','tak','inak','podmienka','je','nie'];
-const CMD = ['krok','vľavo','vpravo','polož','zdvihni','označ','odznač'];
-const PRED = ['múr','tehla','značka','voľno','pravda','nepravda'];
+const KW = ['prikaz','koniec','opakuj','krat','kym','ak','tak','inak','podmienka','je','nie'];
+const CMD = ['krok','vlavo','vpravo','poloz','zdvihni','oznac','odznac'];
+const PRED = ['mur','tehla','znacka','volno','pravda','nepravda'];
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function hl(line){
