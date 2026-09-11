@@ -36,12 +36,27 @@ const $ = <T extends HTMLElement>(id: string): T => {
   return el as T;
 };
 
-// ---- state
+// ---- state, resolved synchronously before anything can draw (no flash of the demo room)
 
-let locale: Locale = locales[defaultLocale];
-let room: World = decodeWorld(DEFAULT_ROOM); // the reset state, what links share
-let world: World = cloneWorld(room); // what is drawn
-let view: View = 0;
+const hashParams = parseHash(location.hash);
+const wantedLocale = hashParams.l ?? localStorage.getItem(LS.locale) ?? defaultLocale;
+let locale: Locale = locales[isLocaleId(wantedLocale) ? wantedLocale : defaultLocale];
+let badMap = false;
+function initialRoom(): World {
+  const code = hashParams.m ?? localStorage.getItem(LS.room);
+  if (code) {
+    try {
+      return decodeWorld(code);
+    } catch {
+      badMap = hashParams.m !== undefined;
+    }
+  }
+  return decodeWorld(DEFAULT_ROOM);
+}
+let room: World = initialRoom(); // the reset state, what links share
+let world: World = cloneWorld(room); // what is drawn; runs continue from here
+const savedView = Number(localStorage.getItem(LS.view) ?? 0);
+let view: View = (savedView >= 0 && savedView <= 3 ? savedView : 0) as View;
 let steps = 0;
 let statusKey: 'ready' | 'running' | 'stopped' | 'done' = 'ready';
 let statusLine: number | null = null;
@@ -85,9 +100,16 @@ const driver = new Driver({
   },
 });
 
-const editor = new Editor($('ed'), '', locale, () => {
+const editor = new Editor($('ed'), hashParams.p ? '' : (localStorage.getItem(LS.program) ?? DEFAULT_PROGRAM[locale.id]), locale, () => {
+  if (driver.state === 'paused') {
+    // the armed program is stale now; the next run takes the new text from the current world
+    driver.stop();
+    statusKey = 'ready';
+    statusLine = null;
+  }
   errorText = null;
   editor.setErrorLine(null);
+  editor.setRunLine(null);
   scheduleSave();
   draw();
 });
@@ -193,11 +215,10 @@ function arm(): boolean {
     draw();
     return false;
   }
-  world = cloneWorld(room);
   steps = 0;
   errorText = null;
   editor.setErrorLine(null);
-  driver.load(program, world);
+  driver.load(program, world); // from where Karel is now, not from the room
   return true;
 }
 
@@ -374,46 +395,18 @@ new ResizeObserver(() => draw()).observe(canvas);
 
 // ---- boot
 
-async function boot(): Promise<void> {
-  const h = parseHash(location.hash);
-  const savedLocale = localStorage.getItem(LS.locale);
-  const wanted = h.l ?? savedLocale ?? defaultLocale;
-  locale = locales[isLocaleId(wanted) ? wanted : defaultLocale];
-  editor.setLocale(locale);
+speedInput.value = (() => {
+  const v = Number(localStorage.getItem(LS.speed) ?? 3);
+  return String(v >= 1 && v <= 5 ? v : 3);
+})();
+driver.setSpeed(Number(speedInput.value));
+applyLocaleText();
+setRoom(room);
+if (badMap) showToast(t('badMap'));
+editor.focus();
 
-  const savedView = Number(localStorage.getItem(LS.view) ?? 0);
-  view = (savedView >= 0 && savedView <= 3 ? savedView : 0) as View;
-  const savedSpeed = Number(localStorage.getItem(LS.speed) ?? 3);
-  speedInput.value = String(savedSpeed >= 1 && savedSpeed <= 5 ? savedSpeed : 3);
-  driver.setSpeed(Number(speedInput.value));
-
-  let badMap = false;
-  let initialRoom: World | null = null;
-  const roomCode = h.m ?? localStorage.getItem(LS.room);
-  if (roomCode) {
-    try {
-      initialRoom = decodeWorld(roomCode);
-    } catch {
-      badMap = h.m !== undefined;
-    }
-  }
-  room = initialRoom ?? decodeWorld(DEFAULT_ROOM);
-
-  let program: string | null = null;
-  if (h.p) {
-    try {
-      program = await decodeProgram(h.p);
-    } catch {
-      program = null;
-    }
-  }
-  program ??= localStorage.getItem(LS.program) ?? DEFAULT_PROGRAM[locale.id];
-  editor.setText(program);
-  editor.view.dispatch({ effects: [] }); // settle
-  applyLocaleText();
-  setRoom(room);
-  if (badMap) showToast(t('badMap'));
-  editor.focus();
+if (hashParams.p) {
+  decodeProgram(hashParams.p)
+    .then((text) => editor.setText(text))
+    .catch(() => editor.setText(localStorage.getItem(LS.program) ?? DEFAULT_PROGRAM[locale.id]));
 }
-
-void boot();

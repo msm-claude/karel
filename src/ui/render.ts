@@ -162,19 +162,20 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
   function markAt(i: number, j: number, z: number): void {
     const cx = sx(i, j);
     const cy = sy(i, j) - z - 0.5;
-    const hw = W * 0.5;
+    const hw = W * 0.84; // nearly the whole tile, so it stays visible around Karel
     poly([[cx - hw, cy], [cx, cy - hw / 2], [cx + hw, cy], [cx, cy + hw / 2]], P.mark, P.edge);
-    const w2 = W * 0.3;
+    const w2 = W * 0.5;
     poly([[cx - w2, cy], [cx, cy - w2 / 2], [cx + w2, cy], [cx, cy + w2 / 2]], P.markInner);
   }
 
-  function karelAt(i: number, j: number, z: number, rel: number): void {
+  function karelAt(i: number, j: number, z: number, rel: number, onMark: boolean): void {
     const bw = W * 0.5;
     const bh = Z * 1.05;
     const hw = W * 0.36;
     const hh = Z * 0.55;
     const body: [string, string, string] = [P.karelTop, P.karelLeft, P.karelRight];
-    box(i, j, W * 0.42, z, z + Z * 0.16, [P.karelDark, P.karelDark, P.karelDark], 9001, false);
+    const base = onMark ? P.mark : P.karelDark;
+    box(i, j, W * 0.42, z, z + Z * 0.16, [base, base, base], 9001, onMark);
     box(i, j, bw, z + Z * 0.16, z + Z * 0.16 + bh, body, 9002, false);
     const hz0 = z + Z * 0.16 + bh + Z * 0.08;
     box(i, j, hw, hz0, hz0 + hh, body, 9003, false);
@@ -250,7 +251,7 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
         z += Z;
       }
       if (t.mark) markAt(i, j, z);
-      if (i === ki && j === kj) karelAt(i, j, z, rel);
+      if (i === ki && j === kj) karelAt(i, j, z, rel, t.mark);
     }
   }
 }
