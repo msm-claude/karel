@@ -100,7 +100,8 @@ const driver = new Driver({
   },
 });
 
-const editor = new Editor($('ed'), hashParams.p ? '' : (localStorage.getItem(LS.program) ?? DEFAULT_PROGRAM[locale.id]), locale, () => {
+// A room link starts with an empty program: a fresh assignment, not last time's code. `#p=` fills it in once decoded.
+const editor = new Editor($('ed'), hashParams.p || hashParams.m ? '' : (localStorage.getItem(LS.program) ?? DEFAULT_PROGRAM[locale.id]), locale, () => {
   if (driver.state === 'paused') {
     // the armed program is stale now; the next run takes the new text from the current world
     driver.stop();

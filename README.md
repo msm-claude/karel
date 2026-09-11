@@ -10,7 +10,7 @@ without the 3D engine, the block editor and the server. Design record: #1.
 - Slovak by default, Czech and English as free extras. Switching the language
   translates the program; keywords carry no diacritics in any language.
 - Rooms travel in the link. `#m=` is the room, `#p=` an optional program,
-  `#l=` the language. No accounts, no server.
+  `#l=` the language. A room link opens with an empty editor. No accounts, no server.
 
 ## Language
 
