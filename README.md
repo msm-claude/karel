@@ -52,8 +52,14 @@ count prefix. `1.12x8.0,0,0.B11AB25A4G54A` is a 12×8 room with one mark, one
 brick and a 3-high wall. The encoding is versioned; v1 stays decodable.
 
 To make a room: open the Room tab, set a size, let Karel build it with a
-program, then "save current state as the room" and share the link. The
-curriculum (assignments, solutions) lives outside this repo and links here.
+program, then "save current state as the room" and share the link.
+
+## Tasks
+
+The task sheet for 3. ročník is published at `/ulohy/` from [`ulohy/`](ulohy/):
+79 tasks with maps drawn by the app's renderer and a link into the app for every
+map. Solutions stay in `ulohy/solutions.json` and are verified by `npm test`
+against the core; they are not shown on the page.
 
 ## Development
 
@@ -66,7 +72,8 @@ npm run build    # tsc + vite -> dist/
 
 Layout: `src/core` (world rules, lexer, parser, generator interpreter, link
 encoding; pure, no DOM), `src/lang` (keyword and message tables per language),
-`src/ui` (canvas renderer, run driver, CodeMirror editor, page wiring).
+`src/ui` (canvas renderer, run driver, CodeMirror editor, page wiring),
+`ulohy/` (the task sheet, a second Vite entry).
 Dependencies point one way: `ui → lang → core`. `design/mockups` holds the
 static HTML mockups the look was picked from.
 

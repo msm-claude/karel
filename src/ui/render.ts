@@ -80,7 +80,15 @@ export function rotated(world: World, view: View): { rw: number; rh: number; map
   return { rw, rh, map };
 }
 
-export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View, P: Palette = OVERWORLD): void {
+export interface RenderOptions {
+  /** number the tiles: columns 1..w along the front-left edge, rows 1..h (from the bottom) along the front-right edge; view 0 only */
+  labels?: boolean;
+  labelColor?: string;
+  /** how many brick levels the fit reserves room for; the app keeps 10 (the cap), a static picture can pass what it holds */
+  levels?: number;
+}
+
+export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View, P: Palette = OVERWORLD, opts: RenderOptions = {}): void {
   const dpr = window.devicePixelRatio || 1;
   const cssW = canvas.clientWidth;
   const cssH = canvas.clientHeight;
@@ -105,8 +113,9 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       inv[j * rw + i] = y * world.w + x;
     }
 
-  const maxLevels = 10; // bricks per tile cap
-  const W = Math.min((cssW / (rw + rh)) * 0.92, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * 0.92, 52);
+  const maxLevels = opts.levels ?? 10; // bricks per tile cap
+  const pad = opts.labels ? 0.84 : 0.92; // room for the numbers
+  const W = Math.min((cssW / (rw + rh)) * pad, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * pad, 52);
   const H = W / 2;
   const Z = W * 0.62; // Karel's unit height
   const BZ = W * 0.31; // one brick: half a unit, so tall stacks stay readable
@@ -253,6 +262,22 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       }
       if (t.mark) markAt(i, j, z);
       if (i === ki && j === kj) karelAt(i, j, z, rel, t.mark);
+    }
+  }
+
+  if (opts.labels && view === 0) {
+    ctx.fillStyle = opts.labelColor ?? P.karelDark;
+    ctx.font = `600 ${Math.max(9, Math.round(W * 0.34))}px system-ui, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const off = W * 0.5;
+    for (let i = 0; i < rw; i++) {
+      // front-left edge: tile (i, rh-1), number below its left face
+      ctx.fillText(String(i + 1), sx(i, rh - 1) - off, sy(i, rh - 1) + H * 0.55 + off * 0.5);
+    }
+    for (let j = 0; j < rh; j++) {
+      // front-right edge: tile (rw-1, j); rows count from the bottom row
+      ctx.fillText(String(rh - j), sx(rw - 1, j) + off, sy(rw - 1, j) + H * 0.55 + off * 0.5);
     }
   }
 }
