@@ -321,83 +321,73 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     }
   }
 
-  // a point just outside the room: tile (x, y) pushed `d` tiles along the world direction (dx, dy), on screen;
-  // in front of the room it also clears the floor's side face
+  // a point on the ground just outside the room: tile (x, y) pushed `d` tiles along the world direction (dx, dy)
   const outside = (x: number, y: number, dx: number, dy: number, d: number): [number, number] => {
     const [i0, j0] = map(0, 0);
     const [i1, j1] = map(dx, dy);
-    const ni = i1 - i0;
-    const nj = j1 - j0;
     const [ti, tj] = map(x, y);
-    const i = ti + ni * d;
-    const j = tj + nj * d;
-    // on the plane of the tile tops (the floor is FZ thick); in front, drop below the side face as well
-    return [sx(i, j), sy(i, j) - FZ + (ni + nj > 0 ? FZ * 1.7 : 0)];
+    const i = ti + (i1 - i0) * d;
+    const j = tj + (j1 - j0) * d;
+    return [sx(i, j), sy(i, j)];
   };
-
   // does the world direction (dx, dy) point toward the viewer?
   const toward = (dx: number, dy: number): boolean => {
     const [i0, j0] = map(0, 0);
     const [i1, j1] = map(dx, dy);
     return i1 - i0 + (j1 - j0) > 0;
   };
+  const quiet = opts.labelColor ?? '#5b6b7a'; // the same dim ink the pages use for secondary text
 
   if (opts.labels) {
     // like a chessboard: columns 1..w and rows 1..h (from the bottom), always on the two front edges so
-    // brick stacks never cover them; which edges those are depends on the view
+    // brick stacks never cover them; which edges those are depends on the view. Each number sits on the
+    // ground on its own tile's diagonal, clear of the floor's side face.
     const south = toward(0, 1);
     const east = toward(1, 0);
-    ctx.fillStyle = opts.labelColor ?? P.karelDark;
-    ctx.font = `600 ${Math.max(9, Math.round(W * 0.34))}px system-ui, sans-serif`;
+    ctx.fillStyle = quiet;
+    ctx.font = `600 ${Math.max(8, Math.round(W * 0.27))}px system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (let x = 0; x < world.w; x++) {
-      const [px, py] = outside(x, south ? world.h - 1 : 0, 0, south ? 1 : -1, 0.7);
+      const [px, py] = outside(x, south ? world.h - 1 : 0, 0, south ? 1 : -1, 1.45);
       ctx.fillText(String(x + 1), px, py);
     }
     for (let y = 0; y < world.h; y++) {
-      const [px, py] = outside(east ? world.w - 1 : 0, y, east ? 1 : -1, 0, 0.7);
+      const [px, py] = outside(east ? world.w - 1 : 0, y, east ? 1 : -1, 0, 1.45);
       ctx.fillText(String(world.h - y), px, py);
     }
   }
 
   if (opts.compass) {
-    // a small arrow lying on the floor a little way outside the middle of the north edge, pointing north,
-    // the word for north beyond its tip; it turns with the room
-    const [i0, j0] = map(0, 0);
-    const [i1, j1] = map(0, -1);
-    const dx = (i1 - i0) - (j1 - j0);
-    const dy = ((i1 - i0) + (j1 - j0)) / 2;
-    const len = Math.hypot(dx, dy);
-    const ux = dx / len;
-    const uy = dy / len;
-    const L = Math.max(12, W * 0.55);
-    const [cx, cy] = outside((world.w - 1) / 2, 0, 0, -1, 1.4);
-    const tipX = cx + ux * L;
-    const tipY = cy + uy * L;
-    const color = opts.labelColor ?? P.karelDark;
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
+    // a flat pointer lying on the ground a little way outside the middle of the north edge, aimed north,
+    // so it lines up with the room's grid in every view; the word for north sits beyond its tip
+    const mx = (world.w - 1) / 2;
+    const base = opts.labels && toward(0, -1) ? 2.2 : 1.1; // tiles outside the edge: past the numbers when they share the edge
+    const len = 0.75;
+    const at = (along: number, across: number): [number, number] => outside(mx + across, 0, 0, -1, base + along);
+    const [tx, ty] = at(len, 0);
+    const [lx, ly] = at(0, -0.22);
+    const [rx, ry] = at(0, 0.22);
+    const [nx, ny] = at(0.18, 0);
+    ctx.fillStyle = quiet;
     ctx.beginPath();
-    ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(tipX, tipY);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(tipX + ux * 6, tipY + uy * 6);
-    ctx.lineTo(tipX - uy * 4, tipY + ux * 4);
-    ctx.lineTo(tipX + uy * 4, tipY - ux * 4);
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(lx, ly);
+    ctx.lineTo(nx, ny);
+    ctx.lineTo(rx, ry);
     ctx.closePath();
     ctx.fill();
-    ctx.font = '700 12px system-ui, sans-serif';
+    const [bx, by] = at(0, 0);
+    const dx = tx - bx;
+    const dy = ty - by;
+    const d = Math.hypot(dx, dy);
+    const ux = dx / d;
+    const uy = dy / d;
+    ctx.font = '600 11px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     const half = ctx.measureText(opts.compass).width / 2;
-    const push = 8 + half * Math.abs(ux) + 7 * Math.abs(uy); // the word's centre sits clear of the tip in any direction
-    ctx.fillText(opts.compass, tipX + ux * push, tipY + uy * push);
+    const push = 6 + half * Math.abs(ux) + 7 * Math.abs(uy); // the word's centre sits clear of the tip in any direction
+    ctx.fillText(opts.compass, tx + ux * push, ty + uy * push);
   }
 }
