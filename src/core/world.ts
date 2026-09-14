@@ -1,8 +1,7 @@
-// World model and rules. Pure, DOM-free. Semantics follow the original Karel 3D:
+// World model and rules. Pure, DOM-free.
 // a grid of tiles {removed, bricks, mark}, Karel {x, y, dir}. Wall = room edge
 // or a removed tile. Mark is on Karel's tile, bricks are handled in front.
-// Step: the tile ahead may be at most one brick higher; any drop is allowed
-// (verified against karelrobot.cz source, see the school checker).
+// Step: the tile ahead may be at most one brick higher; any drop is allowed.
 
 export type Dir = 0 | 1 | 2 | 3; // 0 east (+x), 1 north (-y), 2 west (-x), 3 south (+y)
 

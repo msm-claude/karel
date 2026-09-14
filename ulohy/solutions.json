@@ -133,7 +133,7 @@
   },
   "4.5": {
     "solution": "prikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Cuvni\n    Celom_vzad\n    krok\n    Celom_vzad\nkoniec\n\nprikaz Postav_mur\n    opakuj 4 krat\n        Cuvni\n        opakuj 3 krat\n            poloz\n        koniec\n    koniec\nkoniec\n\nPostav_mur",
-    "why": "Toto je úloha Zeď z karelrobot.cz. Vlastné príkazy a opakovanie spolu: Postav_mur je krátky, lebo ťažkú prácu robia Cuvni a vnútorné opakovanie."
+    "why": "Vlastné príkazy a opakovanie spolu: Postav_mur je krátky, lebo ťažkú prácu robia Cuvni a vnútorné opakovanie."
   },
   "4.6": {
     "solution": "prikaz Hadanka\n    opakuj 4 krat\n        opakuj 3 krat\n            oznac\n            krok\n        koniec\n        vpravo\n    koniec\nkoniec\n\nHadanka",
@@ -201,7 +201,7 @@
   },
   "6.4": {
     "solution": "prikaz Zburaj_mur\n    kym je tehla\n        kym je tehla\n            zdvihni\n        koniec\n        krok\n    koniec\nkoniec\n\nZburaj_mur",
-    "why": "Vnútorné kym zbúra jeden stĺpik, vonkajšie posúva Karla na ďalší. Keď pred ním nie je nič, končí. Toto je úloha z kapitoly 4 na karelrobot.cz."
+    "why": "Vnútorné kym zbúra jeden stĺpik, vonkajšie posúva Karla na ďalší. Keď pred ním nie je nič, končí."
   },
   "6.5": {
     "solution": "prikaz Oprav_dlhy\n    kym nie je mur\n        ak nie je tehla\n        tak\n            poloz\n        koniec\n        krok\n    koniec\nkoniec\n\nOprav_dlhy",
@@ -233,7 +233,7 @@
   },
   "7.3": {
     "solution": "prikaz Bludisko\n    kym nie je znacka\n        vpravo\n        kym je mur\n            vlavo\n        koniec\n        krok\n    koniec\nkoniec\n\nBludisko",
-    "why": "Steny sú odobrané políčka; ďalšie bludiská sú v mapách 2 až 4. Pravidlo pravej ruky nájde cieľ v každom bludisku, ktorého steny sú spojené s okrajom. Toto je úloha z kapitoly 5 na karelrobot.cz."
+    "why": "Steny sú odobrané políčka; ďalšie bludiská sú v mapách 2 až 4. Pravidlo pravej ruky nájde cieľ v každom bludisku, ktorého steny sú spojené s okrajom."
   },
   "7.4": {
     "solution": "prikaz Riadok\n    opakuj 4 krat\n        zdvihni\n        krok\n    koniec\nkoniec\n\nprikaz Pole\n    Riadok\n    vlavo\n    krok\n    vlavo\n    Riadok\nkoniec\n\nPole",
@@ -249,7 +249,7 @@
   },
   "8.1": {
     "solution": "prikaz Maraton\n    krok\n    Maraton\nkoniec\n\nMaraton",
-    "why": "Karel dôjde k stene a ďalší krok narazí: ohlási chybu a program sa zastaví. Bez steny by Maraton bežal donekonečna: rekurzia bez zastavovacej podmienky sa sama neskončí. Toto je úloha Maraton z kapitoly 2 na karelrobot.cz."
+    "why": "Karel dôjde k stene a ďalší krok narazí: ohlási chybu a program sa zastaví. Bez steny by Maraton bežal donekonečna: rekurzia bez zastavovacej podmienky sa sama neskončí."
   },
   "8.2": {
     "solution": "prikaz Dvojkrok\n    krok\n    krok\nkoniec\n\nprikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Strazca\n    Dvojkrok\n    Celom_vzad\n    Strazca\nkoniec\n\nStrazca",
@@ -257,7 +257,7 @@
   },
   "8.3": {
     "solution": "prikaz Ku_stene\n    ak je volno\n    tak\n        krok\n        Ku_stene\n    koniec\nkoniec\n\nKu_stene",
-    "why": "Porovnaj s 6.1: kym je volno / krok. Rekurzia s podmienkou robí to isté ako cyklus. Kapitola 5 na karelrobot.cz."
+    "why": "Porovnaj s 6.1: kym je volno / krok. Rekurzia s podmienkou robí to isté ako cyklus."
   },
   "8.4": {
     "solution": "prikaz Zburaj\n    ak je tehla\n    tak\n        zdvihni\n        Zburaj\n    koniec\nkoniec\n\nZburaj",
@@ -273,26 +273,6 @@
   },
   "9.1": {
     "solution": "prikaz Rozdaj\n    kym je tehla\n        zdvihni\n        vlavo\n        poloz\n        vlavo\n        poloz\n        vlavo\n        vlavo\n    koniec\nkoniec\n\nRozdaj",
-    "why": "Karel nič nepočítal. Stĺpik pred ním je jeho pamäť: kým tam niečo je, je čo rozdávať. Obe kopy majú presne toľko tehál, koľko mal pôvodný stĺpik. V 9.3 to na karelrobot.cz urobíme s číslom a pôvodný stĺpik ostane."
-  },
-  "9.2": {
-    "solution": "prikaz Celem_vzad\n    vlevo\n    vlevo\nkonec\n\nprikaz Spocitaj\n    lokalni promenna kroky = 0\n    dokud je volno\n        krok\n        lokalni promenna kroky = kroky + 1\n    *dokud\n    Celem_vzad\n    udelej kroky krat\n        poloz\n    *udelej\nkonec",
-    "why": "Zmeň šírku miestnosti: stĺpik bude vždy taký vysoký, koľko je krokov. Premenná je poznámka, ktorú si Karel píše počas cesty. Okno Proměnné pod miestnosťou ju ukazuje."
-  },
-  "9.3": {
-    "solution": "prikaz Celem_vzad\n    vlevo\n    vlevo\nkonec\n\nprikaz Kopiruj\n    lokalni promenna vyska = 0\n    dokud je cihla\n        zvedni\n        lokalni promenna vyska = vyska + 1\n    *dokud\n    udelej vyska krat\n        poloz\n    *udelej\n    Celem_vzad\n    udelej vyska krat\n        poloz\n    *udelej\n    Celem_vzad\nkonec",
-    "why": "Porovnaj s 9.1: tam pôvodný stĺpik zmizol, lebo bol jedinou pamäťou. S premennou si Karel výšku pamätá aj po tom, čo stĺpik vráti na miesto."
-  },
-  "9.4": {
-    "solution": "prikaz Dvojnasobok\n    lokalni promenna vyska = 0\n    dokud je cihla\n        zvedni\n        lokalni promenna vyska = vyska + 1\n    *dokud\n    lokalni promenna dvojnasobok = 2 * vyska\n    udelej dvojnasobok krat\n        poloz\n    *udelej\nkonec",
-    "why": "S premennými sa dá počítať: + − * / %. Výsledok si najprv ulož do premennej a tú použi v udelej; je to čitateľnejšie a v aplikácii istejšie. Úloha Double Tennis Balls z CodeHS."
-  },
-  "9.5": {
-    "solution": "prikaz Celem_vzad\n    vlevo\n    vlevo\nkonec\n\nprikaz Stred_steny\n    lokalni promenna kroky = 0\n    dokud je volno\n        krok\n        lokalni promenna kroky = kroky + 1\n    *dokud\n    Celem_vzad\n    lokalni promenna polovica = kroky / 2\n    udelej polovica krat\n        krok\n    *udelej\nkonec\n\nprikaz Stred\n    Stred_steny\n    vpravo\n    Stred_steny\n    oznac\nkonec",
-    "why": "Kapitola 6 aplikácie. Delenie zaokrúhľuje nadol, takže pri párnej šírke skončí Karel na jednom z dvoch prostredných políčok. Porovnaj s 8.6: rekurzia to vie tiež, ale ťažšie sa číta."
-  },
-  "9.6": {
-    "solution": "prikaz Spirala\n    lokalni promenna n = 4\n    oznac\n    udelej 3 krat\n        udelej n krat\n            krok\n            oznac\n        *udelej\n        vlevo\n    *udelej\n    dokud je n > 1\n        lokalni promenna n = n - 1\n        udelej 2 krat\n            udelej n krat\n                krok\n                oznac\n            *udelej\n            vlevo\n        *udelej\n    *dokud\nkonec",
-    "why": "Ramená: 4, 4, 4, 3, 3, 2, 2, 1, 1, spolu 24 krokov a 25 značiek. Vzor, ktorý sa opakuje s malou zmenou, je presne to, na čo sú premenné. Rozšírenie: čo zmeniť pre miestnosť 7 × 7?"
+    "why": "Karel nič nepočítal. Stĺpik pred ním je jeho pamäť: kým tam niečo je, je čo rozdávať. Obe kopy majú presne toľko tehál, koľko mal pôvodný stĺpik. S premennou by sa to dalo urobiť aj číslom a pôvodný stĺpik by ostal; to príde neskôr."
   }
 }
