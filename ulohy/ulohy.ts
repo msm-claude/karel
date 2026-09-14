@@ -71,16 +71,16 @@ async function copyText(text: string): Promise<boolean> {
 function render(): void {
   const byId = new Map(DATA.tasks.map((t) => [t.id, t]));
   let html = '';
-  let toc = '';
+  let toc = '<ol>';
   for (const lv of DATA.levels) {
     html += `<h2 id="l${lv.id}">${lv.title}</h2><p>${lv.intro}</p>`;
     if (lv.concept) html += `<div class="box"><h4>Nová vec</h4><pre>${esc(lv.concept)}</pre></div>`;
     const tasks = DATA.tasks.filter((t) => t.level === lv.id);
-    toc += `<a href="#l${lv.id}" title="${tasks.length} úloh"><span class="num">${lv.id}</span> ${esc(lv.title.replace(/^Úroveň \d+: /, ''))}</a>`;
+    toc += `<li><a href="#l${lv.id}">${esc(lv.title)}</a><ol>${tasks.map((t) => `<li><a href="#${anchor(t.id)}">${t.id} ${esc(t.title)}</a></li>`).join('')}</ol></li>`;
     for (const t of tasks) html += renderCard(t);
   }
   document.getElementById('content')!.innerHTML = html;
-  document.getElementById('toc')!.innerHTML = toc;
+  document.getElementById('toc')!.innerHTML = toc + '</ol>';
   for (const [id, w] of canvases) {
     const el = document.getElementById(id) as HTMLCanvasElement | null;
     if (el) {
