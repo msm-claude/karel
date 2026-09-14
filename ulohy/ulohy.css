@@ -1,0 +1,238 @@
+@import "../src/ui/site.css";
+
+main {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: clamp(12px, 3vw, 32px) clamp(16px, 4vw, 48px) 80px;
+}
+h1 {
+  font-size: clamp(30px, 4vw, 40px);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.sub {
+  color: var(--dim);
+  margin-bottom: 22px;
+}
+h2 {
+  font-size: 24px;
+  margin: 48px 0 8px;
+}
+h3 {
+  font-size: 18px;
+  margin: 0;
+}
+.panel {
+  background: rgba(255, 255, 255, 0.75);
+  border: 2px solid var(--ink);
+  padding: 16px 20px;
+}
+.toc {
+  font-size: 14px;
+  columns: 2;
+  column-gap: 32px;
+}
+.toc ol {
+  list-style: none;
+  padding: 0;
+}
+.toc > ol > li {
+  break-inside: avoid;
+  margin-bottom: 8px;
+}
+.toc > ol > li > a {
+  font-weight: 700;
+}
+.toc ol ol {
+  padding-left: 14px;
+}
+.toc a {
+  text-decoration: none;
+}
+.toc a:hover {
+  text-decoration: underline;
+}
+pre {
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 12px 14px;
+  font: 13px/1.5 'Fira Code', ui-monospace, monospace;
+  overflow: auto;
+}
+.box {
+  margin: 12px 0;
+  background: rgba(255, 255, 255, 0.75);
+  border: 2px solid var(--ink);
+  padding: 12px 16px;
+}
+.box h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--dim);
+  text-transform: none;
+}
+.box pre {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.task {
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 16px 20px 10px;
+  margin-top: 18px;
+}
+.task header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.num {
+  color: var(--dim);
+  font-weight: 700;
+}
+.tag {
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--ink);
+  padding: 0 8px;
+  color: var(--dim);
+}
+.tag.type {
+  background: #ffd23f;
+  color: var(--ink);
+}
+.note {
+  border-left: 3px solid var(--ink);
+  color: var(--dim);
+  padding: 4px 12px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.worlds {
+  margin: 10px 0;
+}
+.pair {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pair.map {
+  margin-top: 10px;
+}
+.world {
+  text-align: center;
+}
+.lbl {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dim);
+  margin-bottom: 2px;
+}
+.mapbox {
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+.mapbox:hover {
+  background: #fff;
+  border-color: var(--ink);
+}
+canvas.map {
+  display: block;
+  width: 320px;
+  height: 200px;
+  max-width: 100%;
+}
+.q {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--ink);
+  color: var(--dim);
+  font-size: 28px;
+  font-weight: 700;
+}
+.dl {
+  display: inline-block;
+  margin: 6px auto 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.dl:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.code {
+  position: relative;
+  margin: 10px 0;
+}
+.cp {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  cursor: pointer;
+}
+.cp.ok {
+  background: var(--grass);
+}
+.mapbox .cp {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.mapbox:hover .cp,
+.mapbox .cp:focus-visible {
+  opacity: 1;
+}
+@media (hover: none) {
+  .mapbox .cp {
+    opacity: 1;
+  }
+}
+details {
+  margin: 6px 0;
+}
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+.why {
+  color: var(--dim);
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+@media (max-width: 640px) {
+  .toc {
+    columns: 1;
+  }
+}
+@media print {
+  .dl,
+  .cp,
+  .top {
+    display: none;
+  }
+  .task {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+}
