@@ -1,0 +1,488 @@
+{
+  "ui": {
+    "pageTitle": "Karel – úlohy",
+    "h1": "Úlohy pro Karla",
+    "sub": "Programování s robotem Karlem v <a href=\"../app/\">aplikaci Karel</a>.",
+    "toc": "Obsah",
+    "newThing": "Nová věc",
+    "pre": "PŘED",
+    "post": "PO",
+    "map": "Mapa {n}",
+    "open": "Otevři v Karlovi",
+    "openMap": "Otevři mapu {n}",
+    "openTitle": "Otevře Karla s mapou a programem",
+    "openEmptyTitle": "Otevře Karla s mapou PŘED a prázdným programem",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "copyFailed": "Nepovedlo se",
+    "copyMapTitle": "Zkopíruje kód mapy; v Karlovi ho vložíš v záložce Místnost",
+    "copyProgramTitle": "Zkopíruje program do schránky",
+    "manyMaps": "Program musí proběhnout beze změny na všech {n} mapách. Vyzkoušej ho na každé.",
+    "hint": "Nápověda",
+    "typeTrace": "hádanka",
+    "typeBug": "chyba"
+  },
+  "levels": {
+    "1": {
+      "title": "Úroveň 1: Posloupnost příkazů",
+      "intro": "Program je seznam příkazů. Karel je dělá shora dolů, jeden po druhém. Program zabalíme do příkazu se jménem a na posledním řádku ho zavoláme. Karel vykoná to, co je mimo příkazy, shora dolů.",
+      "concept": "prikaz Meno\n    krok\n    vlevo\nkonec\n\nMeno\n\nPoslední řádek příkaz zavolá. Tlačítko Spusť."
+    },
+    "2": {
+      "title": "Úroveň 2: Cihly a značky",
+      "intro": "Cihla je věc, kterou Karel klade a zvedá před sebou. Značka je barva, kterou maluje pod sebe. Nejčastější chyba: dítě čeká, že Karel položí cihlu tam, kde stojí.",
+      "concept": "poloz     cihla před Karla\nzvedni    cihla zpřed Karla (musí tam být)\noznac     značka pod Karla\nodznac    smaž značku pod Karlem"
+    },
+    "3": {
+      "title": "Úroveň 3: Vlastní příkazy",
+      "intro": "Karla učíme nová slova. Nový příkaz složíme z těch, které už zná, a pak ho používáme jako každý jiný. To je nejdůležitější myšlenka celého programování: rozdělit velký úkol na menší, pojmenované kusy.",
+      "concept": "prikaz Celom_vzad\n    vlevo\n    vlevo\nkonec\n\nprikaz Cuvni\n    Celom_vzad\n    krok\n    Celom_vzad\nkonec"
+    },
+    "4": {
+      "title": "Úroveň 4: Opakování s počtem",
+      "intro": "Když víme dopředu, kolikrát se má něco udělat, nepíšeme to vícekrát. Napíšeme to jednou a řekneme kolikrát. Cykly se dají vnořovat: opakování v opakování. A pozor na plotový problém: tři mezery mezi čtyřmi sloupky.",
+      "concept": "opakuj 6 krat\n    krok\nkonec"
+    },
+    "5": {
+      "title": "Úroveň 5: Rozhodování",
+      "intro": "Karel se umí podívat před sebe a podle toho se rozhodnout. Podmínka je otázka s odpovědí ano nebo ne: je před tebou cihla? je před tebou zeď? stojíš na značce?",
+      "concept": "kdyz je cihla\ntak\n    zvedni\njinak\n    oznac\nkonec\n\nČást jinak se může vynechat."
+    },
+    "6": {
+      "title": "Úroveň 6: Opakování s podmínkou",
+      "intro": "Když nevíme dopředu, kolikrát se má něco udělat, opakujeme, dokud platí podmínka. To je první program, který funguje v místnosti jakékoli velikosti. U každé úlohy jsou další mapy: program má na všech fungovat beze změny.",
+      "concept": "dokud neni zed\n    krok\nkonec\n\nPozor: když se podmínka nikdy nezmění, Karel neskončí. Tehdy Zastav."
+    },
+    "7": {
+      "title": "Úroveň 7: Výzvy",
+      "intro": "Všechno dohromady. Tady už není nic nového, jen skládání toho, co dítě umí. Když se zasekne, ať si úlohu nejdřív rozdělí na vlastní příkazy a každý vyzkouší zvlášť.",
+      "concept": null
+    },
+    "8": {
+      "title": "Úroveň 8: Rekurze (nadstavba)",
+      "intro": "Příkaz může použít sám sebe. Říká se tomu rekurze a Karel tak začne znovu od začátku, jako by ho někdo zavolal znovu. Bez zastavovací podmínky to nikdy neskončí, proto jsou první dvě úlohy hádanky. S podmínkou kdyz je rekurze jiný způsob, jak napsat cyklus. A má jednu zvláštní vlastnost: co je v příkazu za rekurzivním voláním, se vykoná až při návratu, a to tolikrát, kolikrát se příkaz zavolal. Rekurze patří v ŠVP na 2. stupeň; tato úroveň je tu pro dítě, které se ptá dál.",
+      "concept": "prikaz Ku_stene\n    kdyz je volno\n    tak\n        krok\n        Ku_stene\n    konec\nkonec"
+    },
+    "9": {
+      "title": "Úroveň 9: Paměť bez čísel (nadstavba)",
+      "intro": "Karel neumí počítat a nemá proměnné. Přesto si umí něco zapamatovat: pamětí je samotný svět. Dokud před ním něco stojí, je co dělat; když ne, skončil. Tahle úloha to ukazuje. Proměnné patří v ŠVP na 2. stupeň.",
+      "concept": null
+    }
+  },
+  "tasks": {
+    "1.1": {
+      "title": "Tři kroky",
+      "concept": "první program",
+      "text": "Napiš program, po kterém Karel udělá tři kroky dopředu.",
+      "hint": "Program musí mít jméno a musí končit slovem konec. Mezi tím jsou tři řádky."
+    },
+    "1.2": {
+      "title": "Do rohu",
+      "concept": "kroky a otočka",
+      "text": "Dostaň Karla z levého dolního rohu do pravého horního rohu. Na konci se má dívat nahoru.",
+      "hint": "Nejdřív doprava až ke zdi. Potom se otoč. Vlevo, nebo vpravo? Představ si, že jsi Karel."
+    },
+    "1.3": {
+      "title": "Okolo překážky",
+      "concept": "oklika",
+      "text": "Před Karlem chybí políčko, je tam díra (zeď). Dostaň ho na políčko za dírou, aby se na konci znovu díval doprava.",
+      "hint": "Nahoru, dva kroky doprava, dolů, a nezapomeň se na konci otočit zpátky."
+    },
+    "1.4": {
+      "title": "Čelem vzad",
+      "concept": "dvě otočky",
+      "text": "Otoč Karla čelem vzad. Stojí na místě, na konci se dívá dolů místo nahoru.",
+      "hint": "Jedna otočka je čtvrt kruhu. Kolik jich je potřeba na půl kruhu?"
+    },
+    "1.5": {
+      "title": "Co udělá Karel?",
+      "concept": "čtení programu",
+      "text": "Nic nepiš. Přečti si program, projdi ho prstem po obrázku a nakresli, kde Karel skončí a kam se bude dívat. Až potom to ověř v Karlovi.",
+      "hint": "Po každém řádku si řekni: kde stojí, kam se dívá. Otočka nemění políčko, jen směr."
+    },
+    "1.6": {
+      "title": "Písmeno L",
+      "concept": "cesta s jednou otočkou",
+      "text": "Karel stojí vlevo nahoře a dívá se dolů. Projde po písmenu L: dolů až ke zdi a potom doprava až do rohu. Na konci se dívá doprava.",
+      "hint": "Tři kroky dolů. Karel se dívá dolů, takže doprava je pro něj vlevo. Potom tři kroky."
+    },
+    "1.7": {
+      "title": "Cikcak",
+      "concept": "střídání otoček",
+      "text": "Karel projde cikcak jako na obrázku: krok, nahoru, krok, dolů, a skončí na třetím políčku spodní řady, otočený doprava. Použij přesně čtyři kroky.",
+      "hint": "Po každém kroku přijde otočka: vlevo, vpravo, vpravo, vlevo."
+    },
+    "1.8": {
+      "title": "Kam se bude dívat?",
+      "concept": "otočky se sčítají",
+      "text": "Nic nepiš. Karel se jen otáčí na místě. Přečti si program a uhodni, kam se bude na konci dívat. Potom ověř v Karlovi.",
+      "hint": "Otáčej se spolu s ním: pravá ruka, pravá, pravá, levá, levá."
+    },
+    "1.9": {
+      "title": "Zpátky domů",
+      "concept": "cesta se dvěma otočkami",
+      "text": "Karel je v pravém horním rohu a dívá se doleva. Dostaň ho do levého dolního rohu tak, aby se na konci díval doprava.",
+      "hint": "Dva kroky doleva, otočka, dva kroky dolů, otočka. Která otočka to je, když se Karel dívá doleva a má jít dolů?"
+    },
+    "2.1": {
+      "title": "Zvedni cihlu",
+      "concept": "zvedni",
+      "text": "V pravém dolním rohu leží cihla. Karel ji má zvednout a postavit se na její místo.",
+      "hint": "Karel zvedá cihlu před sebou. Kolik kroků musí udělat, aby byla cihla přímo před ním?"
+    },
+    "2.2": {
+      "title": "Dvě cihly do rohů",
+      "concept": "poloz, otáčení",
+      "text": "Karel položí cihlu do levého dolního rohu a do levého horního rohu a skončí v pravém horním rohu.",
+      "hint": "Karel stojí vedle rohu a dívá se na něj, protože cihlu klade před sebe. První řádek je poloz. Potom se otoč nahoru."
+    },
+    "2.3": {
+      "title": "Přenes cihlu",
+      "concept": "zvedni a poloz",
+      "text": "Cihla leží na třetím políčku. Karel ji má přenést na konec řady, k pravé zdi.",
+      "hint": "Krok, zvedni, a potom jdi tak daleko, aby bylo poslední políčko před tebou."
+    },
+    "2.4": {
+      "title": "Zaplň díru v chodníku",
+      "concept": "chůze po cihlách",
+      "text": "Karel stojí na chodníku z cihel. Uprostřed jedna chybí. Doplň ji a projdi na konec chodníku.",
+      "hint": "Z cihly na cihlu se jde normálně. Do díry není potřeba slézat, stačí ji před sebou zaplnit."
+    },
+    "2.5": {
+      "title": "Značky",
+      "concept": "oznac",
+      "text": "Karel má namalovat značku na druhé a čtvrté políčko a skončit na čtvrtém.",
+      "hint": "Značka se maluje pod Karla. Nejdřív tam musí dojít."
+    },
+    "2.6": {
+      "title": "Najdi chybu",
+      "concept": "chyba u zvedni",
+      "text": "Někdo napsal program na úlohu 2.1, ale Karel hlásí chybu. Spouštěj ho po jednom řádku tlačítkem Krok, najdi řádek, kde se to pokazí, a oprav program.",
+      "hint": "Kde stojí Karel po třetím kroku? Co má před sebou?"
+    },
+    "2.7": {
+      "title": "Schůdek",
+      "concept": "vylézt o jednu",
+      "text": "Postav dva schody: první z jedné cihly, druhý ze dvou, a skonči na tom vyšším.",
+      "hint": "Polož, vylez. Z prvního schodu polož dvě cihly na další políčko a vylez."
+    },
+    "2.8": {
+      "title": "Značka a cihla spolu",
+      "concept": "značka pod, cihla před",
+      "text": "Karel označí políčko, na kterém stojí, položí před sebe cihlu, vyleze na ni a označí i to políčko.",
+      "hint": "Čtyři příkazy: značka, cihla, krok, značka."
+    },
+    "2.9": {
+      "title": "Cihla za Karla",
+      "concept": "otočit se s cihlou",
+      "text": "Před Karlem leží cihla. Karel ji má přeložit na políčko za sebou. Skončí otočený k ní.",
+      "hint": "Zvedni, otoč se čelem vzad (dvě otočky), polož."
+    },
+    "2.10": {
+      "title": "Kolik cihel?",
+      "concept": "čtení programu s cihlami",
+      "text": "Nic nepiš. Přečti si program a nakresli, kolik cihel bude na konci před Karlem a kde Karel skončí. Potom ověř v Karlovi.",
+      "hint": "Počítej na prstech: položil, položil, zvedl, položil. A pak si vzpomeň, o kolik umí Karel vylézt."
+    },
+    "3.1": {
+      "title": "Dvojkrok",
+      "concept": "nový příkaz",
+      "text": "Nauč Karla nové slovo Dvojkrok: dva kroky dopředu. Potom ho spusť.",
+      "hint": "Je to to samé jako v úrovni 1, jen se nad jménem zamysli: jméno říká, co příkaz dělá."
+    },
+    "3.2": {
+      "title": "Vpravo ze tří vlevo",
+      "concept": "skládání",
+      "text": "Představ si, že Karel zapomněl slovo vpravo. Nauč ho nový příkaz Vpravo3, který ho otočí doprava jen pomocí vlevo.",
+      "hint": "Otoč se doleva a sleduj, kam se díváš. A ještě jednou. A ještě jednou."
+    },
+    "3.3": {
+      "title": "Couvání",
+      "concept": "příkaz v příkazu",
+      "text": "Nauč Karla couvnout o jedno políčko: příkaz Cuvni. Karel se na konci dívá tam, kam na začátku.",
+      "hint": "Nejdřív si udělej příkaz Celom_vzad z úrovně 1. Cuvni je potom: otoč se, krok, otoč se zpátky."
+    },
+    "3.4": {
+      "title": "Skok koněm",
+      "concept": "vlastní pohyb",
+      "text": "Karel má skočit jako kůň v šachu: dvě políčka dopředu, jedno doprava.",
+      "hint": "Dvojkrok už máš. Potom otočka a krok."
+    },
+    "3.5": {
+      "title": "Chodník za pochodu",
+      "concept": "opakované volání",
+      "text": "Postav chodník ze tří cihel a skonči na poslední. Napiš si na to vlastní příkaz Poloz_a_chod a použij ho třikrát.",
+      "hint": "Poloz_a_chod je to, co jsi dělal klávesami v úloze 0.2: polož cihlu a vylez na ni. Malý příkaz jednou, velký ho zavolá třikrát."
+    },
+    "3.6": {
+      "title": "Úkrok",
+      "concept": "pohyb bez změny směru",
+      "text": "Nauč Karla úkrok doprava: posune se o jedno políčko vpravo, ale na konci se dívá tam, kam předtím.",
+      "hint": "Otoč se doprava, krok, otoč se zpátky doleva."
+    },
+    "3.7": {
+      "title": "Čtverec z jednoho slova",
+      "concept": "jeden příkaz čtyřikrát",
+      "text": "Karel oběhne místnost dokola a skončí tam, kde začal. Slovo krok napiš v programu jen dvakrát.",
+      "hint": "Nauč Karla slovo Strana: dva kroky a otočka doleva. Čtverec jsou čtyři strany."
+    },
+    "3.8": {
+      "title": "Chodník se značkami",
+      "concept": "příkaz ze tří kroků",
+      "text": "Postav chodník ze dvou cihel a každou cihlu, na které Karel stojí, označ. Skonči na druhé cihle. Vyrob si na to příkaz Kus a použij ho dvakrát.",
+      "hint": "Kus je: polož cihlu, vylez na ni, označ."
+    },
+    "3.9": {
+      "title": "Výlet tam a zpátky",
+      "concept": "příkaz v příkazu",
+      "text": "Karel udělá dva kroky, otočí se čelem vzad, vrátí se a znovu se otočí čelem vzad. Skončí přesně tam, kde začal, otočený stejně. Příkaz Celom_vzad si vyrob a použij ho dvakrát.",
+      "hint": "Celom_vzad jsou dvě otočky doleva. Vylet: krok, krok, Celom_vzad, krok, krok, Celom_vzad."
+    },
+    "3.10": {
+      "title": "Čtyři skoky",
+      "concept": "čtení vlastního příkazu",
+      "text": "Nic nepiš. Skok je krok a otočka doleva. Uhodni, kde Karel skončí po čtyřech skocích a kam se bude dívat. Potom ověř v Karlovi.",
+      "hint": "Projdi prstem po obrázku: krok, otočka; krok, otočka; a tak dál."
+    },
+    "4.1": {
+      "title": "Šest kroků",
+      "concept": "opakuj N krat",
+      "text": "Karel má udělat šest kroků. Napiš slovo krok v programu jen jednou.",
+      "hint": "Opakování začíná řádkem opakuj 6 krat a končí řádkem konec. Mezi ně patří to, co se opakuje."
+    },
+    "4.2": {
+      "title": "Dlouhý chodník",
+      "concept": "opakování dvou příkazů",
+      "text": "Postav chodník z pěti cihel a skonči na poslední. Použij opakování.",
+      "hint": "Co se opakuje? Polož a krok. Kolikrát? Tolikrát, kolik je cihel."
+    },
+    "4.3": {
+      "title": "Oběhni čtverec",
+      "concept": "opakování v opakování",
+      "text": "Karel oběhne místnost podél zdí a v každém rohu namaluje značku. Skončí tam, kde začal.",
+      "hint": "Jedna strana čtverce je: značka, tři kroky, otočka doprava. A strany jsou čtyři."
+    },
+    "4.4": {
+      "title": "Sloupek",
+      "concept": "cihly na sebe",
+      "text": "Postav před Karlem sloupek ze tří cihel na sobě.",
+      "hint": "Karel klade cihly pořád na to samé políčko před sebou. Kladou se na sebe."
+    },
+    "4.5": {
+      "title": "Zeď",
+      "concept": "couvání a sloupky",
+      "text": "Postav zeď: čtyři sloupky po třech cihlách v jedné řadě. Karel skončí pod zdí, otočený k ní.",
+      "hint": "Když Karel při stavění couvá, nezastaví si cestu. Vezmi si Cuvni z úrovně 3 a Stlpik z předchozí úlohy. Jedna část zdi je: couvni, postav sloupek. Čtyřikrát."
+    },
+    "4.6": {
+      "title": "Co namaluje Karel?",
+      "concept": "čtení vnořených cyklů",
+      "text": "Nic nepiš. Přečti si program a nakresli, která políčka budou na konci označená a kde Karel skončí. Potom ověř v Karlovi.",
+      "hint": "Vnitřní opakování udělej celé, až potom otočka. Kolikrát se vykoná oznac dohromady?"
+    },
+    "4.7": {
+      "title": "Úhlopříčka",
+      "concept": "vzor v cyklu, plotový problém",
+      "text": "Karel označí úhlopříčku místnosti: políčka 1,1 · 2,2 · 3,3 · 4,4. Skončí v pravém horním rohu.",
+      "hint": "Co se opakuje? Značka, krok doprava, krok nahoru (a zpátky do původního směru). Čtyři značky, ale jen tři přesuny."
+    },
+    "4.8": {
+      "title": "Každé druhé políčko",
+      "concept": "plotový problém",
+      "text": "Karel označí první, třetí a páté políčko řady a skončí na pátém.",
+      "hint": "Značka a dva kroky, značka a dva kroky, značka. Kolik je v tom opakování a co zůstává za ním?"
+    },
+    "4.9": {
+      "title": "Stupně vítězů",
+      "concept": "úkrok a sloupky",
+      "text": "Postav stupně vítězů: vedle sebe sloupky vysoké 2, 3 a 1. Karel skončí pod posledním sloupkem, otočený k němu.",
+      "hint": "Karel staví zdola, každý sloupek před sebou, a mezi nimi dělá Ukrok z úlohy 3.6. Dvě cihly, úkrok, tři cihly, úkrok, jedna cihla."
+    },
+    "4.10": {
+      "title": "Schody",
+      "concept": "dekompozice a couvání",
+      "text": "Postav schody: sloupky vysoké 3, 2, 1 za sebou. Karel skončí pod nejnižším schodem, otočený ke schodům.",
+      "hint": "Stav od nejvyššího a couvej, aby tě schody neuvěznily: tři cihly, Cuvni, dvě cihly, Cuvni, jedna cihla."
+    },
+    "4.11": {
+      "title": "Překážkový běh",
+      "concept": "vzor a vlastní příkaz v cyklu",
+      "text": "V chodbě jsou tři překážky (chybějící políčka). Karel se má dostat na konec chodby. Napiš příkaz Prekazka pro jednu překážku a zopakuj ho.",
+      "hint": "Jedna překážka je oklika z úlohy 1.3: nahoru, přes, dolů. Po ní stojí Karel přesně před další."
+    },
+    "5.1": {
+      "title": "Zvedni, kdyz tam je",
+      "concept": "kdyz je cihla",
+      "text": "Na cestě leží cihly, ale nevíme kde. Karel projde pět políček a každou cihlu, kterou potká, zvedne.",
+      "hint": "Před každým krokem se zeptej: je před tebou cihla? Když ano, zvedni. Když ne, nic. Potom krok."
+    },
+    "5.2": {
+      "title": "Oprav chodník",
+      "concept": "kdyz neni cihla",
+      "text": "Chodník má díry na neznámých místech. Karel po něm projde na konec a každou díru zaplní.",
+      "hint": "Opak úlohy 5.1: když před tebou cihla není, polož ji. Potom krok."
+    },
+    "5.3": {
+      "title": "Podél zdi",
+      "concept": "kdyz je zed",
+      "text": "Karel udělá šest kroků, ale vždycky, když má před sebou zeď, se nejdřív otočí doleva.",
+      "hint": "Otázka je: je před tebou zeď? Když ano, vlevo. Krok je až za otázkou, dělá se vždycky."
+    },
+    "5.4": {
+      "title": "Cihla nebo značka",
+      "concept": "kdyz … tak … jinak",
+      "text": "Karel projde čtyři políčka. Když je před ním cihla, zvedne ji. Když ne, namaluje pod sebe značku.",
+      "hint": "Slovo jinak znamená: v opačném případě. Po tak je jedna věc, po jinak druhá, a vždycky se udělá jen jedna z nich."
+    },
+    "5.5": {
+      "title": "Opatrný krok",
+      "concept": "kdyz je volno",
+      "text": "Karel má udělat pět kroků a po každém kroku označit políčko, ale chodba má před ním jen tři políčka. Napiš opatrný krok: krokne a označí, jen když se dá vykročit. Zkus to nejdřív bez otázky a přečti si chybu, kterou Karel ohlásí.",
+      "hint": "Otázka volno se ptá: dá se vykročit? Krok i značka patří dovnitř otázky, ne za ni."
+    },
+    "5.6": {
+      "title": "Vyměň značky",
+      "concept": "inverze, kdyz/jinak, plot",
+      "text": "V řadě jsou některá políčka označená. Karel projde celou řadu a všechno vymění: kde značka byla, tam nebude, a naopak.",
+      "hint": "Vyrob si příkaz Vymen: když je pod tebou značka, smaž ji, jinak ji namaluj. Potom: pětkrát Vymen a krok, a na posledním políčku ještě jednou Vymen."
+    },
+    "5.7": {
+      "title": "Najdi chybu 2",
+      "concept": "o jedno míň",
+      "text": "Program má posbírat cihly jako v úloze 5.1, ale Karel jednu nechá ležet a zastaví o políčko dřív. Proč? Oprav ho.",
+      "hint": "Spočítej na obrázku kroky mezi prvním a posledním políčkem. Kolikrát má cyklus běžet?"
+    },
+    "6.1": {
+      "title": "Až ke zdi",
+      "concept": "dokud je volno",
+      "text": "Karel jde dopředu, dokud nenarazí na zeď. Program má fungovat v místnosti jakékoli šířky.",
+      "hint": "Neopakuj šestkrát. Opakuj, dokud se dá vykročit."
+    },
+    "6.2": {
+      "title": "Na značku",
+      "concept": "dokud neni znacka",
+      "text": "Někde před Karlem je značka. Karel na ní má zastavit.",
+      "hint": "Otázka znacka se ptá, jestli Karel stojí na značce. Jdi, dokud na ní nestojíš."
+    },
+    "6.3": {
+      "title": "Zbourej sloupek",
+      "concept": "dokud je cihla",
+      "text": "Před Karlem je sloupek z neznámého počtu cihel. Zbourej ho celý.",
+      "hint": "Zvedej, dokud je před tebou cihla."
+    },
+    "6.4": {
+      "title": "Zbourej zeď",
+      "concept": "dokud v dokud",
+      "text": "Před Karlem je zeď ze sloupků. Nevíme, kolik jich je ani jak jsou vysoké. Zbourej celou zeď.",
+      "hint": "Dokud je před tebou cihla: zbourej sloupek (to už umíš) a udělej krok."
+    },
+    "6.5": {
+      "title": "Oprav dlouhý chodník",
+      "concept": "dokud a kdyz spolu",
+      "text": "Chodník vede až ke zdi, má neznámou délku a neznámé díry. Oprav ho celý a skonči na jeho konci.",
+      "hint": "Venku: dokud není zeď. Uvnitř: když není cihla, polož. Potom krok."
+    },
+    "6.6": {
+      "title": "Oběhni místnost",
+      "concept": "vlastní příkaz v opakování",
+      "text": "Karel oběhne místnost podél zdí, v každém rohu namaluje značku a skončí tam, kde začal. Místnost může mít jakoukoli velikost.",
+      "hint": "Jako 4.3, ale místo tří kroků použij svůj příkaz Ku_stene."
+    },
+    "6.7": {
+      "title": "Tam a zpátky",
+      "concept": "vlastní příkaz dvakrát",
+      "text": "Karel dojde ke zdi, namaluje tam značku a vrátí se přesně tam, kde začal, otočený tak jako na začátku. Pro jakoukoli šířku místnosti.",
+      "hint": "Ku_stene, značka, čelem vzad, Ku_stene, čelem vzad."
+    },
+    "6.8": {
+      "title": "Přelož sloupek za sebe",
+      "concept": "dokud s otáčením",
+      "text": "Před Karlem je sloupek neznámé výšky. Přelož ho celý za Karla.",
+      "hint": "Dokud je před tebou cihla: zvedni, otoč se čelem vzad, polož, otoč se zpátky."
+    },
+    "6.9": {
+      "title": "Zvyš chodník",
+      "concept": "dokud po cihlách",
+      "text": "Karel stojí na chodníku z cihel, který vede až ke zdi. Zvyš celý chodník o jednu cihlu (kromě první, na které Karel stojí) a skonči na jeho konci.",
+      "hint": "Dokud není zeď: polož cihlu před sebe a vylez na ni."
+    },
+    "7.1": {
+      "title": "Sbírej až ke zdi",
+      "concept": "výzva",
+      "text": "Na cestě ke zdi leží cihly, nevíme kolik ani kde. Karel je všechny posbírá a skončí u zdi.",
+      "hint": "Spoj 5.1 a 6.1."
+    },
+    "7.2": {
+      "title": "Ohrada kolem Karla",
+      "concept": "výzva",
+      "text": "Karel stojí uprostřed. Postav kolem něj ohradu: na každém ze čtyř sousedních políček sloupek ze dvou cihel.",
+      "hint": "Jedna strana: dvě cihly a otočka. Strany jsou čtyři."
+    },
+    "7.3": {
+      "title": "Bludiště",
+      "concept": "výzva: pravidlo pravé ruky",
+      "text": "Karel je v bludišti a někde v něm je značka. Najdi ji. Program nesmí záviset na tvaru bludiště.",
+      "hint": "Drž se pravou rukou zdi: otoč se doprava; dokud je před tebou zeď, otáčej se doleva; krok. A to celé, dokud nestojíš na značce."
+    },
+    "7.4": {
+      "title": "Posbírej pole",
+      "concept": "výzva: průchod po řádcích",
+      "text": "Pole má dva řádky cihel. Karel posbírá všechny a skončí vlevo v druhém řádku, otočený k levé zdi.",
+      "hint": "Jako kombajn: první řádek tam, druhý zpátky. Příkaz Riadok: čtyřikrát zvedni a krok. Potom otočka nahoru, krok, otočka doleva, a znovu Riadok."
+    },
+    "7.5": {
+      "title": "Rám kolem místnosti",
+      "concept": "výzva: zobecnění 4.6",
+      "text": "Karel označí všechna políčka u zdí, celý rám místnosti, a skončí tam, kde začal. Pro místnost jakékoli velikosti.",
+      "hint": "Jedna strana: dokud se dá vykročit, značka a krok. Čtyři strany, mezi nimi otočka doprava. Pozor: rohové políčko nech další straně, jinak ho označíš dvakrát a to je chyba."
+    },
+    "7.6": {
+      "title": "Šachovnice",
+      "concept": "výzva: vzor s posunem",
+      "text": "Karel vybarví místnost 4 × 4 jako šachovnici: každé druhé políčko, a každý další řádek posunutý o jedno. Skončí vlevo nahoře na druhém políčku.",
+      "hint": "Příkaz Riadok: značka, dva kroky, značka. Na konci řádku se Karel otočí nahoru, krok, a otočí se do protisměru. Jednou doleva a jednou doprava, podle toho, kam jde. Posun se udělá sám."
+    },
+    "8.1": {
+      "title": "Maraton",
+      "concept": "rekurze bez konce",
+      "text": "Program nemá konec: Maraton volá sám sebe. Nespouštěj hned. Uhodni, co Karel udělá a jak to skončí. Potom spusť a sleduj počítadlo kroků nad místností.",
+      "hint": "Krok, a potom znovu Maraton, čili krok, a potom znovu Maraton... Kdy se to zastaví?"
+    },
+    "8.2": {
+      "title": "Strážce brány",
+      "concept": "rekurze bez konce",
+      "text": "Uhodni, co udělá tenhle program a jak skončí. Až potom spusť. Tlačítko Zastav je pod místností.",
+      "hint": "Dva kroky, čelem vzad, a znovu od začátku. Kde bude Karel po prvním kole? A po druhém?"
+    },
+    "8.3": {
+      "title": "Ke zdi rekurzivně",
+      "concept": "zastavovací podmínka",
+      "text": "Karel dojde ke zdi jako v 6.1, ale bez dokud: příkaz Ku_stene má zavolat sám sebe.",
+      "hint": "Ku_stene udělá krok a zavolá sám sebe, ale jen když se dá vykročit. Otázka volno obalí oba řádky: krok i volání Ku_stene. Když je před Karlem zeď, neudělá nic a všechno skončí."
+    },
+    "8.4": {
+      "title": "Zbourej sloupek rekurzivně",
+      "concept": "zastavovací podmínka",
+      "text": "Zbourej sloupek neznámé výšky (jako 6.3), ale rekurzí místo dokud.",
+      "hint": "Když je před tebou cihla: zvedni a zavolej se znovu."
+    },
+    "8.5": {
+      "title": "Výlet",
+      "concept": "práce při návratu",
+      "text": "Karel dojde ke zdi, namaluje tam značku a vrátí se tam, kde začal, otočený jako na začátku. Bez dokud a bez druhého pochodu ke zdi: stačí jeden příkaz Vylet, který volá sám sebe.",
+      "hint": "Cestu zpátky udělá rekurze při návratu, couváním. Když je volno: krok, Vylet, Cuvni. Jinak: značka. Řádek Cuvni se vykoná až tehdy, když vnitřní Vylet skončí."
+    },
+    "8.6": {
+      "title": "Do poloviny",
+      "concept": "rekurze jako počítadlo",
+      "text": "Karel má zastavit v polovině cesty ke zdi, otočený čelem vzad. Pro místnost jakékoli šířky, bez počítání: rekurzí.",
+      "hint": "Trik: ke zdi jde po dvou krocích, a zpátky po jednom, při návratu z rekurze. Použij opatrný krok, aby druhý krok nenarazil, když je políček lichý počet. Polovica: opatrný krok, opatrný krok, když je zeď tak čelem vzad, jinak Polovica. A za tím krok, který se dělá při návratu."
+    },
+    "9.1": {
+      "title": "Rozděl sloupek na dvě hromady",
+      "concept": "svět jako paměť",
+      "text": "Před Karlem je sloupek neznámé výšky. Rozeber ho a z každé cihly udělej dvě: jednu polož nalevo, druhou dozadu. Bez počítání.",
+      "hint": "Dokud je před tebou cihla: zvedni, vlevo, polož, vlevo, polož, a dvěma vlevo zpátky dopředu."
+    }
+  }
+}
