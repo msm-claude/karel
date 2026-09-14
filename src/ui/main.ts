@@ -29,7 +29,7 @@ oznac
 DEFAULT_PROGRAM.cs = translate(DEFAULT_PROGRAM.sk, locales.sk, locales.cs);
 DEFAULT_PROGRAM.en = translate(DEFAULT_PROGRAM.sk, locales.sk, locales.en);
 
-const LS = { program: 'karel.program', room: 'karel.room', view: 'karel.view', speed: 'karel.speed' };
+const LS = { program: 'karel.program', room: 'karel.room', speed: 'karel.speed' };
 
 const $ = <T extends HTMLElement>(id: string): T => {
   const el = document.getElementById(id);
@@ -56,8 +56,8 @@ function initialRoom(): World {
 }
 let room: World = initialRoom(); // the reset state, what links share
 let world: World = cloneWorld(room); // what is drawn; runs continue from here
-const savedView = Number(localStorage.getItem(LS.view) ?? 0);
-let view: View = (savedView >= 0 && savedView <= 3 ? savedView : 0) as View;
+// the view always opens from the south-east, the way the task sheet draws every map; it is not remembered
+let view: View = 0;
 let steps = 0;
 let statusKey: 'ready' | 'running' | 'stopped' | 'done' = 'ready';
 let statusLine: number | null = null;
@@ -128,7 +128,7 @@ function t(key: string): string {
 }
 
 function draw(): void {
-  renderWorld(canvas, world, view, undefined, editing ? { ghost: true, hover } : {});
+  renderWorld(canvas, world, view, undefined, { compass: t('north'), ...(editing ? { ghost: true, hover } : {}) });
   canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
@@ -254,7 +254,6 @@ function onStop(): void {
 
 function rotate(delta: number): void {
   view = (((view + delta) % 4) + 4) % 4 as View;
-  localStorage.setItem(LS.view, String(view));
   draw();
 }
 
