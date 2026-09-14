@@ -23,7 +23,6 @@ export interface Task {
   id: string;
   level: number;
   type?: 'trace' | 'bug';
-  app?: 'old';
   title: string;
   concept: string;
   text: string;
@@ -40,7 +39,6 @@ export interface Level {
   title: string;
   intro: string;
   concept: string | null;
-  app?: 'old';
 }
 
 export interface Concept {
@@ -73,24 +71,4 @@ export function toWorld(s: SchoolWorld): World {
 
 export function mapCode(s: SchoolWorld): string {
   return encodeWorld(toWorld(s));
-}
-
-/** Save-file format of karelrobot.cz, for the tasks that still run there (js/source/room.js saveRoom). */
-export function karelFile(task: Task, pre: SchoolWorld): unknown {
-  const bricks = pre.bricks ?? {};
-  const marks = pre.marks ?? [];
-  const blocked = pre.blocked ?? [];
-  const room: Record<number, Record<number, { bricks: number; mark: boolean; inRoom: boolean }>> = {};
-  for (let x = 0; x < pre.w; x++) {
-    room[x] = {};
-    for (let y = 0; y < pre.h; y++) {
-      const key = `${pre.w - x},${y + 1}`;
-      room[x]![y] = { bricks: bricks[key] ?? 0, mark: marks.includes(key), inRoom: !blocked.includes(key) };
-    }
-  }
-  const APP_DIR: Record<SchoolDir, number> = { S: 0, W: 1, N: 2, E: 3 };
-  const [c, r, d] = pre.karel;
-  const file: Record<string, unknown> = { lang: 'cs', karelAndRoom: { room, karel: { position: [pre.w - c, r - 1], orientation: APP_DIR[d] } } };
-  if (task.program) file['code'] = task.program;
-  return file;
 }

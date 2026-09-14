@@ -1,5 +1,4 @@
 // Golden tests for the task sheet: every Karel-app solution turns PRED into PO on every map.
-// Tasks that still run on karelrobot.cz (app: "old") are checked by ulohy/tools/check.py.
 import { describe, expect, it } from 'vitest';
 import { encodeWorld } from '../src/core/encode';
 import { runToEnd } from '../src/core/interp';
@@ -29,7 +28,6 @@ describe('task sheet data', () => {
 
 describe('Karel-app solutions turn PRED into PO', () => {
   for (const t of DATA.tasks) {
-    if (t.app === 'old') continue;
     it(`${t.id} ${t.title}`, () => {
       const program = parse(SOL[t.id]!.solution, sk);
       t.maps.forEach((m, i) => {

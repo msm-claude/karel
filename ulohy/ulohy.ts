@@ -3,7 +3,7 @@
 import { encodeProgram } from '../src/core/encode';
 import { OVERWORLD, renderWorld } from '../src/ui/render';
 import data from './tasks.json';
-import { karelFile, mapCode, toWorld, type SchoolWorld, type Task, type Tasks } from './world';
+import { mapCode, toWorld, type SchoolWorld, type Task, type Tasks } from './world';
 
 const DATA = data as unknown as Tasks;
 const APP = new URL('../app/', location.href).href;
@@ -28,24 +28,18 @@ function codeBlock(code: string): string {
 
 function opener(t: Task, w: SchoolWorld, label: string, v: number): string {
   const data = `data-id="${t.id}" data-v="${v}"`;
-  if (t.app === 'old') return `<button class="dl" ${data} title="Súbor pre karelrobot.cz: Menu → Načti z PC">${label}</button>`;
   if (t.program) return `<button class="dl open" ${data} title="Otvorí Karla s mapou a programom">${label}</button>`;
   return `<a class="dl" href="${link(w)}" target="_blank" rel="noopener" title="Otvorí Karla s mapou PRED a prázdnym programom">${label}</a>`;
 }
 
 function renderCard(t: Task): string {
   const type = t.type ?? 'code';
-  const old = t.app === 'old';
-  const tags =
-    `<span class="tag">${t.concept}</span>` +
-    (TYPE_LABEL[type] ? `<span class="tag type">${TYPE_LABEL[type]}</span>` : '') +
-    (old ? `<span class="tag old">karelrobot.cz</span>` : '');
+  const tags = `<span class="tag">${t.concept}</span>` + (TYPE_LABEL[type] ? `<span class="tag type">${TYPE_LABEL[type]}</span>` : '');
   const many = t.maps.length > 1;
-  const openLabel = old ? 'Stiahni miestnosť' : 'Otvor v Karlovi';
   const worlds = t.maps
     .map((m, i) => {
       const n = many ? `Mapa ${i + 1} · ` : '';
-      const label = i === 0 ? openLabel : old ? `Stiahni mapu ${i + 1}` : `Otvor mapu ${i + 1}`;
+      const label = i === 0 ? 'Otvor v Karlovi' : `Otvor mapu ${i + 1}`;
       const post =
         type === 'trace'
           ? `<div class="world"><div class="lbl">${n}PO</div><div class="q" style="width:320px;height:200px">?</div></div>`
@@ -74,23 +68,12 @@ async function copyText(text: string): Promise<boolean> {
   }
 }
 
-function download(t: Task, pre: SchoolWorld, suffix: string): void {
-  const blob = new Blob([JSON.stringify(karelFile(t, pre))], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `karel-${t.id}${suffix}.karel`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-}
-
 function render(): void {
   const byId = new Map(DATA.tasks.map((t) => [t.id, t]));
   let html = '';
   let toc = '';
   for (const lv of DATA.levels) {
-    html += `<h2 id="l${lv.id}">${lv.title}${lv.app === 'old' ? ` <span class="tag old">karelrobot.cz</span>` : ''}</h2><p>${lv.intro}</p>`;
+    html += `<h2 id="l${lv.id}">${lv.title}</h2><p>${lv.intro}</p>`;
     if (lv.concept) html += `<div class="box"><h4>Nová vec</h4><pre>${esc(lv.concept)}</pre></div>`;
     const tasks = DATA.tasks.filter((t) => t.level === lv.id);
     toc += `<a href="#l${lv.id}" title="${tasks.length} úloh"><span class="num">${lv.id}</span> ${esc(lv.title.replace(/^Úroveň \d+: /, ''))}</a>`;
@@ -111,13 +94,6 @@ function render(): void {
       const t = byId.get(b.dataset['id']!)!;
       const pre = t.maps[Number(b.dataset['v'])]!.pre;
       window.open(link(pre, await encodeProgram(t.program!)), '_blank', 'noopener');
-    }),
-  );
-  document.querySelectorAll<HTMLButtonElement>('button.dl:not(.open)').forEach((b) =>
-    b.addEventListener('click', () => {
-      const t = byId.get(b.dataset['id']!)!;
-      const v = Number(b.dataset['v']);
-      download(t, t.maps[v]!.pre, v ? `-mapa${v + 1}` : '');
     }),
   );
   document.querySelectorAll<HTMLButtonElement>('.cp').forEach((b) =>

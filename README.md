@@ -1,8 +1,9 @@
 # karel
 
 Karel the robot for Slovak homeschool: isometric, localizable, programs
-written by hand. A reimplementation of [Robot Karel 3D](https://karelrobot.cz)
-without the 3D engine, the block editor and the server. Design record: #1.
+written by hand. Karel is Richard E. Pattis's concept (Karel the Robot, 1981);
+this is a small static take on it: no 3D engine, no block editor, no server.
+Design record: #1.
 
 Live: [landing](https://msm-claude.github.io/karel/) ·
 [app](https://msm-claude.github.io/karel/app/) ·
