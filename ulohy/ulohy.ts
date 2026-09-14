@@ -110,3 +110,7 @@ function render(): void {
 }
 
 render();
+
+// the "Obsah" link shows once the table of contents has scrolled out of view
+const up = document.querySelector<HTMLElement>('.up')!;
+new IntersectionObserver(([e]) => (up.hidden = e!.isIntersecting)).observe(document.getElementById('toc')!);
