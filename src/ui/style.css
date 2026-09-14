@@ -63,12 +63,32 @@ canvas {
   position: absolute;
   left: 14px;
   top: 12px;
-  font-weight: 700;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hud .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: baseline;
+  font-weight: 700;
+}
+.hud .row b {
+  font-size: 17px;
 }
 .hud small {
-  display: block;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 5px;
+}
+.hud .meta {
+  font-size: 12px;
+  font-weight: 600;
   color: var(--dim);
 }
 .rot {
