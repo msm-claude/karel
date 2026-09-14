@@ -58,6 +58,10 @@ tile stays reachable; width and height resize the room in place, keeping the
 content and the column/row numbers. Every edit becomes the room, so Reset and
 the shared link return to it.
 
+The task sheet offers "Kopírovať" over every map; "Vložiť zo schránky" in the
+Room tab loads it. The room-code field applies itself on paste or when it
+loses focus, so a code can also travel as plain text.
+
 ## Tasks
 
 The task sheet for 3. ročník is published at `/ulohy/` from [`ulohy/`](ulohy/):

@@ -19,7 +19,7 @@ let canvasSeq = 0;
 function canvas(w: SchoolWorld): string {
   const id = `map${++canvasSeq}`;
   canvases.set(id, w);
-  return `<canvas class="map" id="${id}"></canvas>`;
+  return `<div class="mapbox"><canvas class="map" id="${id}"></canvas><button class="cp" type="button" data-code="${mapCode(w)}" title="Skopíruje kód mapy; v Karlovi ho vložíš v záložke Miestnosť">Kopírovať</button></div>`;
 }
 
 function codeBlock(code: string): string {
@@ -122,7 +122,7 @@ function render(): void {
   );
   document.querySelectorAll<HTMLButtonElement>('.cp').forEach((b) =>
     b.addEventListener('click', async () => {
-      const ok = await copyText(b.previousElementSibling!.textContent ?? '');
+      const ok = await copyText(b.dataset['code'] ?? b.previousElementSibling!.textContent ?? '');
       b.textContent = ok ? 'Skopírované' : 'Nepodarilo sa';
       b.classList.toggle('ok', ok);
       setTimeout(() => {
