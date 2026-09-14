@@ -225,9 +225,26 @@ summary {
     columns: 1;
   }
 }
+/* back to the table of contents once it scrolled away */
+.up {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.up[hidden] {
+  display: none;
+}
 @media print {
   .dl,
   .cp,
+  .up,
   .top {
     display: none;
   }
