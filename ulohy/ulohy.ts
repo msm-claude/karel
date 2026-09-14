@@ -7,7 +7,7 @@ import { karelFile, mapCode, toWorld, type SchoolWorld, type Task, type Tasks } 
 
 const DATA = data as unknown as Tasks;
 const APP = new URL('../', location.href).href;
-const TYPE_LABEL: Record<string, string> = { manual: 'ručne', trace: 'hádanka', bug: 'chyba' };
+const TYPE_LABEL: Record<string, string> = { trace: 'hádanka', bug: 'chyba' };
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const anchor = (id: string) => 't' + id.replace('.', '-');

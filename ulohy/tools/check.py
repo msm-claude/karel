@@ -4,7 +4,7 @@ Usage: python3 ulohy/tools/check.py ulohy/tasks.json
 
 Supports: prikaz/konec, udelej N krat/*udelej, dokud/*dokud, kdyz/tak/jinak/*kdyz, recursion,
 lokalni/globalni promenna assignments, arithmetic and comparison expressions (integer, floor division),
-task types manual/trace/bug and expectations "error" / "infinite".
+task types trace/bug and expectations "error" / "infinite".
 """
 import json, re, sys
 
@@ -82,16 +82,6 @@ class World:
         self.bricks[self.front()] -= 1
         if self.bricks[self.front()] == 0:
             del self.bricks[self.front()]
-    def prepni(self):
-        """Manual key I: remove the cell in front (wall) or put a removed one back."""
-        fx, fy = self.front()
-        if not (1 <= fx <= self.w and 1 <= fy <= self.h):
-            self.errors.append("prepni: mimo miestnosti"); return
-        if (fx, fy) in self.blocked:
-            self.blocked.discard((fx, fy)); return
-        if self.b((fx, fy)) or (fx, fy) in self.marks:
-            self.errors.append("prepni: na políčku je tehla alebo značka"); return
-        self.blocked.add((fx, fy))
     def oznac(self):
         if self.is_mark():
             self.errors.append("oznac: už označené"); return
@@ -105,7 +95,6 @@ class World:
 
 PRIMS = {"krok", "vlevo", "vpravo", "poloz", "zvedni", "oznac", "odznac", "rychle", "pomalu", "pip"}
 CONDS = {"zed": "is_wall", "cihla": "is_brick", "znacka": "is_mark", "volno": "is_vacant"}
-KEYS = {"W": "krok", "A": "vlevo", "D": "vpravo", "P": "poloz", "Z": "zvedni", "O": "oznac", "I": "prepni"}
 EXPR_RE = re.compile(r"^[\w\s\+\-\*/%<>=!()]+$")
 
 def parse(text):
@@ -227,12 +216,8 @@ def execute(t, program, pre=None):
     """Run program on the task's PRE world (or the given one); returns (world, outcome), outcome in ok/infinite."""
     w = World(pre or t["pre"])
     try:
-        if t.get("type") == "manual":
-            for key in program.split():
-                getattr(w, KEYS[key])()
-        else:
-            cmds, globs = parse(program)
-            Machine(w, cmds, globs).call(t["run"], 0)
+        cmds, globs = parse(program)
+        Machine(w, cmds, globs).call(t["run"], 0)
         return w, "ok"
     except Infinite:
         return w, "infinite"
