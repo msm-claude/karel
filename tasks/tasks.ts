@@ -105,7 +105,7 @@ function render(): void {
     const el = document.getElementById(id) as HTMLCanvasElement | null;
     if (el) {
       const top = Math.max(1, ...Object.values(w.bricks ?? {})) + 1; // room for the stacks plus Karel's head
-      renderWorld(el, toWorld(w), 0, OVERWORLD, { labels: true, levels: top });
+      renderWorld(el, toWorld(w), 0, OVERWORLD, { levels: top });
     }
   }
 
