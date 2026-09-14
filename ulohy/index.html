@@ -4,208 +4,54 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='4' width='24' height='24' fill='%235cb531' stroke='%2317212b' stroke-width='3'/></svg>">
-<title>Programujeme s Karlom – úlohy</title>
+<title>Karel – úlohy</title>
 <style>
-  :root { --blue:#1f6fb2; --light:#e8f1fa; --ink:#222; --muted:#666; --brick:#d2691e; --ok:#2e8b57; }
-  * { box-sizing: border-box; }
-  body { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); margin: 0; line-height: 1.45; background:#fafafa; }
-  main { max-width: 960px; margin: 0 auto; padding: 24px 20px 80px; }
-  h1 { color: var(--blue); font-size: 30px; margin: 0 0 4px; }
-  h2 { color: var(--blue); font-size: 22px; border-bottom: 2px solid var(--blue); padding-bottom: 4px; margin-top: 44px; }
-  h3 { margin: 0; font-size: 18px; }
-  .sub { color: var(--muted); margin-bottom: 20px; }
-  pre.syn { display: inline-block; margin: 2px 0; padding: 6px 10px; font-size: 13px; background: #eee; border-radius: 4px; }
-  .box { background: var(--light); border-radius: 8px; padding: 12px 16px; margin: 14px 0; }
-  .box h4 { margin: 0 0 6px; color: var(--blue); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
-  code, pre, kbd { font-family: Menlo, Consolas, monospace; }
-  code { background: #eee; padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
-  kbd { background:#fff; border:1px solid #bbb; border-bottom-width:2px; border-radius:4px; padding:0 6px; font-size:0.9em; }
-  pre { background: #f1f1f1; border-radius: 6px; padding: 10px 14px; font-size: 14px; line-height: 1.4; overflow-x:auto; margin: 6px 0 0; }
-  pre.bug { background: #fff1ec; border-left: 4px solid #d9534f; }
-  .code { position: relative; }
-  .cp { position: absolute; top: 12px; right: 10px; font-size: 12px; padding: 3px 8px; border: 1px solid var(--blue); background: #fff; color: var(--blue); border-radius: 6px; cursor: pointer; }
-  .cp:hover { background: var(--blue); color: #fff; }
-  .cp.ok { background: #2e8b57; border-color: #2e8b57; color: #fff; }
-  table.syn { border-collapse: collapse; width: 100%; font-size: 14px; }
-  table.syn td, table.syn th { border-bottom: 1px solid #d5dde5; padding: 6px 8px; text-align: left; vertical-align: top; }
-  table.syn th { color: var(--blue); }
-  .card { background: #fff; border: 1px solid #d9e2ec; border-radius: 10px; padding: 16px 18px; margin: 16px 0; break-inside: avoid; position: relative; }
-  .card header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; padding-right: 90px; }
-  .num { color: var(--blue); font-weight: 700; font-size: 18px; }
-  .tag { font-size: 12px; background: var(--light); color: var(--blue); border-radius: 12px; padding: 2px 10px; }
-  .tag.type { background: #fff3e0; color: #a35a00; }
-  .tag.old { background: #eee; color: #555; }
-  a.dl { text-decoration: none; width: max-content; }
-  .card.is-done { border-color: var(--ok); }
-  .card.is-done .num { color: var(--ok); }
-  .worlds { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; margin: 12px 0; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: #1f2328; line-height: 1.5; margin: 0; background: #fff; }
+  main { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+  a { color: #0969da; }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  .sub { color: #59636e; margin: 0 0 20px; }
+  h2 { font-size: 22px; margin: 44px 0 8px; }
+  h3 { font-size: 17px; margin: 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  .toc a { text-decoration: none; font-size: 14px; border: 1px solid #d1d9e0; border-radius: 14px; padding: 2px 10px; }
+  .toc a:hover { background: #f6f8fa; }
+  .toc .num { font-weight: 600; }
+  pre { background: #f6f8fa; border-radius: 6px; padding: 12px; margin: 0; font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; overflow: auto; }
+  .box { background: #f6f8fa; border-radius: 6px; padding: 10px 14px; margin: 12px 0; }
+  .box h4 { margin: 0 0 6px; font-size: 13px; color: #59636e; }
+  .box pre { padding: 0; }
+  .task { border-top: 1px solid #d1d9e0; padding: 18px 0 6px; margin-top: 14px; }
+  .task header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .num { color: #59636e; font-weight: 600; }
+  .tag { font-size: 12px; background: #eef1f4; color: #59636e; border-radius: 12px; padding: 1px 9px; }
+  .tag.type { background: #fff8c5; color: #7d4e00; }
+  .tag.old { background: #fff; border: 1px solid #d1d9e0; }
+  .note { border-left: 3px solid #d1d9e0; color: #59636e; padding: 4px 12px; margin: 10px 0; font-size: 14px; }
+  .worlds { margin: 10px 0; }
+  .pair { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .pair.map { margin-top: 10px; }
   .world { text-align: center; }
-  .world .lbl { font-weight: 700; color: var(--blue); font-size: 13px; margin-bottom: 4px; }
-  .pair { display: flex; gap: 24px; align-items: flex-start; }
-  .pair.map { border-top: 1px dashed #d9e2ec; padding-top: 8px; }
-  .pair.map .lbl { color: var(--muted); }
-  .dl { display:block; margin: 6px auto 0; font-size: 12px; padding: 3px 8px; border: 1px solid var(--blue); background: #fff; color: var(--blue); border-radius: 6px; cursor: pointer; }
-  .dl:hover { background: var(--blue); color: #fff; }
-  .world .q { display:flex; align-items:center; justify-content:center; border: 2px dashed #bbb; border-radius: 8px; color: #999; font-size: 28px; }
-  details { margin-top: 8px; }
-  summary { cursor: pointer; font-weight: 600; color: var(--blue); }
-  .why { color: var(--muted); font-size: 14px; margin-top: 6px; }
-  .legend { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; font-size: 14px; }
-  .legend div { display: flex; align-items: center; gap: 6px; }
-  .toc-sections { font-size: 14px; margin-bottom: 8px; }
-  .toc { font-size: 13px; }
-  .toc a, .toc-sections a { color: var(--blue); text-decoration: none; }
-  .toc { display: flex; flex-wrap: wrap; gap: 6px 8px; font-size: 14px; }
-  .toc a { background: #fff; border: 1px solid #d9e2ec; border-radius: 14px; padding: 3px 10px; white-space: nowrap; }
-  .toc a .num { font-weight: 700; font-size: inherit; }
-  details.collapsible > summary, details.section > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
-  details.collapsible > summary::-webkit-details-marker, details.section > summary::-webkit-details-marker { display: none; }
-  details.collapsible > summary::before, details.section > summary::before { content: "▸"; color: var(--blue); font-size: 18px; width: 14px; }
-  details.collapsible[open] > summary::before, details.section[open] > summary::before { content: "▾"; }
-  details.collapsible > summary::after, details.section > summary::after { content: "rozbaliť"; color: var(--muted); font-size: 13px; font-weight: 400; }
-  details.collapsible[open] > summary::after, details.section[open] > summary::after { content: "zbaliť"; }
-  details.collapsible > summary h4, details.section > summary h2 { margin: 0; display: inline; border: none; padding: 0; }
-  details.section { margin: 22px 0; }
-  details.section > summary { border-bottom: 2px solid var(--blue); padding-bottom: 4px; }
-  .totop { position: fixed; right: 18px; bottom: 18px; z-index: 5; background: var(--blue); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .2s; }
-  .totop.show { opacity: 1; pointer-events: auto; }
-  @media print { .totop { display: none; } }
-  .note { border-left: 4px solid var(--brick); background: #fff5ec; padding: 8px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 14px; }
-  .concepts td:first-child { white-space: nowrap; font-weight: 600; }
-  .concepts a { color: var(--blue); text-decoration: none; }
+  .lbl { font-size: 13px; color: #59636e; margin-bottom: 2px; }
   canvas.map { display: block; width: 320px; height: 200px; max-width: 100%; }
-  .legend canvas.map { width: 90px; height: 70px; display: inline-block; vertical-align: middle; }
-  .card header { padding-right: 0; }
+  .q { display: flex; align-items: center; justify-content: center; border: 1px dashed #d1d9e0; border-radius: 6px; color: #8b949e; font-size: 28px; }
+  .dl { display: inline-block; margin: 4px auto 0; font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid #d1d9e0; border-radius: 6px; background: #f6f8fa; color: #1f2328; cursor: pointer; text-decoration: none; }
+  .dl:hover { background: #eef1f4; }
+  .code { position: relative; margin: 10px 0; }
+  .cp { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 2px 8px; border: 1px solid #d1d9e0; border-radius: 6px; background: #fff; cursor: pointer; }
+  .cp.ok { background: #dafbe1; }
+  details { margin: 6px 0; }
+  summary { cursor: pointer; color: #0969da; font-size: 14px; }
+  .why { color: #59636e; font-size: 14px; margin: 4px 0 0; }
+  @media print { .dl, .cp { display: none; } .task { break-inside: avoid; } }
 </style>
 </head>
 <body>
 <main>
-
-
-<h1>Programujeme s Karlom</h1>
-<div class="sub">Úlohy od prvého kroku po bludisko · pre aplikáciu <a href="https://msm-claude.github.io/karel/">Karel</a> (úrovne 0 a 9 zatiaľ na <a href="https://karelrobot.cz">karelrobot.cz</a>) · 3. ročník</div>
-
-<div class="box" id="obsah">
-<h4>Obsah</h4>
-<div class="toc-sections"><a href="#app">Karel a aplikácia</a> · <a href="#koncepty">Koncepty</a> · <a href="#dalej">Čo ďalej</a></div>
-<div class="toc" id="toc"></div>
-</div>
-<a class="totop" id="totop" href="#obsah" title="Späť na obsah">↑ Obsah</a>
-
-<details class="box collapsible">
-<summary><h4>Ako to čítať</h4></summary>
-Úlohy idú po úrovniach. Každá úroveň pridá <strong>jednu novú vec</strong>. Každá úloha má obrázok
-<strong>PRED</strong> (ako svet vyzerá na začiatku) a <strong>PO</strong> (ako má vyzerať, keď program skončí).
-Cieľ je vždy: napíš program, ktorý zo sveta PRED urobí svet PO. Nápoveda je skrytá, rozklikni ju, až keď si to skúsil.
-Neponáhľaj sa na ďalšiu úroveň, kým ti úlohy z tej predchádzajúcej nejdú.
-Okrem bežných úloh sú tu tri iné druhy: <span class="tag type">hádanka</span> (prečítaj program a uhádni, čo urobí),
-<span class="tag type">chyba</span> (program je pokazený, nájdi a oprav chybu) a <span class="tag type">ručne</span> (bez programu, len klávesy).
-Úlohy sa robia v aplikácii Karel: tlačidlo <em>Otvor v Karlovi</em> pri úlohe otvorí pripravenú mapu PRED s prázdnym editorom. Úroveň 0 (ručné ovládanie) a úroveň 9 (premenné) zatiaľ bežia na karelrobot.cz, nový Karel to ešte nevie; tie úlohy majú štítok <span class="tag old">karelrobot.cz</span> a tlačidlo na stiahnutie miestnosti.
-Úrovne 0 až 7 sú pre 3. ročník. Úrovne 8 a 9 (rekurzia, premenné) sú nadstavba na neskôr alebo pre dieťa, ktoré sa pýta ďalej.
-</details>
-
-<details class="section" id="app"><summary><h2>Karel a aplikácia</h2></summary>
-
-<p>Karel je robot v miestnosti rozdelenej na políčka. Vie sa otáčať, kráčať, klásť a dvíhať <strong>tehly</strong> a maľovať <strong>značky</strong>.
-Sám od seba nič nerobí. Robí presne to, čo mu napíšeme do programu, príkaz za príkazom, zhora nadol.
-Aplikácia beží v prehliadači na adrese <a href="https://msm-claude.github.io/karel/">msm-claude.github.io/karel/</a>, aj na iPade.</p>
-
-<div class="box">
-<h4>Päť vecí, ktoré treba vedieť o Karlovi</h4>
-<ol>
-<li><strong>Tehlu kladie a dvíha na políčko pred sebou</strong>, nie pod seba. Ak je pred ním stena, alebo tam tehla nie je, Karel ohlási chybu a program sa zastaví.</li>
-<li><strong>Značku maľuje pod seba</strong>, na políčko, na ktorom stojí.</li>
-<li>Na tehlu vie <strong>vyliezť</strong>, ak je o jednu vyššia než políčko, kde stojí. Zoskočiť vie z akejkoľvek výšky. Tehly sa dajú ukladať na seba do stĺpika.</li>
-<li>Do <strong>steny</strong> sa kráčať nedá. Stena je okraj miestnosti alebo políčko, ktoré z miestnosti chýba. Keď Karel dostane <code>krok</code> pri stene, ohlási chybu a program sa zastaví. Chyba je napísaná pod programom a riadok, kde sa to stalo, je vyznačený červeno.</li>
-<li><code>vlavo</code> a <code>vpravo</code> sú z Karlovho pohľadu, nie z nášho.</li>
-</ol>
-</div>
-
-<div class="box">
-<h4>Ovládanie aplikácie</h4>
-<ul>
-<li><strong>Odkaz pri úlohe.</strong> Tlačidlo <em>Otvor v Karlovi</em> otvorí aplikáciu s pripravenou mapou PRED a prázdnym editorom. Pri hádanke a chybe sa otvorí aj program z úlohy. Niektoré úlohy majú viac máp: program má fungovať na každej bez zmeny, každá mapa má vlastný odkaz.</li>
-<li><strong>Miestnosť</strong> (vľavo). Nad ňou vidno, kde Karel stojí, kam pozerá a koľko krokov urobil. Šípkami vpravo hore miestnosť otočíš, keď stĺpik niečo zakrýva.</li>
-<li><strong>Program</strong> (vpravo). Sem píšeš program. Kým píšeš, Karel ponúka slová, ktoré pozná, aj tvoje vlastné príkazy.</li>
-<li><strong>Tlačidlá pod miestnosťou.</strong> <em>Spusti</em> (F5) spustí program od prvého riadku, Karel začína tam, kde práve stojí. <em>Krok</em> (F10) vykoná vždy len jeden riadok, to je najlepší spôsob, ako hľadať chybu. <em>Zastav</em> (Esc). <em>Rýchlosť</em>. <em>Reset</em> vráti miestnosť do stavu PRED.</li>
-<li><strong>Chyby.</strong> Keď Karel nemôže urobiť, čo má, zastaví sa a pod programom napíše prečo: pred ním je múr, schod je príliš vysoký, políčko už je označené. Riadok programu, kde sa to stalo, je červený.</li>
-<li><strong>Karta Miestnosť</strong>: nová prázdna miestnosť podľa rozmerov, alebo nechaj Karla niečo postaviť a ulož to ako miestnosť. <strong>Karta Príkazy</strong>: zoznam slov, ktorým Karel rozumie.</li>
-<li><strong>Zdieľať odkaz</strong> skopíruje odkaz s miestnosťou aj programom, napríklad pre rodiča. Program sa ukladá v prehliadači sám; dá sa stiahnuť ako súbor a znova otvoriť.</li>
-</ul>
-</div>
-
-<div class="box">
-<h4>Jazyk Karla (píše sa bez dĺžňov a mäkčeňov)</h4>
-<table class="syn">
-<tr><th>Zápis</th><th>Čo robí</th><th>Úroveň</th></tr>
-<tr><td><code>krok</code>, <code>vlavo</code>, <code>vpravo</code></td><td>krok dopredu, otočka doľava, otočka doprava</td><td>1</td></tr>
-<tr><td><code>poloz</code>, <code>zdvihni</code></td><td>polož tehlu pred seba, zdvihni tehlu spred seba</td><td>2</td></tr>
-<tr><td><code>oznac</code>, <code>odznac</code></td><td>namaľuj značku pod sebou, zmaž značku pod sebou</td><td>2</td></tr>
-<tr><td><pre class="syn">prikaz Meno
-    krok
-    vlavo
-koniec
-
-Meno</pre></td><td>nový príkaz zložený z iných príkazov. Meno bez medzier, napr. <code>Celom_vzad</code>. Riadok s menom mimo príkazu ho spustí: tak sa program štartuje</td><td>1, 3</td></tr>
-<tr><td><pre class="syn">opakuj 5 krat
-    krok
-koniec</pre></td><td>zopakuj päťkrát, čo je medzi tým</td><td>4</td></tr>
-<tr><td><pre class="syn">ak je tehla
-tak
-    zdvihni
-inak
-    oznac
-koniec</pre></td><td>ak je pred Karlom tehla, urob prvé, inak druhé. Časť <code>inak</code> sa môže vynechať</td><td>5</td></tr>
-<tr><td><pre class="syn">kym nie je mur
-    krok
-koniec</pre></td><td>opakuj, kým pred Karlom nie je stena</td><td>6</td></tr>
-<tr><td>podmienky: <code>mur</code>, <code>tehla</code>, <code>znacka</code>, <code>volno</code></td><td>stena pred Karlom · tehla pred Karlom · značka pod Karlom · pred Karlom sa dá vykročiť. Pred každú patrí <code>je</code> alebo <code>nie je</code></td><td>5–6</td></tr>
-<tr><td><pre class="syn">prikaz X
-    krok
-    X
-koniec</pre></td><td>rekurzia: príkaz volá sám seba; zastaví ho len podmienka</td><td>8</td></tr>
-<tr><td><code># poznámka</code></td><td>čo je za mriežkou, Karel nečíta</td><td></td></tr>
-</table>
-<div style="font-size:13px;color:var(--muted);margin-top:6px">Veľké a malé písmená ani dĺžne nevadia: <code>Vľavo</code> je to isté ako <code>vlavo</code>. Karel rozumie aj česky a anglicky, prepínač je vpravo hore; program sa preloží sám.</div>
-</div>
-
-<div class="box">
-<h4>karelrobot.cz (úrovne 0 a 9)</h4>
-<p>Ručné ovládanie a premenné nový Karel zatiaľ nemá, preto úroveň 0 a úroveň 9 (okrem 9.1) bežia v pôvodnej aplikácii <a href="https://karelrobot.cz">karelrobot.cz</a>.
-Pri týchto úlohách je tlačidlo <em>Stiahni miestnosť</em>: uloží súbor so svetom PRED, v aplikácii ho načítaš cez <em>Menu → Načti z PC</em>, vyber súbor a stlač <em>Načti</em>.
-Klikni do miestnosti (nápis <em>Ovládáš</em>) a Karla ovládaš klávesmi: <kbd>W</kbd> krok, <kbd>A</kbd> vľavo, <kbd>D</kbd> vpravo, <kbd>P</kbd> polož, <kbd>Z</kbd> zdvihni, <kbd>O</kbd> značka, <kbd>I</kbd> stena pred Karlom.
-Program píšeš do okna <em>Kód</em>, kurzor do príkazu a <em>Spusť</em>. Tam Karel do steny nenarazí (len ostane stáť), chyby vypisuje konzola a program po nich beží ďalej.
-Jazyk je český: <code>vlevo</code>, <code>zvedni</code>, <code>udelej N krat … *udelej</code>, <code>dokud je … *dokud</code>, <code>kdyz je … tak … jinak … *kdyz</code>, <code>konec</code>; podmienky <code>zed</code>, <code>cihla</code>, <code>znacka</code>, <code>volno</code>, negácia <code>neni</code>.
-Premenné: <code>lokalni promenna n = 0</code>, <code>udelej n krat</code>, <code>kdyz je n == 3</code>, <code>dokud je n &gt; 0</code>; počíta sa s + − * / %, delenie zaokrúhľuje nadol.</p>
-</div>
-
-<div class="box">
-<h4>Legenda obrázkov</h4>
-<div class="legend" id="legend"></div>
-<div style="font-size:13px;color:var(--muted);margin-top:6px">Riadky sa číslujú zdola (1 je spodný), stĺpce zľava. „Ľavý dolný roh“ je políčko 1, 1.</div>
-</div>
-</details>
-
-<details class="section" id="koncepty"><summary><h2>Čo sa dá na Karlovi naučiť a v ktorých úlohách to je</h2></summary>
-<p>Zoznam programátorských konceptov, ktoré Karel dokáže učiť, a úlohy, v ktorých sa to učí.
-Posledný riadok hovorí, čo je vynechané zámerne.</p>
-<table class="syn concepts" id="concepts"></table>
-</details>
-
+<h1>Úlohy pre Karla</h1>
+<p class="sub">Programovanie s robotom Karlom v <a href="../">aplikácii Karel</a>. Úroveň 0 a 9 zatiaľ na <a href="https://karelrobot.cz">karelrobot.cz</a>.</p>
+<nav class="toc" id="toc"></nav>
 <div id="content"></div>
-
-<h2 id="dalej">Čo ďalej</h2>
-<p>Úrovne 0 až 7 pokrývajú všetko, čo od programovania čaká 1. cyklus ŠVP, a viac. Úrovne 8 a 9 sú nadstavba:
-rekurzia a premenné patria na 2. stupeň, ale Karel 3D ich má a zvedavé dieťa sa k nim dostane samo.
-Pôvodná aplikácia karelrobot.cz má vlastné kapitoly s úlohami a riešeniami (menu <em>Příklady</em>): kapitoly 1, 3 a 4 zodpovedajú úrovniam 1 až 6,
-kapitoly 2 a 5 úrovni 8 a kapitola 6 úrovni 9.</p>
-
-<p style="font-size:13px;color:var(--muted)">Zdroje, z ktorých úlohy vychádzajú: CodeHS „Programming with Karel“ (Hurdles, Diagonal, Staircase, Checkered Row, Row and Back, Don't Crash, Fetch);
-Stanford CS106A/Karel Reader (E. Roberts: beeper to ledge, potholes, climbing mountains, checkerboard, newspaper); R. Pattis (harvest, steeple chase, maze);
-J. Bergin „Karel J Robot“ a Additional Exercises; ŠPÚ „Malé programovacie jazyky“ (Karel 3D: chodník, hádanky „čo postaví Karel“); zbierka úloh Karel z GJH Bratislava
-(vybo: úkrok, stupne víťazov, zvýš, plátaj, naopak, prelož, rám); T. Holubec „Karel 98“ (výmena, opatrný krok, ke zdi); karel.oldium.net (kapitoly skládání příkazů až bludiště);
-vstavané príklady karelrobot.cz (V. Čoupek). Sémantika overená v zdrojovom kóde karelrobot.cz; každé riešenie pre Karla beží ako test priamo v jadre aplikácie (tests/ulohy.test.ts), riešenia pre karelrobot.cz odsimulované (ulohy/tools/check.py).</p>
-
 </main>
 <script type="module" src="./ulohy.ts"></script>
 </body>

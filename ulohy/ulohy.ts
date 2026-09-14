@@ -56,7 +56,7 @@ function renderCard(t: Task): string {
   let body = '';
   if (many) body += `<div class="note">Program musí zbehnúť bez zmeny na všetkých ${t.maps.length} mapách. Vyskúšaj ho na každej.</div>`;
   if (t.program) body += codeBlock(t.program);
-  return `<div class="card" id="${anchor(t.id)}" data-id="${t.id}">
+  return `<div class="task" id="${anchor(t.id)}" data-id="${t.id}">
     <header><span class="num">${t.id}</span><h3>${t.title}</h3>${tags}</header>
     <div>${t.text}</div>
     ${body}
@@ -98,23 +98,6 @@ function render(): void {
   }
   document.getElementById('content')!.innerHTML = html;
   document.getElementById('toc')!.innerHTML = toc;
-  document.getElementById('concepts')!.innerHTML =
-    `<tr><th>Koncept</th><th>Čo to pre dieťa znamená</th><th>Úlohy</th></tr>` +
-    DATA.concepts
-      .map(
-        (c) =>
-          `<tr><td>${c.name}</td><td>${c.desc}</td><td>${c.tasks.map((id) => `<a href="#${anchor(id)}" title="${byId.get(id)?.title ?? ''}">${id}</a>`).join(', ') || '—'}</td></tr>`,
-      )
-      .join('');
-  const one = (extra: Partial<SchoolWorld>, label: string) => `<div>${canvas({ w: 2, h: 1, karel: [1, 1, 'E'], ...extra })} ${label}</div>`;
-  document.getElementById('legend')!.innerHTML =
-    one({}, 'Karel (šípka na hlave = kam pozerá)') +
-    one({ bricks: { '2,1': 1 } }, 'tehla pred Karlom') +
-    one({ bricks: { '2,1': 3 } }, 'stĺpik z 3 tehál') +
-    one({ bricks: { '1,1': 1 } }, 'Karel stojí na tehle') +
-    one({ marks: ['1,1'] }, 'Karel stojí na značke') +
-    one({ blocked: ['2,1'] }, 'stena (chýbajúce políčko)');
-
   for (const [id, w] of canvases) {
     const el = document.getElementById(id) as HTMLCanvasElement | null;
     if (el) {
@@ -148,17 +131,6 @@ function render(): void {
       }, 1500);
     }),
   );
-  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) =>
-    a.addEventListener('click', () => {
-      const t = document.getElementById(a.getAttribute('href')!.slice(1));
-      if (t && t.tagName === 'DETAILS') (t as HTMLDetailsElement).open = true;
-    }),
-  );
-  const totop = document.getElementById('totop')!;
-  const obsah = document.getElementById('obsah')!;
-  const onScroll = () => totop.classList.toggle('show', window.scrollY > obsah.offsetTop + obsah.offsetHeight);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 }
 
 render();
