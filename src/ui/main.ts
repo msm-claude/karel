@@ -127,12 +127,20 @@ function t(key: string): string {
   return locale.ui[key] ?? key;
 }
 
+// what the renderer and the hit test must agree on
+const LAYOUT = { labels: true } as const;
+
 function draw(): void {
-  renderWorld(canvas, world, view, undefined, { compass: t('north'), ...(editing ? { ghost: true, hover } : {}) });
+  renderWorld(canvas, world, view, undefined, { ...LAYOUT, compass: t('north'), ...(editing ? { ghost: true, hover } : {}) });
   canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
-  hud.innerHTML = `${t('karel')} ${world.karel.x + 1}, ${room.h - world.karel.y} → ${dirs[world.karel.dir]}<small>${t('steps')} ${steps}, ${t('view')} ${views[view]}</small><small>${t('room').toLowerCase()} ${room.w} × ${room.h}</small>`;
+  const arrow = ['→', '↑', '←', '↓'][world.karel.dir]; // compass arrows: up is north, whatever the view
+  hud.innerHTML =
+    `<div class="row"><b>${t('karel')}</b>` +
+    `<span><small>${t('position')}</small>${world.karel.x + 1}, ${room.h - world.karel.y}</span>` +
+    `<span><small>${t('direction')}</small>${dirs[world.karel.dir]} ${arrow}</span></div>` +
+    `<div class="meta">${t('steps')} ${steps} · ${t('view')} ${views[view]} · ${t('room').toLowerCase()} ${room.w} × ${room.h}</div>`;
   let s = t(statusKey);
   if (statusLine !== null) s += `, ${t('line')} ${statusLine}`;
   status.textContent = s;
@@ -411,7 +419,7 @@ $('tools').addEventListener('click', (e) => {
 canvas.addEventListener('mousemove', (e) => {
   if (!editing) return;
   const [px, py] = canvasPoint(e);
-  const next = pickTile(canvas, world, view, px, py);
+  const next = pickTile(canvas, world, view, px, py, LAYOUT);
   if (next?.[0] === hover?.[0] && next?.[1] === hover?.[1]) return;
   hover = next;
   draw();
@@ -424,7 +432,7 @@ canvas.addEventListener('mouseleave', () => {
 canvas.addEventListener('click', (e) => {
   if (!editing) return;
   const [px, py] = canvasPoint(e);
-  const hit = pickTile(canvas, world, view, px, py);
+  const hit = pickTile(canvas, world, view, px, py, LAYOUT);
   if (hit) editTile(hit[0], hit[1]);
 });
 // width and height inputs resize the room in place, content and school coordinates kept
