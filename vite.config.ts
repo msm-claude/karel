@@ -5,8 +5,8 @@ export default defineConfig({
   build: {
     target: 'es2022',
     rollupOptions: {
-      // two pages from one build: the app and the task sheet
-      input: { main: 'index.html', ulohy: 'ulohy/index.html' },
+      // three pages from one build: the landing, the app and the task sheet
+      input: { main: 'index.html', app: 'app/index.html', ulohy: 'ulohy/index.html' },
     },
   },
   test: { include: ['tests/**/*.test.ts'] },
