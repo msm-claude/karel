@@ -1,16 +1,9 @@
+/* The app. Palette, header and pills come from site.css; this file is the workbench. */
+@import "./site.css";
+
 :root {
-  --ink: #17212b;
   --panel: #fff;
-  --dim: #5b6b7a;
-  --grass: #5cb531;
-  --red: #e8562a;
-  --sky1: #a9d8ff;
-  --sky2: #eef7ff;
   --err: #c0392b;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
 }
 html,
 body {
@@ -18,10 +11,7 @@ body {
 }
 body {
   background: linear-gradient(var(--sky1), var(--sky2) 70%) fixed;
-  color: var(--ink);
   font: 15px/1.4 'Chakra Petch', system-ui, sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 button,
 input,
@@ -39,66 +29,6 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 3px solid var(--red);
   outline-offset: 2px;
-}
-
-.top {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  gap: 20px;
-  flex: none;
-}
-.brand {
-  color: inherit;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 26px;
-  letter-spacing: 0.02em;
-}
-.brand i {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  background: var(--grass);
-  border: 2px solid var(--ink);
-  margin-right: 10px;
-  vertical-align: -2px;
-  box-shadow: 3px 3px 0 var(--ink);
-}
-.roomname {
-  color: var(--dim);
-}
-.sp {
-  flex: 1;
-}
-.pill {
-  border: 2px solid var(--ink);
-  background: #fff;
-  padding: 7px 14px;
-  font-weight: 700;
-  box-shadow: 3px 3px 0 var(--ink);
-}
-.pill:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--ink);
-}
-.lang {
-  display: flex;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: 3px 3px 0 var(--ink);
-}
-.lang button {
-  padding: 7px 12px;
-  font-weight: 700;
-  color: var(--dim);
-  border: 0;
-  background: transparent;
-}
-.lang button.on {
-  background: var(--ink);
-  color: #fff;
 }
 
 .main {
@@ -307,8 +237,15 @@ input[type='range']::-moz-range-thumb {
   font-size: 13px;
   color: var(--dim);
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 12px;
+}
+.foot #saved {
+  margin-left: auto;
+}
+.foot .pill {
+  padding: 4px 10px;
+  box-shadow: 2px 2px 0 var(--ink);
 }
 .foot .err {
   color: var(--err);
@@ -418,10 +355,6 @@ canvas.edit {
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(320px, 55vh) 1fr;
-  }
-  .top {
-    padding: 0 12px;
-    gap: 10px;
   }
   .main {
     padding: 8px 12px 12px;

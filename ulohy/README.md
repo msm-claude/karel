@@ -4,7 +4,7 @@ The task sheet: 69 tasks in 9 levels for 3. ročník, published next to the app 
 `/ulohy/`. Assignment only: no progress, no passwords, no solutions on the page.
 
 - `tasks.json` — levels, concepts and tasks. A task has `maps: [{pre, post}, …]`;
-  every map gets its own "Otvor v Karlovi" link (`../app/#m=…&l=sk`) and a copy
+  every map gets its own "Otvor v Karlovi" link (`../app/#m=…&l=<language>`) and a copy
   button for the room code. Tasks of type `trace` (read the program, guess PO) and
   `bug` (fix the program) carry the program in `program` and the link adds `&p=…`.
 - `solutions.json` — one solution and explanation per task id. Read by the tests,

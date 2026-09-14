@@ -1,4 +1,4 @@
-/* Shared by the landing and the task sheet: palette, background, header, pill buttons. */
+/* Shared by every page: palette, background, header with the language switch, pill buttons. */
 :root {
   --ink: #17212b;
   --dim: #5b6b7a;
@@ -64,4 +64,23 @@ a {
   background: var(--grass);
   padding: 12px 22px;
   font-size: 18px;
+}
+.lang {
+  display: flex;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.lang button {
+  padding: 7px 12px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--dim);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.lang button.on {
+  background: var(--ink);
+  color: #fff;
 }
