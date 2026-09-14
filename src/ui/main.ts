@@ -4,9 +4,10 @@ import { decodeProgram, decodeWorld, encodeProgram, encodeWorld, parseHash } fro
 import { parse, ParseError } from '../core/parser';
 import { translate } from '../core/translate';
 import { cloneWorld, emptyWorld, MAX_BRICKS, MAX_SIZE, resizeWorld, tileAt, turnRight, type World } from '../core/world';
-import { allKeywordWords, defaultLocale, isLocaleId, localeIds, locales, normalize, type Locale, type LocaleId } from '../lang/index';
+import { allKeywordWords, isLocaleId, locales, normalize, type Locale, type LocaleId } from '../lang/index';
 import { Driver } from './driver';
 import { Editor } from './editor';
+import { mountLangSwitch, resolveLocale } from './header';
 import { pickTile, renderWorld, type View } from './render';
 
 const DEFAULT_ROOM = '1.10x8.2,5,0.2AB7A8A2zA5EGCAz10A10A3ABCEHI2A8ABAB9A';
@@ -28,7 +29,7 @@ oznac
 DEFAULT_PROGRAM.cs = translate(DEFAULT_PROGRAM.sk, locales.sk, locales.cs);
 DEFAULT_PROGRAM.en = translate(DEFAULT_PROGRAM.sk, locales.sk, locales.en);
 
-const LS = { program: 'karel.program', room: 'karel.room', locale: 'karel.locale', view: 'karel.view', speed: 'karel.speed' };
+const LS = { program: 'karel.program', room: 'karel.room', view: 'karel.view', speed: 'karel.speed' };
 
 const $ = <T extends HTMLElement>(id: string): T => {
   const el = document.getElementById(id);
@@ -39,8 +40,8 @@ const $ = <T extends HTMLElement>(id: string): T => {
 // ---- state, resolved synchronously before anything can draw (no flash of the demo room)
 
 const hashParams = parseHash(location.hash);
-const wantedLocale = hashParams.l ?? localStorage.getItem(LS.locale) ?? defaultLocale;
-let locale: Locale = locales[isLocaleId(wantedLocale) ? wantedLocale : defaultLocale];
+let locale: Locale = locales[resolveLocale()];
+const setLang = mountLangSwitch(locale.id, (id) => switchLocale(id));
 let badMap = false;
 function initialRoom(): World {
   const code = hashParams.m ?? localStorage.getItem(LS.room);
@@ -131,17 +132,15 @@ function draw(): void {
   canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
-  hud.innerHTML = `${t('karel')} ${world.karel.x + 1}, ${room.h - world.karel.y} → ${dirs[world.karel.dir]}<small>${t('steps')} ${steps}, ${t('view')} ${views[view]}</small>`;
+  hud.innerHTML = `${t('karel')} ${world.karel.x + 1}, ${room.h - world.karel.y} → ${dirs[world.karel.dir]}<small>${t('steps')} ${steps}, ${t('view')} ${views[view]}</small><small>${t('room').toLowerCase()} ${room.w} × ${room.h}</small>`;
   let s = t(statusKey);
   if (statusLine !== null) s += `, ${t('line')} ${statusLine}`;
   status.textContent = s;
   status.classList.toggle('err', errorText !== null);
   if (errorText) status.textContent = errorText;
-  $('roomname').textContent = `${room.w} × ${room.h}`;
 }
 
 function applyLocaleText(): void {
-  document.documentElement.lang = locale.id;
   $('share').textContent = t('share');
   $('run').querySelector('span')!.textContent = t('run');
   $('step').querySelector('span')!.textContent = t('stepOnce');
@@ -162,15 +161,6 @@ function applyLocaleText(): void {
   $('captureRoom').textContent = t('captureRoom');
   $('download').textContent = t('download');
   $('upload').textContent = t('upload');
-  const lang = $('lang');
-  lang.innerHTML = '';
-  for (const id of localeIds) {
-    const b = document.createElement('button');
-    b.textContent = id.toUpperCase();
-    b.classList.toggle('on', id === locale.id);
-    b.addEventListener('click', () => switchLocale(id));
-    lang.appendChild(b);
-  }
   const k = locale.keywords;
   const rows: [string, string][] = [
     [`${k.proc} … ${k.end}`, t('refProc')],
@@ -272,7 +262,7 @@ function switchLocale(id: LocaleId): void {
   if (id === locale.id) return;
   const from = locale;
   locale = locales[id];
-  localStorage.setItem(LS.locale, id);
+  setLang(id);
   editor.setText(translate(editor.text, from, locale));
   editor.setLocale(locale);
   applyLocaleText();

@@ -1,17 +1,19 @@
 // The tasks page: renders tasks.json, draws every map with the app's renderer, links each map
 // into the app. No state, no solutions: this is the assignment sheet, nothing more.
 import { encodeProgram } from '../src/core/encode';
+import { mountLangSwitch, resolveLocale } from '../src/ui/header';
 import { OVERWORLD, renderWorld } from '../src/ui/render';
 import data from './tasks.json';
 import { mapCode, toWorld, type SchoolWorld, type Task, type Tasks } from './world';
 
 const DATA = data as unknown as Tasks;
+let locale = resolveLocale();
 const APP = new URL('../app/', location.href).href;
 const TYPE_LABEL: Record<string, string> = { trace: 'hádanka', bug: 'chyba' };
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const anchor = (id: string) => 't' + id.replace('.', '-');
-const link = (w: SchoolWorld, program?: string) => `${APP}#m=${mapCode(w)}${program ? `&p=${program}` : ''}&l=sk`;
+const link = (w: SchoolWorld, program?: string) => `${APP}#m=${mapCode(w)}${program ? `&p=${program}` : ''}&l=${locale}`;
 
 // canvases are drawn after the HTML is in the DOM; this map remembers what goes where
 const canvases = new Map<string, SchoolWorld>();
@@ -114,3 +116,9 @@ render();
 // the "Obsah" link shows once the table of contents has scrolled out of view
 const up = document.querySelector<HTMLElement>('.up')!;
 new IntersectionObserver(([e]) => (up.hidden = e!.isIntersecting)).observe(document.getElementById('toc')!);
+
+// the sheet's prose is Slovak for now (#20); the switch keeps the app links in the chosen language
+mountLangSwitch(locale, (id) => {
+  locale = id;
+  document.querySelectorAll<HTMLAnchorElement>('a.dl').forEach((a) => (a.href = a.href.replace(/&l=\w+$/, `&l=${id}`)));
+});

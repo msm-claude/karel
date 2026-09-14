@@ -18,18 +18,19 @@
   <body>
     <header class="top">
       <a class="brand" href="./"><i></i>Karel</a>
+      <div class="lang" id="lang"></div>
     </header>
     <main>
       <section class="hero">
         <div class="pitch">
-          <h1>Robot, ktorý robí presne to, čo napíšeš.</h1>
-          <p>
+          <h1 data-s="h1">Robot, ktorý robí presne to, čo napíšeš.</h1>
+          <p data-s="pitch">
             Karel stojí v miestnosti z kociek. Vie urobiť krok, otočiť sa, položiť a zdvihnúť tehlu, dať značku. Nič viac.
             Všetko ostatné ho naučíš ty: napíšeš program, spustíš ho a pozeráš, čo urobí.
           </p>
           <p class="cta">
-            <a class="pill big" href="./app/">Otvoriť Karla</a>
-            <a class="pill" href="./ulohy/">Zadania</a>
+            <a class="pill big" href="./app/" data-s="open">Otvoriť Karla</a>
+            <a class="pill" href="./ulohy/" data-s="tasks">Zadania</a>
           </p>
         </div>
         <div class="demo">
@@ -40,22 +41,22 @@
 
       <section class="how">
         <div>
-          <h2>Program</h2>
-          <p>
+          <h2 data-s="programH">Program</h2>
+          <p data-s="programP">
             Príkazy sa píšu po slovensky, bez diakritiky: <code>krok</code>, <code>vlavo</code>, <code>poloz</code>. Z nich skladáš
             vlastné príkazy, opakovanie a podmienky. Program beží krok po kroku, chyba zastaví na riadku, kde vznikla.
           </p>
         </div>
         <div>
-          <h2>Miestnosť</h2>
-          <p>
+          <h2 data-s="roomH">Miestnosť</h2>
+          <p data-s="roomP">
             Miestnosť si postavíš klikaním na podlahu: tehly, značky, diery, Karlov štart. Alebo otvoríš hotovú mapu zo
             zadania a rovno píšeš.
           </p>
         </div>
         <div>
-          <h2>Odkaz</h2>
-          <p>
+          <h2 data-s="linkH">Odkaz</h2>
+          <p data-s="linkP">
             Miestnosť aj program sa zmestia do adresy stránky. Pošleš odkaz a druhý vidí to isté. Bez účtu, bez servera, bez
             inštalácie; funguje aj na iPade.
           </p>
@@ -63,8 +64,8 @@
       </section>
     </main>
     <footer>
-      <span>Karel vychádza z konceptu Richarda E. Pattisa, Karel the Robot (1981).</span>
-      <a href="https://github.com/msm-claude/karel">Zdrojový kód</a>
+      <span data-s="credit">Karel vychádza z konceptu Richarda E. Pattisa, Karel the Robot (1981).</span>
+      <a href="https://github.com/msm-claude/karel" data-s="source">Zdrojový kód</a>
     </footer>
     <script type="module" src="./src/ui/landing.ts"></script>
   </body>
