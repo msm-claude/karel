@@ -158,7 +158,7 @@ function applyLocaleText(): void {
   $('newRoom').textContent = t('newRoom');
   $('editHint').textContent = t('editHint');
   for (const b of $('tools').querySelectorAll<HTMLButtonElement>('button')) b.textContent = t(`tool${b.dataset['tool']![0]!.toUpperCase()}${b.dataset['tool']!.slice(1)}`);
-  $('applyMap').textContent = t('applyMap');
+  $('pasteMap').textContent = t('pasteMap');
   $('captureRoom').textContent = t('captureRoom');
   $('download').textContent = t('download');
   $('upload').textContent = t('upload');
@@ -451,11 +451,33 @@ $('newRoom').addEventListener('click', () => {
   const h = Math.max(1, Math.min(MAX_SIZE, Number($<HTMLInputElement>('roomH').value) || 1));
   setRoom(emptyWorld(w, h));
 });
-$('applyMap').addEventListener('click', () => {
+/** The code field applies itself: on paste right away, otherwise when it loses focus. */
+function applyCode(): void {
+  const el = $<HTMLTextAreaElement>('roomCode');
+  const code = el.value.trim();
+  if (code === encodeWorld(room)) return;
   try {
-    setRoom(decodeWorld($<HTMLTextAreaElement>('roomCode').value));
+    setRoom(decodeWorld(code));
   } catch {
-    showToast(t('badMap'));
+    showToast(t('badCode'));
+    el.value = encodeWorld(room);
+  }
+}
+$('roomCode').addEventListener('change', applyCode);
+$('roomCode').addEventListener('paste', () => setTimeout(applyCode, 0));
+$('pasteMap').addEventListener('click', async () => {
+  let text: string;
+  try {
+    text = await navigator.clipboard.readText();
+  } catch {
+    showToast(t('noClip'));
+    $('roomCode').focus();
+    return;
+  }
+  try {
+    setRoom(decodeWorld(text.trim()));
+  } catch {
+    showToast(t('badClip'));
   }
 });
 $('captureRoom').addEventListener('click', () => setRoom(cloneWorld(world)));

@@ -38,6 +38,11 @@
   .dl { display: inline-block; margin: 4px auto 0; font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid #d1d9e0; border-radius: 6px; background: #f6f8fa; color: #1f2328; cursor: pointer; text-decoration: none; }
   .dl:hover { background: #eef1f4; }
   .code { position: relative; margin: 10px 0; }
+  .mapbox { position: relative; display: block; border-radius: 6px; transition: background .15s; }
+  .mapbox:hover { background: #f6f8fa; }
+  .mapbox .cp { opacity: 0; transition: opacity .15s; }
+  .mapbox:hover .cp, .mapbox .cp:focus-visible { opacity: 1; }
+  @media (hover: none) { .mapbox .cp { opacity: 1; } }
   .cp { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 2px 8px; border: 1px solid #d1d9e0; border-radius: 6px; background: #fff; cursor: pointer; }
   .cp.ok { background: #dafbe1; }
   details { margin: 6px 0; }
