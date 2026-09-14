@@ -96,7 +96,7 @@ export interface RenderOptions {
   ghost?: boolean;
   /** world tile to highlight on the floor (the one under the pointer) */
   hover?: [number, number] | null;
-  /** draw a small arrow toward world north in the bottom-left corner, with this letter at the tip */
+  /** draw a small arrow outside the north edge of the room, pointing north, with this letter at the tip */
   compass?: string;
 }
 
@@ -338,17 +338,24 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
   }
 
   if (opts.compass) {
-    // world north (0, -1) through the view, then onto the screen, then normalized
-    const [i0, j0] = map(0, 0);
-    const [i1, j1] = map(0, -1);
-    const dx = (i1 - i0) - (j1 - j0);
-    const dy = ((i1 - i0) + (j1 - j0)) / 2;
+    // an arrow lying on the floor just outside the middle of the north edge, pointing away from the room;
+    // it turns with the room, so it never sits in a canvas corner where a rotated view would clip it
+    const [ai, aj] = map(0, 0);
+    const [bi, bj] = map(world.w - 1, 0);
+    const [ci, cj] = map(0, 1);
+    const ni = ai - ci; // outward normal of the north edge in rotated tile space
+    const nj = aj - cj;
+    const mi = (ai + bi) / 2 + ni * 0.5; // the edge itself is half a tile past the centres
+    const mj = (aj + bj) / 2 + nj * 0.5;
+    const dx = ni - nj; // the same direction on screen (sx, sy are linear in i, j)
+    const dy = (ni + nj) / 2;
     const len = Math.hypot(dx, dy);
     const ux = dx / len;
     const uy = dy / len;
-    const cx = 26;
-    const cy = cssH - 26;
-    const L = 20;
+    const gap = Math.max(8, W * 0.4);
+    const L = Math.max(16, W * 0.9);
+    const cx = sx(mi, mj) + ux * gap;
+    const cy = sy(mi, mj) + uy * gap;
     const tipX = cx + ux * L;
     const tipY = cy + uy * L;
     const color = opts.labelColor ?? P.karelDark;
