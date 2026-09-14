@@ -22,6 +22,8 @@ export interface Palette {
   karelLeft: string;
   karelRight: string;
   karelDark: string;
+  karelAccent: string;
+  karelEye: string;
   visor: string;
 }
 
@@ -38,10 +40,12 @@ export const OVERWORLD: Palette = {
   plate: 'rgba(23,33,43,.18)',
   edge: 'rgba(23,33,43,.6)',
   hover: '#ffffff',
-  karelTop: '#ff7a4a',
-  karelLeft: '#b53c17',
-  karelRight: '#e8562a',
+  karelTop: '#a3adb5',
+  karelLeft: '#5e6970',
+  karelRight: '#7f8b94',
   karelDark: '#2b2b2b',
+  karelAccent: '#e8562a',
+  karelEye: '#ff3b1f',
   visor: '#17212b',
 };
 
@@ -220,45 +224,48 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     poly([[cx - w2, cy], [cx, cy - w2 / 2], [cx + w2, cy], [cx, cy + w2 / 2]], P.markInner);
   }
 
+  /** band on a visible box face: side 1 = front-left, 2 = front-right; u along the face, z in px */
+  function band(cx: number, cy: number, hw: number, side: 1 | 2, u0: number, u1: number, z0: number, z1: number, color: string): void {
+    const a: Pt = side === 1 ? [cx - hw, cy] : [cx, cy + hw / 2];
+    const b: Pt = side === 1 ? [cx, cy + hw / 2] : [cx + hw, cy];
+    const p = (t: number, zz: number): Pt => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t - zz];
+    poly([p(u0, z0), p(u1, z0), p(u1, z1), p(u0, z1)], color);
+  }
+
   function karelAt(i: number, j: number, z: number, rel: number, onMark: boolean): void {
-    const bw = W * 0.5;
-    const bh = Z * 1.05;
-    const hw = W * 0.36;
-    const hh = Z * 0.55;
-    const body: [string, string, string] = [P.karelTop, P.karelLeft, P.karelRight];
-    const base = onMark ? P.mark : P.karelDark;
-    box(i, j, W * 0.42, z, z + Z * 0.16, [base, base, base], 9001, onMark);
-    box(i, j, bw, z + Z * 0.16, z + Z * 0.16 + bh, body, 9002, false);
-    const hz0 = z + Z * 0.16 + bh + Z * 0.08;
-    box(i, j, hw, hz0, hz0 + hh, body, 9003, false);
+    const steel: [string, string, string] = [P.karelTop, P.karelLeft, P.karelRight];
     const cx = sx(i, j);
     const cy = sy(i, j);
-    const vz = hz0 + hh * 0.35;
-    const vh = hh * 0.3;
-    const strip = (from: Pt, to: Pt) => {
-      const p = (t: number, dz: number): Pt => [from[0] + (to[0] - from[0]) * t, from[1] + (to[1] - from[1]) * t - dz];
-      poly([p(0.2, vz), p(0.8, vz), p(0.8, vz + vh), p(0.2, vz + vh)], P.visor);
-    };
-    if (rel === 0) strip([cx, cy + hw / 2], [cx + hw, cy]);
-    else if (rel === 3) strip([cx - hw, cy], [cx, cy + hw / 2]);
-    // direction arrow on the head top, always visible
-    const c: Pt = [cx, cy - (hz0 + hh + 0.5)];
-    const dirs: Pt[] = [
-      [hw * 0.7, hw * 0.35],
-      [hw * 0.7, -hw * 0.35],
-      [-hw * 0.7, -hw * 0.35],
-      [-hw * 0.7, hw * 0.35],
-    ];
-    const d = dirs[rel]!;
-    const perp: Pt = [-d[1] * 0.5, d[0] * 0.5];
-    poly(
-      [
-        [c[0] + d[0], c[1] + d[1]],
-        [c[0] - d[0] * 0.3 + perp[0], c[1] - d[1] * 0.3 + perp[1]],
-        [c[0] - d[0] * 0.3 - perp[0], c[1] - d[1] * 0.3 - perp[1]],
-      ],
-      P.visor,
-    );
+    const base = onMark ? P.mark : P.karelDark;
+    box(i, j, W * 0.44, z, z + Z * 0.14, [base, base, base], 9001, true);
+    const bz0 = z + Z * 0.14;
+    const bz1 = bz0 + Z * 0.98;
+    const bw = W * 0.46;
+    const dv: Pt = rel === 0 ? [1, 0] : rel === 1 ? [0, -1] : rel === 2 ? [-1, 0] : [0, 1];
+    box(i, j, bw, bz0, bz1, steel, 9002, true);
+    // visible faces: 1 looks south (0,1), 2 looks east (1,0); chest plate on the front, vents on the back
+    for (const side of [1, 2] as const) {
+      const n: Pt = side === 1 ? [0, 1] : [1, 0];
+      const dot = n[0] * dv[0] + n[1] * dv[1];
+      band(cx, cy, bw, side, 0, 1, bz0 + Z * 0.3, bz0 + Z * 0.3 + 1.2, '#3b444a'); // waist seam
+      if (dot > 0) {
+        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.4, bz0 + Z * 0.66, P.karelAccent);
+        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.4, bz0 + Z * 0.4 + 1.2, '#8a2f10');
+      } else if (dot < 0) {
+        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.38, bz0 + Z * 0.7, '#3b444a');
+        for (let k = 0; k < 3; k++) band(cx, cy, bw, side, 0.22, 0.78, bz0 + Z * (0.43 + k * 0.09), bz0 + Z * (0.46 + k * 0.09), '#1e2427');
+      }
+    }
+    const hw = W * 0.36;
+    const hz0 = bz1 + Z * 0.06;
+    const hh = Z * 0.5;
+    box(i, j, hw, hz0, hz0 + hh, steel, 9003, true);
+    for (const side of [1, 2] as const) band(cx, cy, hw, side, 0, 1, hz0 + hh * 0.3, hz0 + hh * 0.62, P.visor);
+    const f = rel === 0 ? 2 : rel === 3 ? 1 : 0;
+    if (f) {
+      band(cx, cy, hw, f, 0.16, 0.42, hz0 + hh * 0.36, hz0 + hh * 0.56, P.karelEye);
+      band(cx, cy, hw, f, 0.58, 0.84, hz0 + hh * 0.36, hz0 + hh * 0.56, P.karelEye);
+    }
   }
 
   // ground plate
