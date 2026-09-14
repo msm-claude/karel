@@ -1,19 +1,26 @@
-# ulohy
+# tasks
 
 The task sheet: 69 tasks in 9 levels for 3. ročník, published next to the app at
-`/ulohy/`. Assignment only: no progress, no passwords, no solutions on the page.
+`/tasks/` (the old `/ulohy/` route redirects there). Assignment only: no progress, no passwords, no solutions on the page.
 
-- `tasks.json` — levels, concepts and tasks. A task has `maps: [{pre, post}, …]`;
+- `tasks.json` — levels, concepts and tasks, language-neutral: ids, maps, programs,
+  structure. A task has `maps: [{pre, post}, …]`;
   every map gets its own "Otvor v Karlovi" link (`../app/#m=…&l=<language>`) and a copy
   button for the room code. Tasks of type `trace` (read the program, guess PO) and
   `bug` (fix the program) carry the program in `program` and the link adds `&p=…`.
+  Programs are written in Slovak and go through the app's `translate()` at render time.
+- `strings.sk.json`, `strings.cs.json`, `strings.en.json` — the prose per language: the
+  page words (`ui`), level titles / intros / concept boxes, task titles / texts / hints /
+  concept tags, keyed by id. The header's language switch picks the file; the sheet
+  re-renders. Identifiers in the texts (`Celom_vzad`) are the same in every language.
+  The `concepts` register in `tasks.json` is test-only and stays Slovak.
 - `solutions.json` — one solution and explanation per task id. Read by the tests,
   not by the page.
-- `index.html` + `ulohy.ts` + `world.ts` — the page. Maps are drawn by the app's own
+- `index.html` + `tasks.ts` + `world.ts` — the page. Maps are drawn by the app's own
   `renderWorld` with tile numbers, so a map on the sheet and in the app is the same
   picture. `world.ts` holds the data model and the bridge from the sheet's
   coordinates (columns from the left, rows from the bottom) to the app's world.
-- `tests/ulohy.test.ts` — every solution runs in the core on every map and must
+- `tests/tasks.test.ts` — every solution runs in the core on every map and must
   produce PO (`expect: error` tasks must stop with an error on PO,
   `expect: infinite` must hit the depth or step limit; a `bug` task's broken program
   must not reach PO). Runs with `npm test`.

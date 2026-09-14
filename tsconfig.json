@@ -24,7 +24,7 @@
   "include": [
     "src",
     "tests",
-    "ulohy",
+    "tasks",
     "vite.config.ts"
   ]
 }

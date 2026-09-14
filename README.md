@@ -7,12 +7,12 @@ Design record: #1.
 
 Live: [landing](https://msm-claude.github.io/karel/) ·
 [app](https://msm-claude.github.io/karel/app/) ·
-[tasks](https://msm-claude.github.io/karel/ulohy/).
+[tasks](https://msm-claude.github.io/karel/tasks/).
 
 ## What it is
 
 - Three static pages from one build: the landing (`index.html`), the app
-  (`app/`) and the task sheet (`ulohy/`).
+  (`app/`) and the task sheet (`tasks/`).
 - The app: a canvas with an isometric room, a text editor, six controls.
 - Slovak by default, Czech and English as free extras. The SK / CS / EN switch
   sits in the header of all three pages and the choice sticks (localStorage);
@@ -73,9 +73,9 @@ loses focus, so a code can also travel as plain text.
 
 ## Tasks
 
-The task sheet for 3. ročník is published at `/ulohy/` from [`ulohy/`](ulohy/):
+The task sheet for 3. ročník is published at `/tasks/` from [`tasks/`](tasks/):
 79 tasks with maps drawn by the app's renderer and a link into the app for every
-map. Solutions stay in `ulohy/solutions.json` and are verified by `npm test`
+map. Solutions stay in `tasks/solutions.json` and are verified by `npm test`
 against the core; they are not shown on the page.
 
 ## Development
@@ -90,7 +90,7 @@ npm run build    # tsc + vite -> dist/
 Layout: `src/core` (world rules, lexer, parser, generator interpreter, link
 encoding; pure, no DOM), `src/lang` (keyword and message tables per language),
 `src/ui` (canvas renderer, run driver, CodeMirror editor, page wiring),
-`ulohy/` (the task sheet, a second Vite entry).
+`tasks/` (the task sheet, a second Vite entry).
 Dependencies point one way: `ui → lang → core`. `design/mockups` holds the
 static HTML mockups the look was picked from.
 

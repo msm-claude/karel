@@ -1,0 +1,488 @@
+{
+  "ui": {
+    "pageTitle": "Karel – tasks",
+    "h1": "Tasks for Karel",
+    "sub": "Programming with the robot Karel in the <a href=\"../app/\">Karel app</a>.",
+    "toc": "Contents",
+    "newThing": "New thing",
+    "pre": "BEFORE",
+    "post": "AFTER",
+    "map": "Map {n}",
+    "open": "Open in Karel",
+    "openMap": "Open map {n}",
+    "openTitle": "Opens Karel with the map and the program",
+    "openEmptyTitle": "Opens Karel with map BEFORE and an empty program",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "It did not work",
+    "copyMapTitle": "Copies the map code; in Karel you paste it in the Room tab",
+    "copyProgramTitle": "Copies the program to the clipboard",
+    "manyMaps": "The program must run without any change on all {n} maps. Try it on each one.",
+    "hint": "Hint",
+    "typeTrace": "puzzle",
+    "typeBug": "bug"
+  },
+  "levels": {
+    "1": {
+      "title": "Level 1: A sequence of commands",
+      "intro": "A program is a list of commands. Karel does them from top to bottom, one after another. We wrap the program in a command with a name and call it on the last line. Karel runs whatever is outside the commands, from top to bottom.",
+      "concept": "command Meno\n    step\n    left\nend\n\nMeno\n\nThe last line calls the command. The Run button."
+    },
+    "2": {
+      "title": "Level 2: Bricks and marks",
+      "intro": "A brick is a thing Karel puts down and picks up in front of him. A mark is a colour he paints under himself. The most common mistake: the child expects Karel to put the brick on the tile he is standing on.",
+      "concept": "put       a brick in front of Karel\npick      the brick in front of Karel (it must be there)\nmark      a mark under Karel\nunmark    erase the mark under Karel"
+    },
+    "3": {
+      "title": "Level 3: Your own commands",
+      "intro": "We teach Karel new words. We build a new command out of the ones he already knows, and then we use it like any other one. This is the most important idea in all of programming: split a big task into smaller, named pieces.",
+      "concept": "command Celom_vzad\n    left\n    left\nend\n\ncommand Cuvni\n    Celom_vzad\n    step\n    Celom_vzad\nend"
+    },
+    "4": {
+      "title": "Level 4: Repeating a set number of times",
+      "intro": "When we know in advance how many times something has to be done, we do not write it out again and again. We write it once and say how many times. Loops can nest: a repeat inside a repeat. And watch out for the fence problem: three gaps between four posts.",
+      "concept": "repeat 6 times\n    step\nend"
+    },
+    "5": {
+      "title": "Level 5: Deciding",
+      "intro": "Karel can look in front of him and decide what to do. A condition is a question with a yes or no answer: is there a brick in front of you? is there a wall in front of you? are you standing on a mark?",
+      "concept": "if is brick\nthen\n    pick\nelse\n    mark\nend\n\nThe else part can be left out."
+    },
+    "6": {
+      "title": "Level 6: Repeating with a condition",
+      "intro": "When we do not know in advance how many times something has to be done, we repeat while the condition holds. This is the first program that works in a room of any size. Each task has more maps: the program has to work on all of them without any change.",
+      "concept": "while is not wall\n    step\nend\n\nWatch out: if the condition never changes, Karel will not stop. Then press Stop."
+    },
+    "7": {
+      "title": "Level 7: Challenges",
+      "intro": "Everything together. There is nothing new here, just putting together what the child already knows. If they get stuck, let them first split the task into their own commands and try each one on its own.",
+      "concept": null
+    },
+    "8": {
+      "title": "Level 8: Recursion (extra)",
+      "intro": "A command can use itself. That is called recursion, and Karel starts over as if someone had called him again. Without a stopping condition it never ends, which is why the first two tasks are puzzles. With an if condition, recursion is another way to write a loop. And it has one strange property: whatever comes after the recursive call inside the command runs only on the way back, as many times as the command was called. In the ŠVP, recursion belongs to the second stage; this level is here for the child who keeps asking.",
+      "concept": "command Ku_stene\n    if is free\n    then\n        step\n        Ku_stene\n    end\nend"
+    },
+    "9": {
+      "title": "Level 9: Memory without numbers (extra)",
+      "intro": "Karel cannot count and he has no variables. Even so he can remember something: the memory is the world itself. While something stands in front of him, there is work to do; when there is not, he is finished. This task shows it. In the ŠVP, variables belong to the second stage.",
+      "concept": null
+    }
+  },
+  "tasks": {
+    "1.1": {
+      "title": "Three steps",
+      "concept": "your first program",
+      "text": "Write a program that makes Karel take three steps forward.",
+      "hint": "The program must have a name and must finish with the word end. Three lines go in between."
+    },
+    "1.2": {
+      "title": "Into the corner",
+      "concept": "steps and a turn",
+      "text": "Get Karel from the bottom left corner to the top right corner. At the end he has to be looking up.",
+      "hint": "First to the right, up to the wall. Then turn. Left, or right? Imagine you are Karel."
+    },
+    "1.3": {
+      "title": "Around the obstacle",
+      "concept": "a detour",
+      "text": "The tile in front of Karel is missing, there is a hole (a wall) there. Get him to the tile behind the hole, so that at the end he is looking to the right again.",
+      "hint": "Up, two steps to the right, down, and do not forget to turn back at the end."
+    },
+    "1.4": {
+      "title": "Turn around",
+      "concept": "two turns",
+      "text": "Turn Karel around. He stays on his tile, and at the end he looks down instead of up.",
+      "hint": "One turn is a quarter of a circle. How many do you need for half a circle?"
+    },
+    "1.5": {
+      "title": "What will Karel do?",
+      "concept": "reading a program",
+      "text": "Do not write anything. Read the program, trace it with your finger on the picture, and draw where Karel ends up and which way he will be looking. Only then check it in Karel.",
+      "hint": "After every line say to yourself: where is he standing, where is he looking. A turn does not change the tile, only the direction."
+    },
+    "1.6": {
+      "title": "The letter L",
+      "concept": "a path with one turn",
+      "text": "Karel is standing at the top left and looking down. He walks the letter L: down to the wall and then to the right into the corner. At the end he is looking to the right.",
+      "hint": "Three steps down. Karel is looking down, so to turn towards the right you write left. Then three steps."
+    },
+    "1.7": {
+      "title": "Zigzag",
+      "concept": "turns one way and the other",
+      "text": "Karel walks a zigzag like in the picture: step, up, step, down, and he finishes on the third tile of the bottom row, turned to the right. Use exactly four steps.",
+      "hint": "After every step comes a turn: left, right, right, left."
+    },
+    "1.8": {
+      "title": "Which way will he look?",
+      "concept": "turns add up",
+      "text": "Do not write anything. Karel only turns on the spot. Read the program and guess which way he will be looking at the end. Then check it in Karel.",
+      "hint": "Turn together with him: right hand, right, right, left, left."
+    },
+    "1.9": {
+      "title": "Back home",
+      "concept": "a path with two turns",
+      "text": "Karel is in the top right corner and looking to the left. Get him to the bottom left corner so that at the end he is looking to the right.",
+      "hint": "Two steps to the left, a turn, two steps down, a turn. Which turn is it, when Karel is looking to the left and has to go down?"
+    },
+    "2.1": {
+      "title": "Pick up the brick",
+      "concept": "pick",
+      "text": "There is a brick in the bottom right corner. Karel has to pick it up and stand on its tile.",
+      "hint": "Karel picks up the brick in front of him. How many steps does he have to take so that the brick is right in front of him?"
+    },
+    "2.2": {
+      "title": "Two bricks into the corners",
+      "concept": "put, turning",
+      "text": "Karel puts a brick in the bottom left corner and in the top left corner, and he finishes in the top right corner.",
+      "hint": "Karel stands next to the corner and looks at it, because he puts the brick in front of him. The first line is put. Then turn upwards."
+    },
+    "2.3": {
+      "title": "Carry the brick",
+      "concept": "pick and put",
+      "text": "A brick is lying on the third tile. Karel has to carry it to the end of the row, to the right wall.",
+      "hint": "Step, pick, and then walk far enough that the last tile is in front of you."
+    },
+    "2.4": {
+      "title": "Fill the hole in the path",
+      "concept": "walking on bricks",
+      "text": "Karel is standing on a path made of bricks. One is missing in the middle. Put it back and walk to the end of the path.",
+      "hint": "Walking from brick to brick is normal. You do not have to climb into the hole, it is enough to fill it in front of you."
+    },
+    "2.5": {
+      "title": "Marks",
+      "concept": "mark",
+      "text": "Karel has to paint a mark on the second and the fourth tile and finish on the fourth one.",
+      "hint": "A mark is painted under Karel. First he has to get there."
+    },
+    "2.6": {
+      "title": "Find the bug",
+      "concept": "a bug in pick",
+      "text": "Someone wrote a program for task 2.1, but Karel reports an error. Run it one line at a time with the Step button, find the line where it goes wrong, and fix the program.",
+      "hint": "Where is Karel standing after the third step? What is in front of him?"
+    },
+    "2.7": {
+      "title": "A step up",
+      "concept": "climbing one up",
+      "text": "Build two steps: the first one from one brick, the second one from two, and finish on the higher one.",
+      "hint": "Put a brick down, climb up. From the first step put two bricks on the next tile and climb up."
+    },
+    "2.8": {
+      "title": "A mark and a brick together",
+      "concept": "a mark under, a brick in front",
+      "text": "Karel marks the tile he is standing on, puts a brick in front of him, climbs onto it and marks that tile too.",
+      "hint": "Four commands: mark, brick, step, mark."
+    },
+    "2.9": {
+      "title": "A brick behind Karel",
+      "concept": "turning with a brick",
+      "text": "There is a brick in front of Karel. He has to move it to the tile behind him. He finishes turned towards it.",
+      "hint": "Pick it up, turn around (two turns), put it down."
+    },
+    "2.10": {
+      "title": "How many bricks?",
+      "concept": "reading a program with bricks",
+      "text": "Do not write anything. Read the program and draw how many bricks will be in front of Karel at the end and where Karel finishes. Then check it in Karel.",
+      "hint": "Count on your fingers: he put one down, put one down, picked one up, put one down. And then remember how high Karel can climb."
+    },
+    "3.1": {
+      "title": "Dvojkrok",
+      "concept": "a new command",
+      "text": "Teach Karel a new word, Dvojkrok: two steps forward. Then run it.",
+      "hint": "It is the same as in level 1, only think about the name: the name says what the command does."
+    },
+    "3.2": {
+      "title": "Right out of three lefts",
+      "concept": "putting commands together",
+      "text": "Imagine that Karel forgot the word right. Teach him a new command Vpravo3 that turns him to the right using only left.",
+      "hint": "Turn to the left and watch where you are looking. And again. And again."
+    },
+    "3.3": {
+      "title": "Backing up",
+      "concept": "a command inside a command",
+      "text": "Teach Karel to back up by one tile: the command Cuvni. At the end Karel is looking the same way as at the start.",
+      "hint": "First make the command Celom_vzad from level 1. Cuvni is then: turn around, step, turn back."
+    },
+    "3.4": {
+      "title": "A knight's jump",
+      "concept": "a move of your own",
+      "text": "Karel has to jump like a knight in chess: two tiles forward, one to the right.",
+      "hint": "You already have Dvojkrok. Then a turn and a step."
+    },
+    "3.5": {
+      "title": "A path as you walk",
+      "concept": "calling it again and again",
+      "text": "Build a path from three bricks and finish on the last one. Write your own command Poloz_a_chod for it and use it three times.",
+      "hint": "Poloz_a_chod is what you did with the keys in task 0.2: put a brick down and climb onto it. The small command once, the big one calls it three times."
+    },
+    "3.6": {
+      "title": "A sidestep",
+      "concept": "moving without changing direction",
+      "text": "Teach Karel to sidestep to the right: he moves one tile to the right, but at the end he is looking the same way as before.",
+      "hint": "Turn to the right, step, turn back to the left."
+    },
+    "3.7": {
+      "title": "A square from one word",
+      "concept": "one command four times",
+      "text": "Karel runs around the room and finishes where he started. Write the word step only twice in the program.",
+      "hint": "Teach Karel the word Strana: two steps and a turn to the left. A square is four sides."
+    },
+    "3.8": {
+      "title": "A path with marks",
+      "concept": "a command of three steps",
+      "text": "Build a path from two bricks and mark every brick Karel stands on. Finish on the second brick. Make a command Kus for it and use it twice.",
+      "hint": "Kus is: put a brick down, climb onto it, mark."
+    },
+    "3.9": {
+      "title": "A trip there and back",
+      "concept": "a command inside a command",
+      "text": "Karel takes two steps, turns around, comes back and turns around again. He finishes exactly where he started, turned the same way. Make the command Celom_vzad and use it twice.",
+      "hint": "Celom_vzad is two turns to the left. Vylet: step, step, Celom_vzad, step, step, Celom_vzad."
+    },
+    "3.10": {
+      "title": "Four jumps",
+      "concept": "reading your own command",
+      "text": "Do not write anything. A jump is a step and a turn to the left. Guess where Karel finishes after four jumps and which way he will be looking. Then check it in Karel.",
+      "hint": "Trace it with your finger on the picture: step, turn; step, turn; and so on."
+    },
+    "4.1": {
+      "title": "Six steps",
+      "concept": "repeat N times",
+      "text": "Karel has to take six steps. Write the word step only once in the program.",
+      "hint": "The repeat starts with the line repeat 6 times and finishes with the line end. What is repeated goes in between."
+    },
+    "4.2": {
+      "title": "A long path",
+      "concept": "repeating two commands",
+      "text": "Build a path from five bricks and finish on the last one. Use a repeat.",
+      "hint": "What is repeated? Put and step. How many times? As many times as there are bricks."
+    },
+    "4.3": {
+      "title": "Run around the square",
+      "concept": "a repeat inside a repeat",
+      "text": "Karel runs around the room along the walls and paints a mark in every corner. He finishes where he started.",
+      "hint": "One side of the square is: a mark, three steps, a turn to the right. And there are four sides."
+    },
+    "4.4": {
+      "title": "A tower",
+      "concept": "bricks on top of each other",
+      "text": "Build a tower of three bricks on top of each other in front of Karel.",
+      "hint": "Karel keeps putting the bricks on the same tile in front of him. They pile up on top of each other."
+    },
+    "4.5": {
+      "title": "A wall",
+      "concept": "backing up and towers",
+      "text": "Build a wall: four towers of three bricks each, in one row. Karel finishes below the wall, turned towards it.",
+      "hint": "If Karel backs up while he builds, the towers will not block his way. Take Cuvni from level 3 and Stlpik from the task before. One part of the wall is: back up, build a tower. Four times."
+    },
+    "4.6": {
+      "title": "What will Karel paint?",
+      "concept": "reading nested loops",
+      "text": "Do not write anything. Read the program and draw which tiles will be marked at the end and where Karel finishes. Then check it in Karel.",
+      "hint": "Do the whole inner repeat first, and only then the turn. How many times does mark happen altogether?"
+    },
+    "4.7": {
+      "title": "The diagonal",
+      "concept": "a pattern in a loop, the fence problem",
+      "text": "Karel marks the diagonal of the room: tiles 1,1 · 2,2 · 3,3 · 4,4. He finishes in the top right corner.",
+      "hint": "What is repeated? A mark, a step to the right, a step up (and back to the old direction). Four marks, but only three moves."
+    },
+    "4.8": {
+      "title": "Every second tile",
+      "concept": "the fence problem",
+      "text": "Karel marks the first, the third and the fifth tile of the row and finishes on the fifth one.",
+      "hint": "A mark and two steps, a mark and two steps, a mark. How much of that goes inside the repeat and what is left after it?"
+    },
+    "4.9": {
+      "title": "The winners' podium",
+      "concept": "a sidestep and towers",
+      "text": "Build a winners' podium: towers 2, 3 and 1 bricks high, next to each other. Karel finishes below the last tower, turned towards it.",
+      "hint": "Karel builds from the bottom, every tower in front of him, and between them he does the Ukrok from task 3.6. Two bricks, a sidestep, three bricks, a sidestep, one brick."
+    },
+    "4.10": {
+      "title": "Stairs",
+      "concept": "splitting it up and backing up",
+      "text": "Build stairs: towers 3, 2, 1 bricks high, one behind another. Karel finishes below the lowest step, turned towards the stairs.",
+      "hint": "Build from the tallest one and back up, so the stairs do not trap you: three bricks, Cuvni, two bricks, Cuvni, one brick."
+    },
+    "4.11": {
+      "title": "The obstacle race",
+      "concept": "a pattern and your own command in a loop",
+      "text": "There are three obstacles in the corridor (missing tiles). Karel has to get to the end of the corridor. Write a command Prekazka for one obstacle and repeat it.",
+      "hint": "One obstacle is the detour from task 1.3: up, across, down. After it Karel stands exactly in front of the next one."
+    },
+    "5.1": {
+      "title": "Pick it up, if it is there",
+      "concept": "if is brick",
+      "text": "There are bricks on the way, but we do not know where. Karel walks over five tiles and picks up every brick he meets.",
+      "hint": "Before every step ask: is there a brick in front of you? If yes, pick. If not, nothing. Then step."
+    },
+    "5.2": {
+      "title": "Fix the path",
+      "concept": "if is not brick",
+      "text": "The path has holes in places we do not know. Karel walks along it to the end and fills in every hole.",
+      "hint": "The opposite of task 5.1: if there is no brick in front of you, put one down. Then step."
+    },
+    "5.3": {
+      "title": "Along the wall",
+      "concept": "if is wall",
+      "text": "Karel takes six steps, but every time there is a wall in front of him, he first turns to the left.",
+      "hint": "The question is: is there a wall in front of you? If yes, left. The step comes after the question, it happens every time."
+    },
+    "5.4": {
+      "title": "A brick or a mark",
+      "concept": "if … then … else",
+      "text": "Karel walks over four tiles. If there is a brick in front of him, he picks it up. If not, he paints a mark under himself.",
+      "hint": "The word else means: otherwise. After then comes one thing, after else another one, and only one of them ever happens."
+    },
+    "5.5": {
+      "title": "A careful step",
+      "concept": "if is free",
+      "text": "Karel has to take five steps and mark the tile after every step, but the corridor in front of him has only three tiles. Write a careful step: he steps and marks only if he can step. Try it without the question first and read the error Karel reports.",
+      "hint": "The question free asks: can you step? Both the step and the mark go inside the question, not after it."
+    },
+    "5.6": {
+      "title": "Swap the marks",
+      "concept": "turning it around, if/else, the fence",
+      "text": "Some tiles in the row are marked. Karel walks the whole row and swaps everything: where a mark was, there will be none, and the other way round.",
+      "hint": "Make a command Vymen: if the tile under you is marked, erase it, else paint it. Then: five times Vymen and step, and on the last tile Vymen once more."
+    },
+    "5.7": {
+      "title": "Find the bug 2",
+      "concept": "one too few",
+      "text": "The program should collect the bricks like in task 5.1, but Karel leaves one lying there and stops one tile too early. Why? Fix it.",
+      "hint": "Count the steps between the first and the last tile in the picture. How many times should the loop run?"
+    },
+    "6.1": {
+      "title": "All the way to the wall",
+      "concept": "while is free",
+      "text": "Karel goes forward until he runs into a wall. The program has to work in a room of any width.",
+      "hint": "Do not repeat six times. Repeat while you can step."
+    },
+    "6.2": {
+      "title": "To the mark",
+      "concept": "while is not marked",
+      "text": "Somewhere in front of Karel there is a mark. Karel has to stop on it.",
+      "hint": "The question marked asks whether Karel is standing on a mark. Walk while you are not standing on it."
+    },
+    "6.3": {
+      "title": "Knock the tower down",
+      "concept": "while is brick",
+      "text": "In front of Karel there is a tower of an unknown number of bricks. Knock the whole thing down.",
+      "hint": "Pick bricks up while there is a brick in front of you."
+    },
+    "6.4": {
+      "title": "Knock the wall down",
+      "concept": "while inside while",
+      "text": "In front of Karel there is a wall made of towers. We do not know how many there are or how tall they are. Knock the whole wall down.",
+      "hint": "While there is a brick in front of you: knock the tower down (you know that one already) and take a step."
+    },
+    "6.5": {
+      "title": "Fix the long path",
+      "concept": "while and if together",
+      "text": "The path leads all the way to the wall, and we do not know how long it is or where the holes are. Fix the whole thing and finish at its end.",
+      "hint": "Outside: while there is no wall. Inside: if there is no brick, put one down. Then step."
+    },
+    "6.6": {
+      "title": "Run around the room",
+      "concept": "your own command in a repeat",
+      "text": "Karel runs around the room along the walls, paints a mark in every corner and finishes where he started. The room can be any size.",
+      "hint": "Like 4.3, but instead of three steps use your command Ku_stene."
+    },
+    "6.7": {
+      "title": "There and back",
+      "concept": "your own command twice",
+      "text": "Karel walks up to the wall, paints a mark there and comes back exactly where he started, turned the same way as at the start. For a room of any width.",
+      "hint": "Ku_stene, a mark, turn around, Ku_stene, turn around."
+    },
+    "6.8": {
+      "title": "Move the tower behind you",
+      "concept": "while with turning",
+      "text": "In front of Karel there is a tower of unknown height. Move the whole of it behind Karel.",
+      "hint": "While there is a brick in front of you: pick, turn around, put, turn back."
+    },
+    "6.9": {
+      "title": "Raise the path",
+      "concept": "while along the bricks",
+      "text": "Karel is standing on a path of bricks that leads all the way to the wall. Raise the whole path by one brick (except the first one, the one Karel is standing on) and finish at its end.",
+      "hint": "While there is no wall: put a brick in front of you and climb onto it."
+    },
+    "7.1": {
+      "title": "Collect all the way to the wall",
+      "concept": "a challenge",
+      "text": "There are bricks on the way to the wall, and we do not know how many or where. Karel collects them all and finishes at the wall.",
+      "hint": "Put 5.1 and 6.1 together."
+    },
+    "7.2": {
+      "title": "A fence around Karel",
+      "concept": "a challenge",
+      "text": "Karel is standing in the middle. Build a fence around him: a tower of two bricks on each of the four tiles next to him.",
+      "hint": "One side: two bricks and a turn. There are four sides."
+    },
+    "7.3": {
+      "title": "The maze",
+      "concept": "a challenge: the right hand rule",
+      "text": "Karel is in a maze and somewhere in it there is a mark. Find it. The program must not depend on the shape of the maze.",
+      "hint": "Keep your right hand on the wall: turn to the right; while there is a wall in front of you, turn to the left; step. And all of that while you are not standing on the mark."
+    },
+    "7.4": {
+      "title": "Harvest the field",
+      "concept": "a challenge: going row by row",
+      "text": "The field has two rows of bricks. Karel collects them all and finishes on the left in the second row, turned towards the left wall.",
+      "hint": "Like a combine harvester: the first row there, the second one back. The command Riadok: four times pick and step. Then a turn upwards, a step, a turn to the left, and Riadok again."
+    },
+    "7.5": {
+      "title": "A frame around the room",
+      "concept": "a challenge: 4.6 for any room",
+      "text": "Karel marks all the tiles next to the walls, the whole frame of the room, and finishes where he started. For a room of any size.",
+      "hint": "One side: while you can step, a mark and a step. Four sides, with a turn to the right between them. Watch out: leave the corner tile to the next side, otherwise you mark it twice and that is an error."
+    },
+    "7.6": {
+      "title": "The chessboard",
+      "concept": "a challenge: a pattern with a shift",
+      "text": "Karel colours a 4 × 4 room like a chessboard: every second tile, and every next row shifted by one. He finishes at the top left on the second tile.",
+      "hint": "The command Riadok: a mark, two steps, a mark. At the end of the row Karel turns upwards, steps, and turns the other way. Once to the left and once to the right, depending on where he is going. The shift happens on its own."
+    },
+    "8.1": {
+      "title": "The marathon",
+      "concept": "recursion with no end",
+      "text": "The program has no end: Maraton calls itself. Do not run it right away. Guess what Karel will do and how it will end. Then run it and watch the step counter above the room.",
+      "hint": "A step, and then Maraton again, that is a step, and then Maraton again... When does it stop?"
+    },
+    "8.2": {
+      "title": "The gatekeeper",
+      "concept": "recursion with no end",
+      "text": "Guess what this program does and how it ends. Only then run it. The Stop button is below the room.",
+      "hint": "Two steps, turn around, and again from the start. Where will Karel be after the first round? And after the second one?"
+    },
+    "8.3": {
+      "title": "To the wall with recursion",
+      "concept": "the stopping condition",
+      "text": "Karel walks up to the wall like in 6.1, but without while: the command Ku_stene has to call itself.",
+      "hint": "Ku_stene takes a step and calls itself, but only if it can step. The question free wraps both lines: the step and the call to Ku_stene. When there is a wall in front of Karel, he does nothing and it all ends."
+    },
+    "8.4": {
+      "title": "Knock the tower down with recursion",
+      "concept": "the stopping condition",
+      "text": "Knock down a tower of unknown height (like 6.3), but with recursion instead of while.",
+      "hint": "If there is a brick in front of you: pick it up and call yourself again."
+    },
+    "8.5": {
+      "title": "The trip",
+      "concept": "work on the way back",
+      "text": "Karel walks up to the wall, paints a mark there and comes back where he started, turned the same way as at the start. Without while and without a second march to the wall: one command Vylet that calls itself is enough.",
+      "hint": "The way back is done by the recursion when it returns, by backing up. If it is free: step, Vylet, Cuvni. Else: a mark. The line Cuvni happens only when the inner Vylet has finished."
+    },
+    "8.6": {
+      "title": "Halfway",
+      "concept": "recursion as a counter",
+      "text": "Karel has to stop halfway to the wall, turned around. For a room of any width, without counting: with recursion.",
+      "hint": "The trick: he goes to the wall two steps at a time, and back one at a time, when the recursion returns. Use the careful step, so the second step does not run into anything when the number of tiles is odd. Polovica: a careful step, a careful step, if is wall then turn around, else Polovica. And after that a step, which happens on the way back."
+    },
+    "9.1": {
+      "title": "Deal the tower out into two piles",
+      "concept": "the world as memory",
+      "text": "In front of Karel there is a tower of unknown height. Take it apart and make two bricks out of every one: put one to the left, the other one behind. Without counting.",
+      "hint": "While there is a brick in front of you: pick, left, put, left, put, and back to the front with two more lefts."
+    }
+  }
+}

@@ -23,10 +23,6 @@ export interface Task {
   id: string;
   level: number;
   type?: 'trace' | 'bug';
-  title: string;
-  concept: string;
-  text: string;
-  hint: string | null;
   expect?: 'error' | 'infinite';
   run?: string;
   /** the program that is part of the task: the one to read (trace) or the broken one (bug) */
@@ -36,9 +32,13 @@ export interface Task {
 
 export interface Level {
   id: number;
-  title: string;
-  intro: string;
-  concept: string | null;
+}
+
+/** The prose per language (`strings.<lang>.json`): the page words, the levels and the tasks by id. */
+export interface Strings {
+  ui: Record<string, string>;
+  levels: Record<string, { title: string; intro: string; concept: string | null }>;
+  tasks: Record<string, { title: string; concept: string; text: string; hint: string | null }>;
 }
 
 export interface Concept {
