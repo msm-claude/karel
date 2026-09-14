@@ -72,6 +72,7 @@ export const cs: Locale = {
     copied: 'Odkaz zkopírován.',
     steps: 'kroky',
     view: 'pohled',
+    north: 'S',
     dirs: 'východ,sever,západ,jih',
     views: 'ze severovýchodu,z jihovýchodu,z jihozápadu,ze severozápadu',
     ready: 'připraven',

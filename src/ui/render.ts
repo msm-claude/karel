@@ -96,6 +96,8 @@ export interface RenderOptions {
   ghost?: boolean;
   /** world tile to highlight on the floor (the one under the pointer) */
   hover?: [number, number] | null;
+  /** draw a small arrow toward world north in the bottom-left corner, with this letter at the tip */
+  compass?: string;
 }
 
 export interface Layout {
@@ -333,5 +335,43 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       // front-right edge: tile (rw-1, j); rows count from the bottom row
       ctx.fillText(String(rh - j), sx(rw - 1, j) + off, sy(rw - 1, j) + H * 0.55 + off * 0.5);
     }
+  }
+
+  if (opts.compass) {
+    // world north (0, -1) through the view, then onto the screen, then normalized
+    const [i0, j0] = map(0, 0);
+    const [i1, j1] = map(0, -1);
+    const dx = (i1 - i0) - (j1 - j0);
+    const dy = ((i1 - i0) + (j1 - j0)) / 2;
+    const len = Math.hypot(dx, dy);
+    const ux = dx / len;
+    const uy = dy / len;
+    const cx = 26;
+    const cy = cssH - 26;
+    const L = 20;
+    const tipX = cx + ux * L;
+    const tipY = cy + uy * L;
+    const color = opts.labelColor ?? P.karelDark;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(tipX, tipY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(tipX + ux * 7, tipY + uy * 7);
+    ctx.lineTo(tipX - uy * 5, tipY + ux * 5);
+    ctx.lineTo(tipX + uy * 5, tipY - ux * 5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.font = '700 14px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(opts.compass, tipX + ux * 18, tipY + uy * 18);
   }
 }
