@@ -25,7 +25,7 @@
   "levels": {
     "1": {
       "title": "Level 1: A sequence of commands",
-      "intro": "A program is a list of commands. Karel does them from top to bottom, one after another. We wrap the program in a command with a name and call it on the last line. Karel runs whatever is outside the commands, from top to bottom.",
+      "intro": "A program is a list of commands. Karel does them from top to bottom, one after another. We wrap the program in a command with a name and call it on the last line. Karel runs whatever is outside the commands, from top to bottom. Directions are always Karel's own: straight ahead, left, right. Where he has to look at the end we say compared with the start: the same, the opposite, or turned left or right. The AFTER picture shows it.",
       "concept": "command Meno\n    step\n    left\nend\n\nMeno\n\nThe last line calls the command. The Run button."
     },
     "2": {
@@ -79,19 +79,19 @@
     "1.2": {
       "title": "Into the corner",
       "concept": "steps and a turn",
-      "text": "Get Karel from the bottom left corner to the top right corner. At the end he has to be looking up.",
-      "hint": "First to the right, up to the wall. Then turn. Left, or right? Imagine you are Karel."
+      "text": "Get Karel from the bottom left corner to the top right corner. At the end he has to be turned left compared with the start.",
+      "hint": "First straight ahead, up to the wall. Then turn. Left, or right? Imagine you are Karel."
     },
     "1.3": {
       "title": "Around the obstacle",
       "concept": "a detour",
-      "text": "The tile in front of Karel is missing, there is a hole (a wall) there. Get him to the tile behind the hole, so that at the end he is looking to the right again.",
-      "hint": "Up, two steps to the right, down, and do not forget to turn back at the end."
+      "text": "The tile in front of Karel is missing, there is a hole (a wall) there. Get him to the tile behind the hole, so that at the end he is looking where he was looking at the start.",
+      "hint": "Left, a step, right, two steps, right, a step, and at the end turn back left."
     },
     "1.4": {
       "title": "Turn around",
       "concept": "two turns",
-      "text": "Turn Karel around. He stays on his tile, and at the end he looks down instead of up.",
+      "text": "Turn Karel around. He stays on his tile, and at the end he is looking the opposite way from the start.",
       "hint": "One turn is a quarter of a circle. How many do you need for half a circle?"
     },
     "1.5": {
@@ -103,13 +103,13 @@
     "1.6": {
       "title": "The letter L",
       "concept": "a path with one turn",
-      "text": "Karel is standing at the top left and looking down. He walks the letter L: down to the wall and then to the right into the corner. At the end he is looking to the right.",
-      "hint": "Three steps down. Karel is looking down, so to turn towards the right you write left. Then three steps."
+      "text": "Karel walks the letter L: straight ahead to the wall, then he turns and goes into the corner. At the end he is looking the way he went last.",
+      "hint": "Three steps, a turn, three steps. Which turn? Imagine you are Karel: the wall is in front of you and the corner is on your left hand."
     },
     "1.7": {
       "title": "Zigzag",
       "concept": "turns one way and the other",
-      "text": "Karel walks a zigzag like in the picture: step, up, step, down, and he finishes on the third tile of the bottom row, turned to the right. Use exactly four steps.",
+      "text": "Karel walks a zigzag like in the picture and finishes on the third tile of the row he started in, turned the same way as at the start. Use exactly four steps and one turn after every step.",
       "hint": "After every step comes a turn: left, right, right, left."
     },
     "1.8": {
@@ -121,8 +121,8 @@
     "1.9": {
       "title": "Back home",
       "concept": "a path with two turns",
-      "text": "Karel is in the top right corner and looking to the left. Get him to the bottom left corner so that at the end he is looking to the right.",
-      "hint": "Two steps to the left, a turn, two steps down, a turn. Which turn is it, when Karel is looking to the left and has to go down?"
+      "text": "Karel is in the top right corner. Get him to the bottom left corner so that at the end he is looking the opposite way from the start.",
+      "hint": "Two steps, a turn, two steps, a turn. Both turns are the same. Imagine you are Karel: in the corner the wall is in front of you, which way can you go on?"
     },
     "2.1": {
       "title": "Pick up the brick",
@@ -134,7 +134,7 @@
       "title": "Two bricks into the corners",
       "concept": "put, turning",
       "text": "Karel puts a brick in the bottom left corner and in the top left corner, and he finishes in the top right corner.",
-      "hint": "Karel stands next to the corner and looks at it, because he puts the brick in front of him. The first line is put. Then turn upwards."
+      "hint": "Karel stands next to the corner and looks at it, because he puts the brick in front of him. The first line is put. Then turn right and walk to the wall."
     },
     "2.3": {
       "title": "Carry the brick",
@@ -284,7 +284,7 @@
       "title": "The diagonal",
       "concept": "a pattern in a loop, the fence problem",
       "text": "Karel marks the diagonal of the room: tiles 1,1 · 2,2 · 3,3 · 4,4. He finishes in the top right corner.",
-      "hint": "What is repeated? A mark, a step to the right, a step up (and back to the old direction). Four marks, but only three moves."
+      "hint": "What is repeated? A mark, a step, a turn left, a step, a turn right (back to the old direction). Four marks, but only three moves."
     },
     "4.8": {
       "title": "Every second tile",
@@ -308,7 +308,7 @@
       "title": "The obstacle race",
       "concept": "a pattern and your own command in a loop",
       "text": "There are three obstacles in the corridor (missing tiles). Karel has to get to the end of the corridor. Write a command Prekazka for one obstacle and repeat it.",
-      "hint": "One obstacle is the detour from task 1.3: up, across, down. After it Karel stands exactly in front of the next one."
+      "hint": "One obstacle is the detour from task 1.3: turn left, cross over the hole and come back right into the row. After it Karel stands exactly in front of the next one."
     },
     "5.1": {
       "title": "Pick it up, if it is there",
@@ -427,8 +427,8 @@
     "7.4": {
       "title": "Harvest the field",
       "concept": "a challenge: going row by row",
-      "text": "The field has two rows of bricks. Karel collects them all and finishes on the left in the second row, turned towards the left wall.",
-      "hint": "Like a combine harvester: the first row there, the second one back. The command Riadok: four times pick and step. Then a turn upwards, a step, a turn to the left, and Riadok again."
+      "text": "The field has two rows of bricks. Karel collects them all and finishes at the start of the second row, turned the opposite way from the start.",
+      "hint": "Like a combine harvester: the first row there, the second one back. The command Riadok: four times pick and step. At the end of the row: a turn left, a step, a turn left, and Riadok again."
     },
     "7.5": {
       "title": "A frame around the room",
@@ -439,8 +439,8 @@
     "7.6": {
       "title": "The chessboard",
       "concept": "a challenge: a pattern with a shift",
-      "text": "Karel colours a 4 × 4 room like a chessboard: every second tile, and every next row shifted by one. He finishes at the top left on the second tile.",
-      "hint": "The command Riadok: a mark, two steps, a mark. At the end of the row Karel turns upwards, steps, and turns the other way. Once to the left and once to the right, depending on where he is going. The shift happens on its own."
+      "text": "Karel colours a 4 × 4 room like a chessboard: every second tile, and every next row shifted by one. He finishes in the last row on the second tile, turned the opposite way from the start.",
+      "hint": "Command Riadok: mark, two steps, mark. At the end of the first row: left, step, left. At the end of the second: right, step, right. And so on, taking turns; the shift happens by itself."
     },
     "8.1": {
       "title": "The marathon",

@@ -25,7 +25,7 @@
   "levels": {
     "1": {
       "title": "Úroveň 1: Postupnosť príkazov",
-      "intro": "Program je zoznam príkazov. Karel ich robí zhora nadol, jeden po druhom. Program zabalíme do príkazu s menom a na poslednom riadku ho zavoláme. Karel vykoná to, čo je mimo príkazov, zhora nadol.",
+      "intro": "Program je zoznam príkazov. Karel ich robí zhora nadol, jeden po druhom. Program zabalíme do príkazu s menom a na poslednom riadku ho zavoláme. Karel vykoná to, čo je mimo príkazov, zhora nadol. Smery sú vždy Karlove: rovno, vľavo, vpravo. Kam sa má pozerať na konci, hovoríme oproti začiatku: rovnako, opačne, alebo otočený vľavo či vpravo. Obrázok PO to ukazuje.",
       "concept": "prikaz Meno\n    krok\n    vlavo\nkoniec\n\nMeno\n\nPosledný riadok príkaz zavolá. Tlačidlo Spusti."
     },
     "2": {
@@ -79,19 +79,19 @@
     "1.2": {
       "title": "Do rohu",
       "concept": "kroky a otočka",
-      "text": "Dostaň Karla z ľavého dolného rohu do pravého horného rohu. Na konci sa má pozerať hore.",
-      "hint": "Najprv doprava až po stenu. Potom sa otoč. Vľavo, alebo vpravo? Predstav si, že si Karel."
+      "text": "Dostaň Karla z ľavého dolného rohu do pravého horného rohu. Na konci má byť otočený vľavo oproti začiatku.",
+      "hint": "Najprv rovno až po stenu. Potom sa otoč. Vľavo, alebo vpravo? Predstav si, že si Karel."
     },
     "1.3": {
       "title": "Okolo prekážky",
       "concept": "obchádzka",
-      "text": "Pred Karlom chýba políčko, je tam diera (stena). Dostaň ho na políčko za dierou, aby sa na konci znova pozeral doprava.",
-      "hint": "Hore, dva kroky doprava, dole, a nezabudni sa na konci otočiť späť."
+      "text": "Pred Karlom chýba políčko, je tam diera (stena). Dostaň ho na políčko za dierou tak, aby sa na konci znova pozeral tam, kam na začiatku.",
+      "hint": "Vľavo, krok, vpravo, dva kroky, vpravo, krok, a na konci sa otoč späť vľavo."
     },
     "1.4": {
       "title": "Čelom vzad",
       "concept": "dve otočky",
-      "text": "Otoč Karla čelom vzad. Stojí na mieste, na konci sa pozerá dole namiesto hore.",
+      "text": "Otoč Karla čelom vzad. Stojí na mieste, na konci sa pozerá opačným smerom ako na začiatku.",
       "hint": "Jedna otočka je štvrť kruhu. Koľko ich treba na pol kruhu?"
     },
     "1.5": {
@@ -103,13 +103,13 @@
     "1.6": {
       "title": "Písmeno L",
       "concept": "cesta s jednou otočkou",
-      "text": "Karel stojí vľavo hore a pozerá dole. Prejde po písmene L: dole až k stene a potom doprava až do rohu. Na konci sa pozerá doprava.",
-      "hint": "Tri kroky dole. Karel pozerá dole, takže doprava je pre neho vlavo. Potom tri kroky."
+      "text": "Karel prejde po písmene L: rovno až k stene, otočí sa a ide až do rohu. Na konci sa pozerá tam, kam išiel naposledy.",
+      "hint": "Tri kroky, otočka, tri kroky. Ktorá otočka? Predstav si, že si Karel: stena je pred tebou a roh po tvojej ľavej ruke."
     },
     "1.7": {
       "title": "Cikcak",
       "concept": "striedanie otočiek",
-      "text": "Karel prejde cikcak ako na obrázku: krok, hore, krok, dole, a skončí na treťom políčku spodného radu, otočený doprava. Použi presne štyri kroky.",
+      "text": "Karel prejde cikcak ako na obrázku a skončí na treťom políčku radu, v ktorom začal, otočený ako na začiatku. Použi presne štyri kroky a po každom kroku jednu otočku.",
       "hint": "Po každom kroku príde otočka: vlavo, vpravo, vpravo, vlavo."
     },
     "1.8": {
@@ -121,8 +121,8 @@
     "1.9": {
       "title": "Späť domov",
       "concept": "cesta s dvoma otočkami",
-      "text": "Karel je v pravom hornom rohu a pozerá doľava. Dostaň ho do ľavého dolného rohu tak, aby sa na konci pozeral doprava.",
-      "hint": "Dva kroky doľava, otočka, dva kroky dole, otočka. Ktorá otočka to je, keď Karel pozerá doľava a má ísť dole?"
+      "text": "Karel je v pravom hornom rohu. Dostaň ho do ľavého dolného rohu tak, aby sa na konci pozeral opačným smerom ako na začiatku.",
+      "hint": "Dva kroky, otočka, dva kroky, otočka. Obe otočky sú rovnaké. Predstav si, že si Karel: v rohu máš pred sebou stenu, kadiaľ sa dá ísť ďalej?"
     },
     "2.1": {
       "title": "Zdvihni tehlu",
@@ -134,7 +134,7 @@
       "title": "Dve tehly do rohov",
       "concept": "poloz, otáčanie",
       "text": "Karel položí tehlu do ľavého dolného rohu a do ľavého horného rohu a skončí v pravom hornom rohu.",
-      "hint": "Karel stojí vedľa rohu a pozerá naň, lebo tehlu kladie pred seba. Prvý riadok je poloz. Potom sa otoč hore."
+      "hint": "Karel stojí vedľa rohu a pozerá naň, lebo tehlu kladie pred seba. Prvý riadok je poloz. Potom sa otoč vpravo a choď až k stene."
     },
     "2.3": {
       "title": "Prenes tehlu",
@@ -205,7 +205,7 @@
     "3.4": {
       "title": "Skok koňom",
       "concept": "vlastný pohyb",
-      "text": "Karel má skočiť ako kôň v šachu: dve políčka dopredu, jedno doprava.",
+      "text": "Karel má skočiť ako kôň v šachu: dve políčka dopredu, jedno vpravo.",
       "hint": "Dvojkrok už máš. Potom otočka a krok."
     },
     "3.5": {
@@ -284,7 +284,7 @@
       "title": "Uhlopriečka",
       "concept": "vzor v cykle, plotový problém",
       "text": "Karel označí uhlopriečku miestnosti: políčka 1,1 · 2,2 · 3,3 · 4,4. Skončí v pravom hornom rohu.",
-      "hint": "Čo sa opakuje? Značka, krok doprava, krok hore (a späť do pôvodného smeru). Štyri značky, ale len tri presuny."
+      "hint": "Čo sa opakuje? Značka, krok, otočka vľavo, krok, otočka vpravo (späť do pôvodného smeru). Štyri značky, ale len tri presuny."
     },
     "4.8": {
       "title": "Každé druhé políčko",
@@ -308,7 +308,7 @@
       "title": "Prekážkový beh",
       "concept": "vzor a vlastný príkaz v cykle",
       "text": "V chodbe sú tri prekážky (chýbajúce políčka). Karel sa má dostať na koniec chodby. Napíš príkaz Prekazka pre jednu prekážku a zopakuj ho.",
-      "hint": "Jedna prekážka je obchádzka z úlohy 1.3: hore, ponad, dole. Po nej stojí Karel presne pred ďalšou."
+      "hint": "Jedna prekážka je obchádzka z úlohy 1.3: odboč vľavo, prejdi ponad dieru a vráť sa vpravo do radu. Po nej stojí Karel presne pred ďalšou."
     },
     "5.1": {
       "title": "Zdvihni, ak tam je",
@@ -427,8 +427,8 @@
     "7.4": {
       "title": "Pozbieraj pole",
       "concept": "výzva: prechod po riadkoch",
-      "text": "Pole má dva riadky tehál. Karel pozbiera všetky a skončí vľavo v druhom riadku, otočený k ľavej stene.",
-      "hint": "Ako kombajn: prvý riadok tam, druhý späť. Príkaz Riadok: štyrikrát zdvihni a krok. Potom otočka hore, krok, otočka doľava, a znova Riadok."
+      "text": "Pole má dva riadky tehál. Karel pozbiera všetky a skončí na začiatku druhého riadku, otočený opačne ako na začiatku.",
+      "hint": "Ako kombajn: prvý riadok tam, druhý späť. Príkaz Riadok: štyrikrát zdvihni a krok. Na konci riadku: otočka vľavo, krok, otočka vľavo, a znova Riadok."
     },
     "7.5": {
       "title": "Rám okolo miestnosti",
@@ -439,8 +439,8 @@
     "7.6": {
       "title": "Šachovnica",
       "concept": "výzva: vzor s posunom",
-      "text": "Karel vyfarbí miestnosť 4 × 4 ako šachovnicu: každé druhé políčko, a každý ďalší riadok posunutý o jedno. Skončí vľavo hore v druhom políčku.",
-      "hint": "Príkaz Riadok: značka, dva kroky, značka. Na konci riadku sa Karel otočí hore, krok, a otočí sa do protismeru. Raz doľava a raz doprava, podľa toho, kam ide. Posun sa urobí sám."
+      "text": "Karel vyfarbí miestnosť 4 × 4 ako šachovnicu: každé druhé políčko, a každý ďalší riadok posunutý o jedno. Skončí v poslednom riadku na druhom políčku, otočený opačne ako na začiatku.",
+      "hint": "Príkaz Riadok: značka, dva kroky, značka. Na konci prvého riadku: vľavo, krok, vľavo. Na konci druhého: vpravo, krok, vpravo. A tak striedavo, posun sa urobí sám."
     },
     "8.1": {
       "title": "Maratón",
