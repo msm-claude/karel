@@ -28,6 +28,10 @@ h1 {
   flex-wrap: wrap;
   margin-top: 26px;
 }
+.cta .pill {
+  display: inline-flex;
+  align-items: center;
+}
 .demo {
   display: grid;
   gap: 14px;
@@ -95,8 +99,5 @@ footer {
   .hero,
   .how {
     grid-template-columns: 1fr;
-  }
-  .top nav a:not(.pill) {
-    display: none;
   }
 }
