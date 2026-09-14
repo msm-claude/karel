@@ -47,6 +47,14 @@
         <div class="tab on" id="tab-program"><div class="ed" id="ed"></div></div>
         <div class="tab" id="tab-room">
           <div class="form">
+            <div class="tools" id="tools">
+              <button data-tool="brickAdd" class="on"></button>
+              <button data-tool="brickRemove"></button>
+              <button data-tool="mark"></button>
+              <button data-tool="hole"></button>
+              <button data-tool="karel"></button>
+            </div>
+            <p class="hint" id="editHint"></p>
             <div class="row">
               <label><span id="lblW"></span><input type="number" id="roomW" min="1" max="30" /></label>
               <label><span id="lblH"></span><input type="number" id="roomH" min="1" max="30" /></label>

@@ -17,6 +17,7 @@ export interface Palette {
   pit: string;
   plate: string;
   edge: string;
+  hover: string;
   karelTop: string;
   karelLeft: string;
   karelRight: string;
@@ -36,6 +37,7 @@ export const OVERWORLD: Palette = {
   pit: '#2a1c10',
   plate: 'rgba(23,33,43,.18)',
   edge: 'rgba(23,33,43,.6)',
+  hover: '#ffffff',
   karelTop: '#ff7a4a',
   karelLeft: '#b53c17',
   karelRight: '#e8562a',
@@ -86,6 +88,54 @@ export interface RenderOptions {
   labelColor?: string;
   /** how many brick levels the fit reserves room for; the app keeps 10 (the cap), a static picture can pass what it holds */
   levels?: number;
+  /** room editing: bricks, marks and Karel go translucent so the floor underneath stays clickable */
+  ghost?: boolean;
+  /** world tile to highlight on the floor (the one under the pointer) */
+  hover?: [number, number] | null;
+}
+
+export interface Layout {
+  W: number;
+  H: number;
+  FZ: number;
+  ox: number;
+  oy: number;
+  rw: number;
+  rh: number;
+  map: (x: number, y: number) => Pt;
+  /** rotated cell index -> world tile index */
+  inv: Int32Array;
+}
+
+/** Tile size and origin for a world in a css-pixel box; shared by the renderer and the hit test. */
+export function layout(cssW: number, cssH: number, world: World, view: View, opts: RenderOptions = {}): Layout {
+  const { rw, rh, map } = rotated(world, view);
+  const inv = new Int32Array(rw * rh);
+  for (let y = 0; y < world.h; y++)
+    for (let x = 0; x < world.w; x++) {
+      const [i, j] = map(x, y);
+      inv[j * rw + i] = y * world.w + x;
+    }
+  const maxLevels = opts.levels ?? 10; // bricks per tile cap
+  const pad = opts.labels ? 0.84 : 0.92; // room for the numbers
+  const W = Math.min((cssW / (rw + rh)) * pad, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * pad, 52);
+  const H = W / 2;
+  const Z = W * 0.62;
+  const ox = cssW / 2 + ((rh - rw) * W) / 2;
+  const oy = (cssH - (rw + rh) * H) / 2 + maxLevels * 0.12 * Z;
+  return { W, H, FZ: W * 0.28, ox, oy, rw, rh, map, inv };
+}
+
+/** World tile whose floor top lies under the css-pixel point (px, py) of the canvas, or null. */
+export function pickTile(canvas: HTMLCanvasElement, world: World, view: View, px: number, py: number, opts: RenderOptions = {}): [number, number] | null {
+  const L = layout(canvas.clientWidth, canvas.clientHeight, world, view, opts);
+  const u = (px - L.ox) / L.W; // i - j
+  const v = (py + L.FZ - L.oy) / L.H; // i + j, the floor top sits FZ above the ground plane
+  const i = Math.round((u + v) / 2);
+  const j = Math.round((v - u) / 2);
+  if (i < 0 || j < 0 || i >= L.rw || j >= L.rh) return null;
+  const idx = L.inv[j * L.rw + i]!;
+  return [idx % world.w, Math.floor(idx / world.w)];
 }
 
 export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View, P: Palette = OVERWORLD, opts: RenderOptions = {}): void {
@@ -104,24 +154,9 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, cssW, cssH);
 
-  const { rw, rh, map } = rotated(world, view);
-  // inverse map: rotated cell -> world tile index
-  const inv = new Int32Array(rw * rh);
-  for (let y = 0; y < world.h; y++)
-    for (let x = 0; x < world.w; x++) {
-      const [i, j] = map(x, y);
-      inv[j * rw + i] = y * world.w + x;
-    }
-
-  const maxLevels = opts.levels ?? 10; // bricks per tile cap
-  const pad = opts.labels ? 0.84 : 0.92; // room for the numbers
-  const W = Math.min((cssW / (rw + rh)) * pad, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * pad, 52);
-  const H = W / 2;
+  const { W, H, FZ, ox, oy, rw, rh, map, inv } = layout(cssW, cssH, world, view, opts);
   const Z = W * 0.62; // Karel's unit height
   const BZ = W * 0.31; // one brick: half a unit, so tall stacks stay readable
-  const FZ = W * 0.28;
-  const ox = cssW / 2 + ((rh - rw) * W) / 2;
-  const oy = (cssH - (rw + rh) * H) / 2 + maxLevels * 0.12 * Z;
   const sx = (i: number, j: number) => ox + (i - j) * W;
   const sy = (i: number, j: number) => oy + (i + j) * H;
 
@@ -167,6 +202,13 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     face(up(L, z1), [B[0] - L[0], B[1] - L[1]], [0, z1 - z0], cols[1], seed, 1, edged);
     face(up(B, z1), [R[0] - B[0], R[1] - B[1]], [0, z1 - z0], cols[2], seed, 2, edged);
     face(up(L, z1), [T[0] - L[0], T[1] - L[1]], [B[0] - L[0], B[1] - L[1]], cols[0], seed, 0, edged);
+  }
+
+  function hoverAt(i: number, j: number, z: number): void {
+    const cx = sx(i, j);
+    const cy = sy(i, j) - z;
+    poly([[cx - W, cy], [cx, cy - H], [cx + W, cy], [cx, cy + H]], 'rgba(255,255,255,0.45)', P.hover);
+    ctx!.lineWidth = 1;
   }
 
   function markAt(i: number, j: number, z: number): void {
@@ -248,20 +290,25 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       const t = world.tiles[idx]!;
       const wx = idx % world.w;
       const wy = (idx - wx) / world.w;
+      const hovered = opts.hover?.[0] === wx && opts.hover?.[1] === wy;
       if (t.removed) {
         const cx = sx(i, j);
         const cy = sy(i, j);
         poly([[cx - W, cy], [cx, cy - H], [cx + W, cy], [cx, cy + H]], P.pit);
+        if (hovered) hoverAt(i, j, 0);
         continue;
       }
       box(i, j, W, 0, FZ, [P.floorTop, P.floorLeft, P.floorRight], wx * 31 + wy);
+      if (hovered) hoverAt(i, j, FZ);
       let z = FZ;
+      if (opts.ghost) ctx.globalAlpha = 0.45;
       for (let k = 0; k < t.bricks; k++) {
         box(i, j, W, z, z + BZ, [P.brickTop, P.brickLeft, P.brickRight], wx * 31 + wy + k * 7);
         z += BZ;
       }
       if (t.mark) markAt(i, j, z);
       if (i === ki && j === kj) karelAt(i, j, z, rel, t.mark);
+      ctx.globalAlpha = 1;
     }
   }
 

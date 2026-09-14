@@ -3,11 +3,11 @@
 import { decodeProgram, decodeWorld, encodeProgram, encodeWorld, parseHash } from '../core/encode';
 import { parse, ParseError } from '../core/parser';
 import { translate } from '../core/translate';
-import { cloneWorld, emptyWorld, MAX_SIZE, type World } from '../core/world';
+import { cloneWorld, emptyWorld, MAX_BRICKS, MAX_SIZE, resizeWorld, tileAt, turnRight, type World } from '../core/world';
 import { allKeywordWords, defaultLocale, isLocaleId, localeIds, locales, normalize, type Locale, type LocaleId } from '../lang/index';
 import { Driver } from './driver';
 import { Editor } from './editor';
-import { renderWorld, type View } from './render';
+import { pickTile, renderWorld, type View } from './render';
 
 const DEFAULT_ROOM = '1.10x8.2,5,0.2AB7A8A2zA5EGCAz10A10A3ABCEHI2A8ABAB9A';
 const DEFAULT_PROGRAM: Record<LocaleId, string> = {
@@ -61,6 +61,11 @@ let steps = 0;
 let statusKey: 'ready' | 'running' | 'stopped' | 'done' = 'ready';
 let statusLine: number | null = null;
 let errorText: string | null = null;
+// room editing: on while the Room tab is open; clicks on the floor edit what is drawn and make it the room
+type Tool = 'brickAdd' | 'brickRemove' | 'mark' | 'hole' | 'karel';
+let editing = false;
+let tool: Tool = 'brickAdd';
+let hover: [number, number] | null = null;
 
 const canvas = $<HTMLCanvasElement>('cv');
 const hud = $('hud');
@@ -122,7 +127,8 @@ function t(key: string): string {
 }
 
 function draw(): void {
-  renderWorld(canvas, world, view);
+  renderWorld(canvas, world, view, undefined, editing ? { ghost: true, hover } : {});
+  canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
   hud.innerHTML = `${t('karel')} ${world.karel.x + 1}, ${room.h - world.karel.y} → ${dirs[world.karel.dir]}<small>${t('steps')} ${steps}, ${t('view')} ${views[view]}</small>`;
@@ -150,6 +156,8 @@ function applyLocaleText(): void {
   $('lblH').textContent = t('height');
   $('lblCode').textContent = t('mapCode');
   $('newRoom').textContent = t('newRoom');
+  $('editHint').textContent = t('editHint');
+  for (const b of $('tools').querySelectorAll<HTMLButtonElement>('button')) b.textContent = t(`tool${b.dataset['tool']![0]!.toUpperCase()}${b.dataset['tool']!.slice(1)}`);
   $('applyMap').textContent = t('applyMap');
   $('captureRoom').textContent = t('captureRoom');
   $('download').textContent = t('download');
@@ -280,6 +288,46 @@ function setRoom(next: World): void {
   resetWorld();
 }
 
+/** One edit click on a floor tile: mutate the drawn world, then it becomes the room. Invalid edits do nothing. */
+function editTile(x: number, y: number): void {
+  const w = cloneWorld(world);
+  const tile = tileAt(w, x, y)!;
+  const onKarel = w.karel.x === x && w.karel.y === y;
+  switch (tool) {
+    case 'brickAdd':
+      if (tile.removed || tile.bricks >= MAX_BRICKS) return;
+      tile.bricks++;
+      break;
+    case 'brickRemove':
+      if (tile.removed || tile.bricks === 0) return;
+      tile.bricks--;
+      break;
+    case 'mark':
+      if (tile.removed) return;
+      tile.mark = !tile.mark;
+      break;
+    case 'hole':
+      if (onKarel) return;
+      tile.removed = !tile.removed;
+      if (tile.removed) {
+        tile.bricks = 0;
+        tile.mark = false;
+      }
+      break;
+    case 'karel':
+      if (tile.removed) return;
+      if (onKarel) turnRight(w);
+      else w.karel = { ...w.karel, x, y };
+      break;
+  }
+  setRoom(w);
+}
+
+function canvasPoint(e: MouseEvent): [number, number] {
+  const r = canvas.getBoundingClientRect();
+  return [e.clientX - r.left, e.clientY - r.top];
+}
+
 async function share(): Promise<void> {
   // built by hand: the map code is URL-safe as is, and commas stay readable
   let hash = `m=${encodeWorld(room)}`;
@@ -360,8 +408,44 @@ $('tabs').addEventListener('click', (e) => {
   if (!b) return;
   for (const x of $('tabs').querySelectorAll('button')) x.classList.toggle('on', x === b);
   for (const x of document.querySelectorAll<HTMLElement>('.tab')) x.classList.toggle('on', x.id === `tab-${b.dataset['tab']}`);
+  editing = b.dataset['tab'] === 'room';
+  if (!editing) hover = null;
   if (b.dataset['tab'] === 'program') editor.focus();
+  draw();
 });
+$('tools').addEventListener('click', (e) => {
+  const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-tool]');
+  if (!b) return;
+  tool = b.dataset['tool'] as Tool;
+  for (const x of $('tools').querySelectorAll('button')) x.classList.toggle('on', x === b);
+});
+canvas.addEventListener('mousemove', (e) => {
+  if (!editing) return;
+  const [px, py] = canvasPoint(e);
+  const next = pickTile(canvas, world, view, px, py);
+  if (next?.[0] === hover?.[0] && next?.[1] === hover?.[1]) return;
+  hover = next;
+  draw();
+});
+canvas.addEventListener('mouseleave', () => {
+  if (!hover) return;
+  hover = null;
+  draw();
+});
+canvas.addEventListener('click', (e) => {
+  if (!editing) return;
+  const [px, py] = canvasPoint(e);
+  const hit = pickTile(canvas, world, view, px, py);
+  if (hit) editTile(hit[0], hit[1]);
+});
+// width and height inputs resize the room in place, content and school coordinates kept
+for (const id of ['roomW', 'roomH'] as const)
+  $<HTMLInputElement>(id).addEventListener('change', () => {
+    const w = Math.max(1, Math.min(MAX_SIZE, Number($<HTMLInputElement>('roomW').value) || 1));
+    const h = Math.max(1, Math.min(MAX_SIZE, Number($<HTMLInputElement>('roomH').value) || 1));
+    if (w === room.w && h === room.h) return;
+    setRoom(resizeWorld(world, w, h));
+  });
 $('newRoom').addEventListener('click', () => {
   const w = Math.max(1, Math.min(MAX_SIZE, Number($<HTMLInputElement>('roomW').value) || 1));
   const h = Math.max(1, Math.min(MAX_SIZE, Number($<HTMLInputElement>('roomH').value) || 1));

@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { parse } from '../src/core/parser';
 import { run, runToEnd } from '../src/core/interp';
 import { decodeWorld, encodeWorld } from '../src/core/encode';
-import { emptyWorld, MAX_BRICKS } from '../src/core/world';
+import { emptyWorld, MAX_BRICKS, resizeWorld } from '../src/core/world';
+import { layout } from '../src/ui/render';
 import { locales } from '../src/lang/index';
 
 const sk = locales.sk;
@@ -149,5 +150,47 @@ describe('room encoding', () => {
     expect(() => decodeWorld('1.31x2.0,0,0.62A')).toThrow();
     expect(() => decodeWorld('1.3x2.5,0,0.6A')).toThrow();
     expect(() => decodeWorld('1.3x2.2,1,0.5Az')).toThrow(); // karel on removed tile
+  });
+});
+
+describe('resizeWorld', () => {
+  it('keeps school coordinates: grows right and at the top, karel follows', () => {
+    const w = emptyWorld(3, 2);
+    w.tiles[1 * 3 + 2]!.bricks = 4; // column 3, row 1 (bottom)
+    w.karel = { x: 1, y: 1, dir: 2 };
+    const big = resizeWorld(w, 4, 3);
+    expect(big.tiles[2 * 4 + 2]!.bricks).toBe(4);
+    expect(big.karel).toEqual({ x: 1, y: 2, dir: 2 });
+    const small = resizeWorld(big, 2, 1);
+    expect(small.karel).toEqual({ x: 1, y: 0, dir: 2 });
+    expect(small.tiles.every((t) => t.bricks === 0)).toBe(true);
+  });
+  it('clamps karel back in and reopens his tile', () => {
+    const w = emptyWorld(3, 3);
+    w.karel = { x: 2, y: 0, dir: 0 };
+    w.tiles[2 * 3 + 1]!.removed = true;
+    const s = resizeWorld(w, 2, 1);
+    expect(s.karel).toEqual({ x: 1, y: 0, dir: 0 });
+    expect(s.tiles[1]!.removed).toBe(false);
+  });
+});
+
+describe('layout hit test', () => {
+  it('maps every tile centre back to the tile in all four views', () => {
+    const w = emptyWorld(5, 3);
+    for (const view of [0, 1, 2, 3] as const) {
+      const L = layout(600, 400, w, view);
+      for (let y = 0; y < w.h; y++)
+        for (let x = 0; x < w.w; x++) {
+          const [i, j] = L.map(x, y);
+          const px = L.ox + (i - j) * L.W;
+          const py = L.oy + (i + j) * L.H - L.FZ;
+          const u = (px - L.ox) / L.W;
+          const v = (py + L.FZ - L.oy) / L.H;
+          const ri = Math.round((u + v) / 2);
+          const rj = Math.round((v - u) / 2);
+          expect(L.inv[rj * L.rw + ri]).toBe(y * w.w + x);
+        }
+    }
   });
 });

@@ -51,8 +51,12 @@ index is `bricks * 2 + mark` over `A..Z a..y`. A repeated letter takes a decimal
 count prefix. `1.12x8.0,0,0.B11AB25A4G54A` is a 12×8 room with one mark, one
 brick and a 3-high wall. The encoding is versioned; v1 stays decodable.
 
-To make a room: open the Room tab, set a size, let Karel build it with a
-program, then "save current state as the room" and share the link.
+To make a room: open the Room tab and click the floor. The tools add or
+remove a brick, toggle a mark, dig or fill a hole, and move Karel (a click on
+his own tile turns him). Bricks go translucent while editing so every floor
+tile stays reachable; width and height resize the room in place, keeping the
+content and the column/row numbers. Every edit becomes the room, so Reset and
+the shared link return to it.
 
 ## Tasks
 

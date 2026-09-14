@@ -55,6 +55,28 @@ export function emptyWorld(w: number, h: number): World {
   return { w, h, tiles, karel: { x: 0, y: h - 1, dir: 0 } };
 }
 
+/**
+ * Resize keeping the content and the school coordinates: columns grow to the right (x = w),
+ * rows grow at the top (y = 0), so a tile keeps its "column c, row r from the bottom" address.
+ * Karel follows his tile; if it is cut off he is clamped back into the room.
+ */
+export function resizeWorld(world: World, w: number, h: number): World {
+  const dy = h - world.h;
+  const next = emptyWorld(w, h);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const src = tileAt(world, x, y - dy);
+      if (src) next.tiles[y * w + x] = { ...src };
+    }
+  next.karel = {
+    x: Math.min(world.karel.x, w - 1),
+    y: Math.max(0, Math.min(world.karel.y + dy, h - 1)),
+    dir: world.karel.dir,
+  };
+  if (next.tiles[next.karel.y * w + next.karel.x]!.removed) next.tiles[next.karel.y * w + next.karel.x]!.removed = false;
+  return next;
+}
+
 export function cloneWorld(world: World): World {
   return {
     w: world.w,

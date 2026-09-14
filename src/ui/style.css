@@ -319,6 +319,32 @@ input[type='range']::-moz-range-thumb {
   flex-direction: column;
   gap: 14px;
 }
+.form .tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.form .tools button {
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 6px 12px;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.form .tools button.on {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.form .hint {
+  margin: 0;
+  color: var(--dim);
+  font-size: 13px;
+}
+canvas.edit {
+  cursor: crosshair;
+}
 .form .row {
   display: flex;
   gap: 12px;
