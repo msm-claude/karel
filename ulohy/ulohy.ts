@@ -6,7 +6,7 @@ import data from './tasks.json';
 import { karelFile, mapCode, toWorld, type SchoolWorld, type Task, type Tasks } from './world';
 
 const DATA = data as unknown as Tasks;
-const APP = new URL('../', location.href).href;
+const APP = new URL('../app/', location.href).href;
 const TYPE_LABEL: Record<string, string> = { trace: 'hádanka', bug: 'chyba' };
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');

@@ -3,82 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="./favicon.svg">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<title>Karel</title>
+    <script>
+      // room and program links used to point at the root; the app lives in app/ now
+      if (/(^|[#&])[mp]=/.test(location.hash)) location.replace('app/' + location.hash);
+    </script>
+    <link rel="icon" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <title>Karel – robot, ktorý robí presne to, čo napíšeš</title>
+    <meta name="description" content="Karel je robot v miestnosti z kociek. Napíšeš mu program po slovensky, spustíš ho a pozeráš, čo urobí. Bez účtu, bez inštalácie." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Fira+Code:wght@400;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./src/ui/style.css" />
+    <link rel="stylesheet" href="./src/ui/landing.css" />
   </head>
   <body>
     <header class="top">
       <div class="brand"><i></i>Karel</div>
-      <span class="roomname" id="roomname"></span>
-      <div class="sp"></div>
-      <div class="lang" id="lang"></div>
-      <button class="pill" id="share"></button>
+      <nav>
+        <a href="./ulohy/">Zadania</a>
+        <a class="pill" href="./app/">Otvoriť Karla</a>
+      </nav>
     </header>
-    <main class="main">
-      <section class="stage">
-        <div class="world">
-          <div class="hud" id="hud"></div>
-          <div class="rot">
-            <button id="rotL" title="">↺</button>
-            <button id="rotR" title="">↻</button>
-          </div>
-          <canvas id="cv"></canvas>
+    <main>
+      <section class="hero">
+        <div class="pitch">
+          <h1>Robot, ktorý robí presne to, čo napíšeš.</h1>
+          <p>
+            Karel stojí v miestnosti z kociek. Vie urobiť krok, otočiť sa, položiť a zdvihnúť tehlu, dať značku. Nič viac.
+            Všetko ostatné ho naučíš ty: napíšeš program, spustíš ho a pozeráš, čo urobí.
+          </p>
+          <p class="cta">
+            <a class="pill big" href="./app/">Otvoriť Karla</a>
+            <a class="pill" href="./ulohy/">Zadania</a>
+          </p>
         </div>
-        <div class="hotbar">
-          <button class="slot run" id="run"><span></span><small>F5</small></button>
-          <button class="slot" id="step"><span></span><small>F10</small></button>
-          <button class="slot" id="stop"><span></span><small>Esc</small></button>
-          <label class="slot wide" id="speedSlot"><span></span><input type="range" id="speed" min="1" max="5" step="1" /></label>
-          <button class="slot" id="reset"><span></span><small></small></button>
+        <div class="demo">
+          <div class="world"><canvas id="cv"></canvas></div>
+          <pre id="src"></pre>
         </div>
       </section>
-      <section class="right">
-        <nav class="tabs" id="tabs">
-          <button data-tab="program" class="on"></button>
-          <button data-tab="room"></button>
-          <button data-tab="reference"></button>
-        </nav>
-        <div class="tab on" id="tab-program"><div class="ed" id="ed"></div></div>
-        <div class="tab" id="tab-room">
-          <div class="form">
-            <div class="tools" id="tools">
-              <button data-tool="brickAdd" class="on"></button>
-              <button data-tool="brickRemove"></button>
-              <button data-tool="mark"></button>
-              <button data-tool="hole"></button>
-              <button data-tool="karel"></button>
-            </div>
-            <p class="hint" id="editHint"></p>
-            <div class="row">
-              <label><span id="lblW"></span><input type="number" id="roomW" min="1" max="30" /></label>
-              <label><span id="lblH"></span><input type="number" id="roomH" min="1" max="30" /></label>
-              <button class="pill" id="newRoom"></button>
-            </div>
-            <label class="col"><span id="lblCode"></span><textarea id="roomCode" rows="4" spellcheck="false"></textarea></label>
-            <div class="row">
-              <button class="pill" id="pasteMap"></button>
-              <button class="pill" id="captureRoom"></button>
-            </div>
-            <div class="row">
-              <button class="pill" id="download"></button>
-              <button class="pill" id="upload"></button>
-              <input type="file" id="uploadFile" accept=".karel,.txt" hidden />
-            </div>
-          </div>
+
+      <section class="how">
+        <div>
+          <h2>Program</h2>
+          <p>
+            Príkazy sa píšu po slovensky, bez diakritiky: <code>krok</code>, <code>vlavo</code>, <code>poloz</code>. Z nich skladáš
+            vlastné príkazy, opakovanie a podmienky. Program beží krok po kroku, chyba zastaví na riadku, kde vznikla.
+          </p>
         </div>
-        <div class="tab" id="tab-reference"><div class="ref" id="ref"></div></div>
-        <footer class="foot"><span id="status"></span><span id="saved"></span></footer>
+        <div>
+          <h2>Miestnosť</h2>
+          <p>
+            Miestnosť si postavíš klikaním na podlahu: tehly, značky, diery, Karlov štart. Alebo otvoríš hotovú mapu zo
+            zadania a rovno píšeš.
+          </p>
+        </div>
+        <div>
+          <h2>Odkaz</h2>
+          <p>
+            Miestnosť aj program sa zmestia do adresy stránky. Pošleš odkaz a druhý vidí to isté. Bez účtu, bez servera, bez
+            inštalácie; funguje aj na iPade.
+          </p>
+        </div>
       </section>
     </main>
-    <div class="toast" id="toast"></div>
-    <script type="module" src="./src/ui/main.ts"></script>
+    <footer>
+      <span>Voľná reimplementácia <a href="https://karelrobot.cz">Robota Karla 3D</a>.</span>
+      <a href="https://github.com/msm-claude/karel">Zdrojový kód</a>
+    </footer>
+    <script type="module" src="./src/ui/landing.ts"></script>
   </body>
 </html>

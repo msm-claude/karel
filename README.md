@@ -4,9 +4,16 @@ Karel the robot for Slovak homeschool: isometric, localizable, programs
 written by hand. A reimplementation of [Robot Karel 3D](https://karelrobot.cz)
 without the 3D engine, the block editor and the server. Design record: #1.
 
+Live: [landing](https://msm-claude.github.io/karel/) ·
+[app](https://msm-claude.github.io/karel/app/) ·
+[tasks](https://msm-claude.github.io/karel/ulohy/).
+
 ## What it is
 
-- A static page: a canvas with an isometric room, a text editor, six controls.
+- Three static pages from one build: the landing (`index.html`), the app
+  (`app/`) and the task sheet (`ulohy/`). Room links that still point at the
+  root are forwarded to the app by the landing page.
+- The app: a canvas with an isometric room, a text editor, six controls.
 - Slovak by default, Czech and English as free extras. Switching the language
   translates the program; keywords carry no diacritics in any language.
 - Rooms travel in the link. `#m=` is the room, `#p=` an optional program,
