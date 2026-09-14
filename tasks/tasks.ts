@@ -104,7 +104,7 @@ function render(): void {
   for (const [id, w] of canvases) {
     const el = document.getElementById(id) as HTMLCanvasElement | null;
     if (el) {
-      const top = Math.max(1, ...Object.values(w.bricks ?? {})) + 1; // room for the stacks plus Karel's head
+      const top = Math.max(0, ...Object.values(w.bricks ?? {})); // the fit adds Karel's height itself
       renderWorld(el, toWorld(w), 0, OVERWORLD, { levels: top });
     }
   }

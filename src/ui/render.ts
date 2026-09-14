@@ -90,7 +90,7 @@ export interface RenderOptions {
   /** number the tiles like a chessboard: columns 1..w and rows 1..h (from the bottom), always on the two front edges */
   labels?: boolean;
   labelColor?: string;
-  /** how many brick levels the fit reserves room for; the app keeps 10 (the cap), a static picture can pass what it holds */
+  /** how many bricks the fit reserves headroom for (Karel on top is always added); the app keeps 10 (the cap), a static picture passes what it holds */
   levels?: number;
   /** room editing: bricks, marks and Karel go translucent so the floor underneath stays clickable */
   ghost?: boolean;
@@ -122,11 +122,14 @@ export function layout(cssW: number, cssH: number, world: World, view: View, opt
     }
   const maxLevels = opts.levels ?? 10; // bricks per tile cap
   const pad = opts.labels ? 0.84 : 0.92; // room for the numbers
-  const W = Math.min((cssW / (rw + rh)) * pad, (cssH / ((rw + rh) / 2 + maxLevels * 0.35 + 0.8)) * pad, 52);
+  // vertical extent in tile widths: the floor diamonds span (rw + rh) / 2, plus the floor's thickness at the
+  // front, plus at the back the floor's thickness, the tallest stack and Karel on top of it (1.04, see karelAt)
+  const above = 0.28 + maxLevels * 0.31 + 1.04;
+  const total = (rw + rh) / 2 + above + 0.28;
+  const W = Math.min((cssW / (rw + rh)) * pad, (cssH / total) * pad, 52);
   const H = W / 2;
-  const Z = W * 0.62;
   const ox = cssW / 2 + ((rh - rw) * W) / 2;
-  const oy = (cssH - (rw + rh) * H) / 2 + maxLevels * 0.12 * Z;
+  const oy = (cssH - total * W) / 2 + H + above * W; // the back corner's ground point, with the headroom above it
   return { W, H, FZ: W * 0.28, ox, oy, rw, rh, map, inv };
 }
 
