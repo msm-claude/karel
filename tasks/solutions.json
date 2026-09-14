@@ -5,7 +5,7 @@
   },
   "1.2": {
     "solution": "prikaz Do_rohu\n    krok\n    krok\n    krok\n    vlavo\n    krok\n    krok\n    krok\nkoniec\n\nDo_rohu",
-    "why": "Karel pozerá doprava (na východ). Otočka vľavo ho otočí hore (na sever). Vľavo a vpravo sú vždy z jeho pohľadu."
+    "why": "Karel ide rovno k stene. Otočka vľavo ho otočí k druhému rohu. Vľavo a vpravo sú vždy z jeho pohľadu."
   },
   "1.3": {
     "solution": "prikaz Obchadzka\n    vlavo\n    krok\n    vpravo\n    krok\n    krok\n    vpravo\n    krok\n    vlavo\nkoniec\n\nObchadzka",
@@ -17,11 +17,11 @@
   },
   "1.5": {
     "solution": "prikaz Hadanka\n    krok\n    krok\n    vlavo\n    krok\n    vlavo\n    krok\nkoniec\n\nHadanka",
-    "why": "Dva kroky doprava, otočka hore, krok, otočka doľava (na západ), krok späť. Karel skončí na políčku 2, 2 a pozerá doľava."
+    "why": "Dva kroky, otočka vľavo, krok, otočka vľavo, krok späť. Karel skončí na políčku 2, 2 otočený opačne ako na začiatku."
   },
   "1.6": {
     "solution": "prikaz Elko\n    krok\n    krok\n    krok\n    vlavo\n    krok\n    krok\n    krok\nkoniec\n\nElko",
-    "why": "Keď Karel pozerá dole, jeho ľavá strana je naša pravá. Otočky sú vždy z Karlovho pohľadu."
+    "why": "Otočky sú vždy z Karlovho pohľadu: roh je po jeho ľavej ruke, preto vlavo."
   },
   "1.7": {
     "solution": "prikaz Cikcak\n    krok\n    vlavo\n    krok\n    vpravo\n    krok\n    vpravo\n    krok\n    vlavo\nkoniec\n\nCikcak",
@@ -29,11 +29,11 @@
   },
   "1.8": {
     "solution": "prikaz Otocky\n    vpravo\n    vpravo\n    vpravo\n    vlavo\n    vlavo\nkoniec\n\nOtocky",
-    "why": "Tri otočky doprava sú to isté ako jedna doľava. Potom ešte dve doľava. Spolu je to jedna otočka doprava: Karel pozerá doprava."
+    "why": "Tri otočky doprava sú to isté ako jedna doľava. Potom ešte dve doľava. Spolu je to jedna otočka vpravo oproti začiatku."
   },
   "1.9": {
     "solution": "prikaz Domov\n    krok\n    krok\n    vlavo\n    krok\n    krok\n    vlavo\nkoniec\n\nDomov",
-    "why": "Obe otočky sú vlavo, hoci z nášho pohľadu ide Karel najprv dole a potom doprava. Otočky sú z jeho pohľadu."
+    "why": "Obe otočky sú vlavo, hoci na obrázku Karel mení smer dvakrát inak. Otočky sú z jeho pohľadu."
   },
   "2.1": {
     "solution": "prikaz Zober\n    krok\n    krok\n    zdvihni\n    krok\nkoniec\n\nZober",
@@ -41,7 +41,7 @@
   },
   "2.2": {
     "solution": "prikaz Dve_tehly\n    poloz\n    vpravo\n    krok\n    krok\n    krok\n    vlavo\n    poloz\n    vpravo\n    vpravo\n    krok\n    krok\nkoniec\n\nDve_tehly",
-    "why": "Hore v rohu sa Karel otočí doľava, aby pozeral na roh, položí tehlu, a dvoma vpravo sa otočí čelom vzad, na východ."
+    "why": "V druhom rohu sa Karel otočí vľavo, aby pozeral na roh, položí tehlu, a dvoma vpravo sa otočí čelom vzad."
   },
   "2.3": {
     "solution": "prikaz Prenes\n    krok\n    zdvihni\n    krok\n    krok\n    poloz\nkoniec\n\nPrenes",
@@ -157,7 +157,7 @@
   },
   "4.11": {
     "solution": "prikaz Prekazka\n    vlavo\n    krok\n    vpravo\n    krok\n    krok\n    vpravo\n    krok\n    vlavo\nkoniec\n\nprikaz Beh\n    opakuj 3 krat\n        Prekazka\n    koniec\nkoniec\n\nBeh",
-    "why": "Klasická úloha Steeple chase. Dôležité je, že Prekazka končí v rovnakom stave, v akom začala: na zemi, pozerá doprava. Len vtedy sa dá opakovať."
+    "why": "Klasická úloha Steeple chase. Dôležité je, že Prekazka končí v rovnakom stave, v akom začala: na zemi, otočený ako na začiatku. Len vtedy sa dá opakovať."
   },
   "5.1": {
     "solution": "prikaz Zbieraj\n    opakuj 5 krat\n        ak je tehla\n        tak\n            zdvihni\n        koniec\n        krok\n    koniec\nkoniec\n\nZbieraj",
@@ -237,7 +237,7 @@
   },
   "7.4": {
     "solution": "prikaz Riadok\n    opakuj 4 krat\n        zdvihni\n        krok\n    koniec\nkoniec\n\nprikaz Pole\n    Riadok\n    vlavo\n    krok\n    vlavo\n    Riadok\nkoniec\n\nPole",
-    "why": "Klasická úloha Harvester. Rozšírenie: tretí riadok. Čo sa zmení na obrátke, keď Karel ide doľava a má sa otočiť hore? (vpravo, krok, vpravo)"
+    "why": "Klasická úloha Harvester. Rozšírenie: tretí riadok. Čo sa zmení na druhej obrátke, keď sa Karel vracia? (vpravo, krok, vpravo)"
   },
   "7.5": {
     "solution": "prikaz Strana\n    kym je volno\n        oznac\n        krok\n    koniec\nkoniec\n\nprikaz Ram\n    opakuj 4 krat\n        Strana\n        vpravo\n    koniec\nkoniec\n\nRam",
