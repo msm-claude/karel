@@ -73,7 +73,7 @@ export const sk: Locale = {
     view: 'pohľad',
     north: 'S',
     dirs: 'východ,sever,západ,juh',
-    views: 'zo severovýchodu,z juhovýchodu,z juhozápadu,zo severozápadu',
+    views: 'z juhovýchodu,z juhozápadu,zo severozápadu,zo severovýchodu',
     ready: 'pripravený',
     running: 'beží',
     stopped: 'zastavený',

@@ -74,7 +74,7 @@ export const cs: Locale = {
     view: 'pohled',
     north: 'S',
     dirs: 'východ,sever,západ,jih',
-    views: 'ze severovýchodu,z jihovýchodu,z jihozápadu,ze severozápadu',
+    views: 'z jihovýchodu,z jihozápadu,ze severozápadu,ze severovýchodu',
     ready: 'připraven',
     running: 'běží',
     stopped: 'zastaven',

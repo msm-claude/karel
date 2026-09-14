@@ -56,7 +56,7 @@ function initialRoom(): World {
 }
 let room: World = initialRoom(); // the reset state, what links share
 let world: World = cloneWorld(room); // what is drawn; runs continue from here
-// the view always opens from the north-east, the way the task sheet draws every map; it is not remembered
+// the view always opens from the south-east, the way the task sheet draws every map; it is not remembered
 let view: View = 0;
 let steps = 0;
 let statusKey: 'ready' | 'running' | 'stopped' | 'done' = 'ready';

@@ -73,7 +73,7 @@ export const en: Locale = {
     view: 'view',
     north: 'N',
     dirs: 'east,north,west,south',
-    views: 'from north-east,from south-east,from south-west,from north-west',
+    views: 'from south-east,from south-west,from north-west,from north-east',
     ready: 'ready',
     running: 'running',
     stopped: 'stopped',
