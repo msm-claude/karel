@@ -71,7 +71,7 @@ export const sk: Locale = {
     karel: 'Karel',
     steps: 'kroky',
     view: 'pohľad',
-    north: 'Sever',
+    compassNorth: 'S',
     position: 'pozícia',
     direction: 'smer',
     dirs: 'východ,sever,západ,juh',
