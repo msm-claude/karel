@@ -11,8 +11,7 @@ Live: [landing](https://msm-claude.github.io/karel/) ·
 ## What it is
 
 - Three static pages from one build: the landing (`index.html`), the app
-  (`app/`) and the task sheet (`ulohy/`). Room links that still point at the
-  root are forwarded to the app by the landing page.
+  (`app/`) and the task sheet (`ulohy/`).
 - The app: a canvas with an isometric room, a text editor, six controls.
 - Slovak by default, Czech and English as free extras. Switching the language
   translates the program; keywords carry no diacritics in any language.
