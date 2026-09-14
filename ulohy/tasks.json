@@ -1,706 +1,4283 @@
 {
-"levels": [
- {"id": 0, "title": "Úroveň 0: Spoznaj Karla (bez programu)", "intro": "Najprv Karla ovládame ručne klávesmi. Dieťa pochopí svet, smer, tehly a chyby skôr, než napíše prvý riadok. Táto úroveň beží na karelrobot.cz, lebo nový Karel ručné ovládanie zatiaľ nemá. Od úrovne 1 sa svet PRED otvorí z odkazu pri úlohe. Nechajte ho aj naraziť do steny (nič sa nestane, Karel len stojí) a stlačiť Z, keď pred ním nič nie je: vtedy konzola napíše chybu, a to je dôležitá skúsenosť.", "app": "old", "concept": "Klikni do miestnosti (nápis Ovládáš).\n\nW = krok\nA = vľavo\nD = vpravo\nP = polož tehlu\nZ = zdvihni tehlu\nO = značka\nI = stena pred Karlom"},
- {"id": 1, "title": "Úroveň 1: Postupnosť príkazov", "intro": "Program je zoznam príkazov. Karel ich robí zhora nadol, jeden po druhom. Program zabalíme do príkazu s menom a na poslednom riadku ho zavoláme. Karel vykoná to, čo je mimo príkazov, zhora nadol.", "concept": "prikaz Meno\n    krok\n    vlavo\nkoniec\n\nMeno\n\nPosledný riadok príkaz zavolá. Tlačidlo Spusti."},
- {"id": 2, "title": "Úroveň 2: Tehly a značky", "intro": "Tehla je vec, ktorú Karel kladie a dvíha pred sebou. Značka je farba, ktorú maľuje pod seba. Najčastejšia chyba: dieťa čaká, že Karel položí tehlu tam, kde stojí.", "concept": "poloz     tehla pred Karla\nzdvihni    tehla spred Karla (musí tam byť)\noznac     značka pod Karla\nodznac    zmaž značku pod Karlom"},
- {"id": 3, "title": "Úroveň 3: Vlastné príkazy", "intro": "Karla učíme nové slová. Nový príkaz zložíme z tých, ktoré už pozná, a potom ho používame ako každý iný. Toto je najdôležitejšia myšlienka celého programovania: rozdeliť veľkú úlohu na menšie, pomenované kusy.", "concept": "prikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Cuvni\n    Celom_vzad\n    krok\n    Celom_vzad\nkoniec"},
- {"id": 4, "title": "Úroveň 4: Opakovanie s počtom", "intro": "Keď vieme vopred, koľkokrát sa má niečo urobiť, nepíšeme to viackrát. Napíšeme to raz a povieme koľkokrát. Cykly sa dajú vnárať: opakovanie v opakovaní. A pozor na plotový problém: tri medzery medzi štyrmi stĺpikmi.", "concept": "opakuj 6 krat\n    krok\nkoniec"},
- {"id": 5, "title": "Úroveň 5: Rozhodovanie", "intro": "Karel sa vie pozrieť pred seba a podľa toho sa rozhodnúť. Podmienka je otázka s odpoveďou áno alebo nie: je pred tebou tehla? je pred tebou stena? stojíš na značke?", "concept": "ak je tehla\ntak\n    zdvihni\ninak\n    oznac\nkoniec\n\nČasť inak sa môže vynechať."},
- {"id": 6, "title": "Úroveň 6: Opakovanie s podmienkou", "intro": "Keď nevieme vopred, koľkokrát sa má niečo urobiť, opakujeme, kým platí podmienka. Toto je prvý program, ktorý funguje v miestnosti akejkoľvek veľkosti. Pri každej úlohe sú ďalšie mapy: program má na všetkých fungovať bez zmeny.", "concept": "kym nie je mur\n    krok\nkoniec\n\nPozor: ak sa podmienka nikdy nezmení, Karel neskončí. Vtedy Zastav."},
- {"id": 7, "title": "Úroveň 7: Výzvy", "intro": "Všetko dokopy. Tu už nie je nič nové, len skladanie toho, čo dieťa vie. Ak sa zasekne, nech si úlohu najprv rozdelí na vlastné príkazy a každý vyskúša samostatne.", "concept": null},
- {"id": 8, "title": "Úroveň 8: Rekurzia (nadstavba)", "intro": "Príkaz môže použiť sám seba. Volá sa to rekurzia a Karel tak začne odznova, akoby ho niekto zavolal znova. Bez zastavovacej podmienky to nikdy neskončí, preto prvé dve úlohy sú hádanky. S podmienkou ak je rekurzia iný spôsob, ako napísať cyklus. A má jednu zvláštnu vlastnosť: čo je v príkaze za rekurzívnym volaním, sa vykoná až pri návrate, a to toľkokrát, koľkokrát sa príkaz zavolal. Rekurzia patrí v ŠVP na 2. stupeň; táto úroveň je tu pre dieťa, ktoré sa pýta ďalej.", "concept": "prikaz Ku_stene\n    ak je volno\n    tak\n        krok\n        Ku_stene\n    koniec\nkoniec"},
- {"id": 9, "title": "Úroveň 9: Premenné a pamäť (nadstavba)", "intro": "Táto úroveň beží na karelrobot.cz, nový Karel premenné zatiaľ nemá (úloha 9.1 je bez premenných, tá ide v Karlovi). Karel vie počítať. Premenná je číslo s menom: vytvorí sa a mení rovnakým zápisom lokalni promenna meno = hodnota. Dá sa použiť ako počet opakovaní a v podmienkach. Delenie zaokrúhľuje nadol. Premenná musí byť vnútri príkazu; globálne premenné (globalni promenna mimo príkazov) sa vnútri príkazu nedajú meniť, preto ich nepoužívame. Prvá úloha ukazuje, že pamäťou môže byť aj samotný svet, bez čísla. Premenné patria v ŠVP na 2. stupeň.", "app": "old", "concept": "lokalni promenna kroky = 0\nlokalni promenna kroky = kroky + 1\nudelej kroky krat\n    krok\n*udelej\nkdyz je kroky == 3\ndokud je kroky > 0"}
-],
-"concepts": [
- {"name": "Vykonávateľ a stav sveta", "desc": "Robot robí presne to, čo dostane. Svet má stav PRED a PO; program je cesta medzi nimi.", "tasks": ["0.1", "0.2", "0.3", "0.4", "0.5", "1.1"]},
- {"name": "Postupnosť a poradie", "desc": "Program je zoznam príkazov zhora nadol. Zmena poradia mení výsledok.", "tasks": ["1.1", "1.2", "1.3", "1.5", "1.6", "1.7", "1.9", "2.3"]},
- {"name": "Relatívny smer", "desc": "Vľavo a vpravo sú z pohľadu robota. Čelom vzad sú dve otočky, vpravo sú tri vľavo.", "tasks": ["1.2", "1.4", "1.6", "1.8", "1.9", "3.2", "3.6"]},
- {"name": "Chyby a ladenie", "desc": "Karel ohlási chybu a zastaví sa (múr pred ním, tehla za stenou, nič na zdvihnutie, dvojitá značka). Čítanie chyby, krokovanie, hľadanie chyby v cudzom programe.", "tasks": ["0.1", "2.1", "2.6", "5.5", "5.7"]},
- {"name": "Čítanie programu", "desc": "Predpovedať, čo program urobí, bez spustenia. Opak písania; rovnako dôležité.", "tasks": ["1.5", "1.8", "2.10", "3.10", "4.6"]},
- {"name": "Stav prostredia", "desc": "Tehly (aj na sebe), značky, steny. Kam sa kladie tehla a kam značka; čo je pred robotom a čo pod ním.", "tasks": ["2.1", "2.2", "2.4", "2.5", "2.7", "2.8", "2.9", "4.4"]},
- {"name": "Abstrakcia: vlastný príkaz", "desc": "Pomenovať postupnosť a používať meno ako nové slovo. Meno hovorí, čo príkaz robí.", "tasks": ["3.1", "3.2", "3.3", "3.4", "3.6", "3.7", "3.8", "3.9"]},
- {"name": "Dekompozícia", "desc": "Rozdeliť veľkú úlohu na pomenované malé (Cuvni, Ku_stene, Prekazka, Riadok) a poskladať ich.", "tasks": ["3.3", "3.5", "3.7", "3.9", "4.5", "4.9", "4.11", "6.6", "7.4"]},
- {"name": "Opakovanie s počtom", "desc": "Napísať raz a povedať koľkokrát. Vnorené cykly: opakovanie v opakovaní.", "tasks": ["4.1", "4.2", "4.3", "4.4", "4.5", "4.6"]},
- {"name": "Rozpoznanie vzoru", "desc": "Vidieť, čo sa v postupnosti opakuje, a zabaliť to do cyklu alebo príkazu.", "tasks": ["0.4", "3.5", "3.7", "4.2", "4.7", "4.11"]},
- {"name": "Plotový problém", "desc": "N dielikov medzi N+1 stĺpikmi: cyklus a jeden krok navyše pred ním alebo po ňom.", "tasks": ["4.7", "4.8", "5.6"]},
- {"name": "Podmienka ak, negácia", "desc": "Otázka s odpoveďou áno/nie o svete pred robotom alebo pod ním; slová nie je obracajú otázku.", "tasks": ["5.1", "5.2", "5.3", "5.5"]},
- {"name": "Ak, inak", "desc": "Dve vetvy, vykoná sa práve jedna.", "tasks": ["5.4", "5.6"]},
- {"name": "Cyklus s podmienkou", "desc": "Opakuj, kým platí. Nevieme vopred koľkokrát. Ak sa podmienka nikdy nezmení, nekončí.", "tasks": ["6.1", "6.2", "6.3", "6.4", "6.8", "6.9"]},
- {"name": "Zovšeobecnenie", "desc": "Program, ktorý funguje pre miestnosť akejkoľvek veľkosti a pre neznámy počet vecí. Rozdiel medzi 4.3 a 6.6.", "tasks": ["6.1", "6.4", "6.5", "6.6", "7.1", "7.5"]},
- {"name": "Skladanie štruktúr", "desc": "Podmienka v cykle, cyklus v cykle, vlastný príkaz v cykle.", "tasks": ["5.1", "6.4", "6.5", "6.6", "7.1", "7.4"]},
- {"name": "Algoritmické vzory", "desc": "K stene, na značku, tam a späť, obehni miestnosť, pravidlo pravej ruky, prechod poľa po riadkoch, inverzia.", "tasks": ["6.1", "6.2", "6.7", "6.6", "7.3", "7.4", "5.6"]},
- {"name": "Stavanie tvarov", "desc": "Chodník, stĺpik, múr, schody, stupne víťazov, uhlopriečka, rám. Tvar ako výsledok pravidla.", "tasks": ["2.4", "2.7", "4.2", "4.4", "4.5", "4.9", "4.10", "7.2", "7.5"]},
- {"name": "Robustnosť", "desc": "Program, ktorý nespadne: opatrný krok, otázka pred krokom, správny počet opakovaní.", "tasks": ["5.3", "5.5", "5.7"]},
- {"name": "Rekurzia", "desc": "Príkaz, ktorý použije sám seba. Bez zastavovacej podmienky beží donekonečna; s podmienkou nahradí cyklus.", "tasks": ["8.1", "8.2", "8.3", "8.4"]},
- {"name": "Rekurzia ako pamäť", "desc": "Čo je v príkaze za rekurzívnym volaním, robí sa pri návrate, toľkokrát, koľko bolo volaní. Karel si tak pamätá počet krokov bez čísla.", "tasks": ["8.5", "8.6"]},
- {"name": "Svet ako pamäť", "desc": "Stĺpik, značka alebo tehla môžu byť pamäťou programu: kým tam niečo je, je čo robiť; značka pamätá miesto.", "tasks": ["6.2", "6.7", "6.8", "9.1"]},
- {"name": "Premenné a počítanie", "desc": "Číslo s menom: spočítať kroky alebo tehly, deliť dvoma, násobiť, použiť ako počet opakovaní alebo v podmienke.", "tasks": ["9.2", "9.3", "9.4", "9.5", "9.6"]},
- {"name": "Vzory: šachovnica, špirála", "desc": "Zložitý obrazec ako výsledok jednoduchého pravidla, ktoré sa opakuje s malou zmenou.", "tasks": ["7.6", "9.6"]},
- {"name": "Vynechané", "desc": "Triedenie, stred bez premenných (značky ako počítadlo), bludisko so slepými uličkami, šachovnica ľubovoľnej veľkosti. Úlohy pre 2. stupeň, niektoré aj pre strednú školu.", "tasks": []}
-],
-"tasks": [
- {"id": "0.1",
-  "level": 0,
-  "type": "manual",
-  "app": "old",
-  "title": "Choď do rohu",
-  "concept": "ručné ovládanie",
-  "text": "Klávesmi dostaň Karla z ľavého dolného rohu do pravého horného rohu. Karel sa pozerá hore (na sever).",
-  "hint": "Najprv dva razy krok, potom sa otoč doprava, potom tri razy krok. Skús vykročiť do steny a pozri, čo sa stane.",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "N"]}, "post": {"w": 4, "h": 3, "karel": [4, 3, "E"]}}]},
- {"id": "0.2",
-  "level": 0,
-  "type": "manual",
-  "app": "old",
-  "title": "Tri tehly za sebou",
-  "concept": "tehla pred Karlom",
-  "text": "Polož tri tehly do radu vedľa seba a skonči na tretej z nich.",
-  "hint": "Karel po tehlách kráča: položí tehlu, vylezie na ňu, položí ďalšiu. P položí tehlu pred Karla. Potom W: Karel na tehlu vylezie, lebo je len o jednu vyššia.",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 3, "karel": [3, 1, "E"], "bricks": {"2,1": 1, "3,1": 1, "4,1": 1}}}]},
- {"id": "0.3",
-  "level": 0,
-  "type": "manual",
-  "app": "old",
-  "title": "Veža ručne",
-  "concept": "tehly na sebe",
-  "text": "Postav pred Karlom vežu z troch tehál. Karel ostane stáť, kde je.",
-  "hint": "P položí tehlu pred Karla. Ďalšie P ju položí na tú predošlú.",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 3}}}]},
- {"id": "0.4",
-  "level": 0,
-  "type": "manual",
-  "app": "old",
-  "title": "Obehni miestnosť ručne",
-  "concept": "štyri rovnaké kúsky",
-  "text": "Karel obehne miestnosť popri stenách, v každom rohu nechá značku a skončí tam, kde začal, otočený hore.",
-  "hint": "Značka (O), dva kroky, otočka doprava (D). A to isté ešte trikrát.",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "N"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "N"], "marks": ["1,1", "1,3", "3,3", "3,1"]}}]},
- {"id": "0.5",
-  "level": 0,
-  "type": "manual",
-  "app": "old",
-  "title": "Postav stenu a obíď ju",
-  "concept": "odobrané políčko",
-  "text": "Odober políčko pred Karlom (vznikne stena) a potom Karla dostaň na políčko za ňou, aby sa pozeral doprava.",
-  "hint": "I odoberie políčko pred Karlom. Skús potom W: nič sa nestane. Musíš to obísť hore.",
-  "maps": [{"pre": {"w": 3, "h": 2, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 2, "karel": [3, 1, "E"], "blocked": ["2,1"]}}]},
- {"id": "1.1",
-  "level": 1,
-  "title": "Tri kroky",
-  "concept": "prvý program",
-  "text": "Napíš program, po ktorom Karel urobí tri kroky dopredu.",
-  "hint": "Program musí mať meno a musí končiť slovom koniec. Medzi tým sú tri riadky.",
-  "run": "Tri_kroky",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 3, "karel": [4, 1, "E"]}}]},
- {"id": "1.2",
-  "level": 1,
-  "title": "Do rohu",
-  "concept": "kroky a otočka",
-  "text": "Dostaň Karla z ľavého dolného rohu do pravého horného rohu. Na konci sa má pozerať hore.",
-  "hint": "Najprv doprava až po stenu. Potom sa otoč. Vľavo, alebo vpravo? Predstav si, že si Karel.",
-  "run": "Do_rohu",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 4, "karel": [4, 4, "N"]}}]},
- {"id": "1.3",
-  "level": 1,
-  "title": "Okolo prekážky",
-  "concept": "obchádzka",
-  "text": "Pred Karlom chýba políčko, je tam diera (stena). Dostaň ho na políčko za dierou, aby sa na konci znova pozeral doprava.",
-  "hint": "Hore, dva kroky doprava, dole, a nezabudni sa na konci otočiť späť.",
-  "run": "Obchadzka",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"], "blocked": ["2,1"]}, "post": {"w": 4, "h": 3, "karel": [3, 1, "E"], "blocked": ["2,1"]}}]},
- {"id": "1.4",
-  "level": 1,
-  "title": "Čelom vzad",
-  "concept": "dve otočky",
-  "text": "Otoč Karla čelom vzad. Stojí na mieste, na konci sa pozerá dole namiesto hore.",
-  "hint": "Jedna otočka je štvrť kruhu. Koľko ich treba na pol kruhu?",
-  "run": "Celom_vzad",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 2, "S"]}}]},
- {"id": "1.5",
-  "level": 1,
-  "type": "trace",
-  "title": "Čo urobí Karel?",
-  "concept": "čítanie programu",
-  "text": "Nič nepíš. Prečítaj program, prejdi ho prstom po obrázku a nakresli, kde Karel skončí a kam sa bude pozerať. Až potom to over v Karlovi.",
-  "hint": "Po každom riadku si povedz: kde stojí, kam pozerá. Otočka nemení políčko, len smer.",
-  "run": "Hadanka",
-  "program": "prikaz Hadanka\n    krok\n    krok\n    vlavo\n    krok\n    vlavo\n    krok\nkoniec\n\nHadanka",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 4, "karel": [2, 2, "W"]}}]},
- {"id": "1.6",
-  "level": 1,
-  "title": "Písmeno L",
-  "concept": "cesta s jednou otočkou",
-  "text": "Karel stojí vľavo hore a pozerá dole. Prejde po písmene L: dole až k stene a potom doprava až do rohu. Na konci sa pozerá doprava.",
-  "hint": "Tri kroky dole. Karel pozerá dole, takže doprava je pre neho vlavo. Potom tri kroky.",
-  "run": "Elko",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 4, "S"]}, "post": {"w": 4, "h": 4, "karel": [4, 1, "E"]}}]},
- {"id": "1.7",
-  "level": 1,
-  "title": "Cikcak",
-  "concept": "striedanie otočiek",
-  "text": "Karel prejde cikcak ako na obrázku: krok, hore, krok, dole, a skončí na treťom políčku spodného radu, otočený doprava. Použi presne štyri kroky.",
-  "hint": "Po každom kroku príde otočka: vlavo, vpravo, vpravo, vlavo.",
-  "run": "Cikcak",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [3, 1, "E"]}}]},
- {"id": "1.8",
-  "level": 1,
-  "type": "trace",
-  "title": "Kam sa bude pozerať?",
-  "concept": "otočky sa sčítavajú",
-  "text": "Nič nepíš. Karel sa len otáča na mieste. Prečítaj program a uhádni, kam sa bude pozerať na konci. Potom over v Karlovi.",
-  "hint": "Otáčaj sa spolu s ním: pravá ruka, pravá, pravá, ľavá, ľavá.",
-  "run": "Otocky",
-  "program": "prikaz Otocky\n    vpravo\n    vpravo\n    vpravo\n    vlavo\n    vlavo\nkoniec\n\nOtocky",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 2, "E"]}}]},
- {"id": "1.9",
-  "level": 1,
-  "title": "Späť domov",
-  "concept": "cesta s dvoma otočkami",
-  "text": "Karel je v pravom hornom rohu a pozerá doľava. Dostaň ho do ľavého dolného rohu tak, aby sa na konci pozeral doprava.",
-  "hint": "Dva kroky doľava, otočka, dva kroky dole, otočka. Ktorá otočka to je, keď Karel pozerá doľava a má ísť dole?",
-  "run": "Domov",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [3, 3, "W"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "E"]}}]},
- {"id": "2.1",
-  "level": 2,
-  "title": "Zdvihni tehlu",
-  "concept": "zdvihni",
-  "text": "V pravom dolnom rohu leží tehla. Karel ju má zdvihnúť a postaviť sa na jej miesto.",
-  "hint": "Karel dvíha tehlu spred seba. Koľko krokov musí urobiť, aby bola tehla priamo pred ním?",
-  "run": "Zober",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"], "bricks": {"4,1": 1}}, "post": {"w": 4, "h": 3, "karel": [4, 1, "E"]}}]},
- {"id": "2.2",
-  "level": 2,
-  "title": "Dve tehly do rohov",
-  "concept": "poloz, otáčanie",
-  "text": "Karel položí tehlu do ľavého dolného rohu a do ľavého horného rohu a skončí v pravom hornom rohu.",
-  "hint": "Karel stojí vedľa rohu a pozerá naň, lebo tehlu kladie pred seba. Prvý riadok je poloz. Potom sa otoč hore.",
-  "run": "Dve_tehly",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [2, 1, "W"]}, "post": {"w": 4, "h": 4, "karel": [4, 4, "E"], "bricks": {"1,1": 1, "1,4": 1}}}]},
- {"id": "2.3",
-  "level": 2,
-  "title": "Prenes tehlu",
-  "concept": "zdvihni a poloz",
-  "text": "Tehla leží na treťom políčku. Karel ju má preniesť na koniec radu, k pravej stene.",
-  "hint": "Krok, zdvihni, a potom choď tak ďaleko, aby bolo posledné políčko pred tebou.",
-  "run": "Prenes",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"3,1": 1}}, "post": {"w": 5, "h": 3, "karel": [4, 1, "E"], "bricks": {"5,1": 1}}}]},
- {"id": "2.4",
-  "level": 2,
-  "title": "Zaplň dieru v chodníku",
-  "concept": "kráčanie po tehlách",
-  "text": "Karel stojí na chodníku z tehál. V strede chýba jedna. Doplň ju a prejdi na koniec chodníka.",
-  "hint": "Z tehly na tehlu sa kráča normálne. Do diery netreba zliezť, stačí ju pred sebou zaplniť.",
-  "run": "Oprav",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "4,1": 1, "5,1": 1}}, "post": {"w": 5, "h": 3, "karel": [5, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1}}}]},
- {"id": "2.5",
-  "level": 2,
-  "title": "Značky",
-  "concept": "oznac",
-  "text": "Karel má namaľovať značku na druhé a štvrté políčko a skončiť na štvrtom.",
-  "hint": "Značka sa maľuje pod Karla. Najprv tam musí dôjsť.",
-  "run": "Znacky",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [4, 1, "E"], "marks": ["2,1", "4,1"]}}]},
- {"id": "2.6",
-  "level": 2,
-  "type": "bug",
-  "title": "Nájdi chybu",
-  "concept": "chyba pri zdvihni",
-  "text": "Niekto napísal program na úlohu 2.1, ale Karel hlási chybu. Spúšťaj ho po jednom riadku tlačidlom Krok, nájdi riadok, kde sa to pokazí, a oprav program.",
-  "hint": "Kde stojí Karel po treťom kroku? Čo má pred sebou?",
-  "run": "Zober",
-  "program": "prikaz Zober\n    krok\n    krok\n    krok\n    zdvihni\nkoniec\n\nZober",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"], "bricks": {"4,1": 1}}, "post": {"w": 4, "h": 3, "karel": [4, 1, "E"]}}]},
- {"id": "2.7",
-  "level": 2,
-  "title": "Schodík",
-  "concept": "vyliezť o jednu",
-  "text": "Postav dva schody: prvý z jednej tehly, druhý z dvoch, a skonči na tom vyššom.",
-  "hint": "Polož, vylez. Z prvého schodu polož dve tehly na ďalšie políčko a vylez.",
-  "run": "Schodik",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [3, 1, "E"], "bricks": {"2,1": 1, "3,1": 2}}}]},
- {"id": "2.8",
-  "level": 2,
-  "title": "Značka a tehla spolu",
-  "concept": "značka pod, tehla pred",
-  "text": "Karel označí políčko, na ktorom stojí, položí pred seba tehlu, vylezie na ňu a označí aj to políčko.",
-  "hint": "Štyri príkazy: značka, tehla, krok, značka.",
-  "run": "Znacka_a_tehla",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 3, "karel": [2, 1, "E"], "bricks": {"2,1": 1}, "marks": ["1,1", "2,1"]}}]},
- {"id": "2.9",
-  "level": 2,
-  "title": "Tehla za Karla",
-  "concept": "otočiť sa s tehlou",
-  "text": "Pred Karlom leží tehla. Karel ju má preložiť na políčko za sebou. Skončí otočený k nej.",
-  "hint": "Zdvihni, otoč sa čelom vzad (dve otočky), polož.",
-  "run": "Za_seba",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 1, "E"], "bricks": {"3,1": 1}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "W"], "bricks": {"1,1": 1}}}]},
- {"id": "2.10",
-  "level": 2,
-  "type": "trace",
-  "title": "Koľko tehál?",
-  "concept": "čítanie programu s tehlami",
-  "text": "Nič nepíš. Prečítaj program a nakresli, koľko tehál bude na konci pred Karlom a kde Karel skončí. Potom over v Karlovi.",
-  "hint": "Počítaj na prstoch: položil, položil, zdvihol, položil. A potom si spomeň, o koľko vie Karel vyliezť.",
-  "expect": "error",
-  "run": "Kolko",
-  "program": "prikaz Kolko\n    poloz\n    poloz\n    zdvihni\n    poloz\n    krok\nkoniec\n\nKolko",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 2}}}]},
- {"id": "3.1",
-  "level": 3,
-  "title": "Dvojkrok",
-  "concept": "nový príkaz",
-  "text": "Nauč Karla nové slovo Dvojkrok: dva kroky dopredu. Potom ho spusti.",
-  "hint": "Je to to isté ako v úrovni 1, len sa nad menom zamysli: meno hovorí, čo príkaz robí.",
-  "run": "Dvojkrok",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 3, "karel": [3, 1, "E"]}}]},
- {"id": "3.2",
-  "level": 3,
-  "title": "Vpravo z troch vľavo",
-  "concept": "skladanie",
-  "text": "Predstav si, že Karel zabudol slovo vpravo. Nauč ho nový príkaz Vpravo3, ktorý ho otočí doprava len pomocou vlavo.",
-  "hint": "Otoč sa doľava a sleduj, kam pozeráš. A ešte raz. A ešte raz.",
-  "run": "Vpravo3",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 2, "E"]}}]},
- {"id": "3.3",
-  "level": 3,
-  "title": "Cúvanie",
-  "concept": "príkaz v príkaze",
-  "text": "Nauč Karla cúvať o jedno políčko: príkaz Cuvni. Karel sa na konci pozerá tam, kam na začiatku.",
-  "hint": "Najprv si urob príkaz Celom_vzad z úrovne 1. Cuvni je potom: otoč sa, krok, otoč sa späť.",
-  "run": "Cuvni",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}]},
- {"id": "3.4",
-  "level": 3,
-  "title": "Skok koňom",
-  "concept": "vlastný pohyb",
-  "text": "Karel má skočiť ako kôň v šachu: dve políčka dopredu, jedno doprava.",
-  "hint": "Dvojkrok už máš. Potom otočka a krok.",
-  "run": "Kun",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 4, "h": 4, "karel": [2, 3, "E"]}}]},
- {"id": "3.5",
-  "level": 3,
-  "title": "Chodník za pochodu",
-  "concept": "opakované volanie",
-  "text": "Postav chodník z troch tehál a skonči na poslednej. Napíš si na to vlastný príkaz Poloz_a_chod a použi ho trikrát.",
-  "hint": "Poloz_a_chod je to, čo si robil klávesmi v úlohe 0.2: polož tehlu a vylez na ňu. Malý príkaz raz, veľký ho zavolá trikrát.",
-  "run": "Chodnik",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 3, "karel": [4, 1, "E"], "bricks": {"2,1": 1, "3,1": 1, "4,1": 1}}}]},
- {"id": "3.6",
-  "level": 3,
-  "title": "Úkrok",
-  "concept": "pohyb bez zmeny smeru",
-  "text": "Nauč Karla úkrok doprava: posunie sa o jedno políčko vpravo, ale na konci sa pozerá tam, kam predtým.",
-  "hint": "Otoč sa doprava, krok, otoč sa späť doľava.",
-  "run": "Ukrok",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 4, "h": 3, "karel": [3, 2, "N"]}}]},
- {"id": "3.7",
-  "level": 3,
-  "title": "Štvorec z jedného slova",
-  "concept": "jeden príkaz štyrikrát",
-  "text": "Karel obehne miestnosť dookola a skončí tam, kde začal. Slovo krok napíš v programe len dvakrát.",
-  "hint": "Nauč Karla slovo Strana: dva kroky a otočka doľava. Štvorec sú štyri strany.",
-  "run": "Stvorec",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "E"]}}]},
- {"id": "3.8",
-  "level": 3,
-  "title": "Chodník so značkami",
-  "concept": "príkaz z troch krokov",
-  "text": "Postav chodník z dvoch tehál a každú tehlu, na ktorej Karel stojí, označ. Skonči na druhej tehle. Vyrob si na to príkaz Kus a použi ho dvakrát.",
-  "hint": "Kus je: polož tehlu, vylez na ňu, označ.",
-  "run": "Chodnik",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [3, 1, "E"], "bricks": {"2,1": 1, "3,1": 1}, "marks": ["2,1", "3,1"]}}]},
- {"id": "3.9",
-  "level": 3,
-  "title": "Výlet tam a späť",
-  "concept": "príkaz v príkaze",
-  "text": "Karel urobí dva kroky, otočí sa čelom vzad, vráti sa a znova sa otočí čelom vzad. Skončí presne tam, kde začal, otočený rovnako. Príkaz Celom_vzad si vyrob a použi ho dvakrát.",
-  "hint": "Celom_vzad sú dve otočky doľava. Vylet: krok, krok, Celom_vzad, krok, krok, Celom_vzad.",
-  "run": "Vylet",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [1, 1, "E"]}}]},
- {"id": "3.10",
-  "level": 3,
-  "type": "trace",
-  "title": "Štyri skoky",
-  "concept": "čítanie vlastného príkazu",
-  "text": "Nič nepíš. Skok je krok a otočka doľava. Uhádni, kde Karel skončí po štyroch skokoch a kam sa bude pozerať. Potom over v Karlovi.",
-  "hint": "Prejdi prstom po obrázku: krok, otočka; krok, otočka; a tak ďalej.",
-  "run": "Styri",
-  "program": "prikaz Skok\n    krok\n    vlavo\nkoniec\n\nprikaz Styri\n    Skok\n    Skok\n    Skok\n    Skok\nkoniec\n\nStyri",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "E"]}}]},
- {"id": "4.1",
-  "level": 4,
-  "title": "Šesť krokov",
-  "concept": "opakuj N krat",
-  "text": "Karel má urobiť šesť krokov. Napíš slovo krok v programe len raz.",
-  "hint": "Opakovanie začína riadkom opakuj 6 krat a končí riadkom koniec. Medzi ne patrí to, čo sa opakuje.",
-  "run": "Sest_krokov",
-  "maps": [{"pre": {"w": 7, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 7, "h": 3, "karel": [7, 1, "E"]}}]},
- {"id": "4.2",
-  "level": 4,
-  "title": "Dlhý chodník",
-  "concept": "opakovanie dvoch príkazov",
-  "text": "Postav chodník z piatich tehál a skonči na poslednej. Použi opakovanie.",
-  "hint": "Čo sa opakuje? Polož a krok. Koľkokrát? Toľko, koľko je tehál.",
-  "run": "Dlhy_chodnik",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "bricks": {"2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}}]},
- {"id": "4.3",
-  "level": 4,
-  "title": "Obehni štvorec",
-  "concept": "opakovanie v opakovaní",
-  "text": "Karel obehne miestnosť pozdĺž stien a v každom rohu namaľuje značku. Skončí tam, kde začal.",
-  "hint": "Jedna strana štvorca je: značka, tri kroky, otočka doprava. A strany sú štyri.",
-  "run": "Stvorec",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 4, "h": 4, "karel": [1, 1, "N"], "marks": ["1,1", "1,4", "4,4", "4,1"]}}]},
- {"id": "4.4",
-  "level": 4,
-  "title": "Stĺpik",
-  "concept": "tehly na seba",
-  "text": "Postav pred Karlom stĺpik z troch tehál na sebe.",
-  "hint": "Karel kladie tehly stále na to isté políčko pred sebou. Kladú sa na seba.",
-  "run": "Stlpik",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 3}}}]},
- {"id": "4.5",
-  "level": 4,
-  "title": "Múr",
-  "concept": "cúvanie a stĺpiky",
-  "text": "Postav múr: štyri stĺpiky po tri tehly v jednom rade. Karel skončí pod múrom, otočený k nemu.",
-  "hint": "Ak Karel pri stavaní cúva, nezastavia si cestu. Zober si Cuvni z úrovne 3 a Stlpik z predošlej úlohy. Jedna časť múru je: cúvni, postav stĺpik. Štyrikrát.",
-  "run": "Postav_mur",
-  "maps": [{"pre": {"w": 3, "h": 6, "karel": [2, 5, "N"]}, "post": {"w": 3, "h": 6, "karel": [2, 1, "N"], "bricks": {"2,2": 3, "2,3": 3, "2,4": 3, "2,5": 3}}}]},
- {"id": "4.6",
-  "level": 4,
-  "type": "trace",
-  "title": "Čo namaľuje Karel?",
-  "concept": "čítanie vnorených cyklov",
-  "text": "Nič nepíš. Prečítaj program a nakresli, ktoré políčka budú na konci označené a kde Karel skončí. Potom over v Karlovi.",
-  "hint": "Vnútorné opakovanie urob celé, až potom otočka. Koľkokrát sa vykoná oznac dokopy?",
-  "run": "Hadanka",
-  "program": "prikaz Hadanka\n    opakuj 4 krat\n        opakuj 3 krat\n            oznac\n            krok\n        koniec\n        vpravo\n    koniec\nkoniec\n\nHadanka",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 4, "h": 4, "karel": [1, 1, "N"], "marks": ["1,1", "1,2", "1,3", "1,4", "2,4", "3,4", "4,4", "4,3", "4,2", "4,1", "3,1", "2,1"]}}]},
- {"id": "4.7",
-  "level": 4,
-  "title": "Uhlopriečka",
-  "concept": "vzor v cykle, plotový problém",
-  "text": "Karel označí uhlopriečku miestnosti: políčka 1,1 · 2,2 · 3,3 · 4,4. Skončí v pravom hornom rohu.",
-  "hint": "Čo sa opakuje? Značka, krok doprava, krok hore (a späť do pôvodného smeru). Štyri značky, ale len tri presuny.",
-  "run": "Uhlopriecka",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 4, "karel": [4, 4, "E"], "marks": ["1,1", "2,2", "3,3", "4,4"]}}]},
- {"id": "4.8",
-  "level": 4,
-  "title": "Každé druhé políčko",
-  "concept": "plotový problém",
-  "text": "Karel označí prvé, tretie a piate políčko radu a skončí na piatom.",
-  "hint": "Značka a dva kroky, značka a dva kroky, značka. Koľko je v tom opakovaní a čo ostáva za ním?",
-  "run": "Kazde_druhe",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 6, "h": 3, "karel": [5, 1, "E"], "marks": ["1,1", "3,1", "5,1"]}}]},
- {"id": "4.9",
-  "level": 4,
-  "title": "Stupne víťazov",
-  "concept": "úkrok a stĺpiky",
-  "text": "Postav stupne víťazov: vedľa seba stĺpiky vysoké 2, 3 a 1. Karel skončí pod posledným stĺpikom, otočený k nemu.",
-  "hint": "Karel stavia zdola, každý stĺpik pred sebou, a medzi nimi robí Ukrok z úlohy 3.6. Dve tehly, úkrok, tri tehly, úkrok, jedna tehla.",
-  "run": "Stupne",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [1, 1, "N"]}, "post": {"w": 3, "h": 3, "karel": [3, 1, "N"], "bricks": {"1,2": 2, "2,2": 3, "3,2": 1}}}]},
- {"id": "4.10",
-  "level": 4,
-  "title": "Schody",
-  "concept": "dekompozícia a cúvanie",
-  "text": "Postav schody: stĺpiky vysoké 3, 2, 1 za sebou. Karel skončí pod najnižším schodom, otočený k schodom.",
-  "hint": "Stavaj od najvyššieho a cúvaj, aby ťa schody neuväznili: tri tehly, Cuvni, dve tehly, Cuvni, jedna tehla.",
-  "run": "Schody",
-  "maps": [{"pre": {"w": 3, "h": 5, "karel": [2, 3, "N"]}, "post": {"w": 3, "h": 5, "karel": [2, 1, "N"], "bricks": {"2,4": 3, "2,3": 2, "2,2": 1}}}]},
- {"id": "4.11",
-  "level": 4,
-  "title": "Prekážkový beh",
-  "concept": "vzor a vlastný príkaz v cykle",
-  "text": "V chodbe sú tri prekážky (chýbajúce políčka). Karel sa má dostať na koniec chodby. Napíš príkaz Prekazka pre jednu prekážku a zopakuj ho.",
-  "hint": "Jedna prekážka je obchádzka z úlohy 1.3: hore, ponad, dole. Po nej stojí Karel presne pred ďalšou.",
-  "run": "Beh",
-  "maps": [{"pre": {"w": 7, "h": 3, "karel": [1, 1, "E"], "blocked": ["2,1", "4,1", "6,1"]}, "post": {"w": 7, "h": 3, "karel": [7, 1, "E"], "blocked": ["2,1", "4,1", "6,1"]}}]},
- {"id": "5.1",
-  "level": 5,
-  "title": "Zdvihni, ak tam je",
-  "concept": "ak je tehla",
-  "text": "Na ceste ležia tehly, ale nevieme kde. Karel prejde päť políčok a každú tehlu, ktorú stretne, zdvihne.",
-  "hint": "Pred každým krokom sa opýtaj: je pred tebou tehla? Ak áno, zdvihni. Ak nie, nič. Potom krok.",
-  "run": "Zbieraj",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"3,1": 1, "5,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"]}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 1, "6,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"]}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"4,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"]}}]},
- {"id": "5.2",
-  "level": 5,
-  "title": "Oprav chodník",
-  "concept": "ak nie je tehla",
-  "text": "Chodník má diery na neznámych miestach. Karel prejde po ňom na koniec a každú dieru zaplní.",
-  "hint": "Opak úlohy 5.1: ak pred tebou tehla nie je, polož ju. Potom krok.",
-  "run": "Oprav_chodnik",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "4,1": 1, "6,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "3,1": 1, "5,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}}]},
- {"id": "5.3",
-  "level": 5,
-  "title": "Pozdĺž steny",
-  "concept": "ak je mur",
-  "text": "Karel urobí šesť krokov, ale vždy, keď má pred sebou stenu, sa najprv otočí doľava.",
-  "hint": "Otázka je: je pred tebou stena? Ak áno, vlavo. Krok je až za otázkou, robí sa vždy.",
-  "run": "Pozdlz_steny",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 4, "karel": [4, 4, "N"]}}]},
- {"id": "5.4",
-  "level": 5,
-  "title": "Tehla alebo značka",
-  "concept": "ak … tak … inak",
-  "text": "Karel prejde štyri políčka. Ak je pred ním tehla, zdvihne ju. Ak nie, namaľuje pod seba značku.",
-  "hint": "Slovo inak znamená: v opačnom prípade. Po tak je jedna vec, po inak druhá, a vždy sa urobí len jedna z nich.",
-  "run": "Tehla_alebo_znacka",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 1, "4,1": 1}}, "post": {"w": 5, "h": 3, "karel": [5, 1, "E"], "marks": ["2,1", "4,1"]}}]},
- {"id": "5.5",
-  "level": 5,
-  "title": "Opatrný krok",
-  "concept": "ak je volno",
-  "text": "Karel má urobiť päť krokov a po každom kroku označiť políčko, ale chodba má pred ním len tri políčka. Napíš opatrný krok: kročí a označí, len ak sa dá vykročiť. Skús to najprv bez otázky a prečítaj chybu, ktorú Karel ohlási.",
-  "hint": "Otázka volno sa pýta: dá sa vykročiť? Krok aj značka patria dovnútra otázky, nie za ňu.",
-  "run": "Opatrne",
-  "maps": [{"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 3, "karel": [4, 1, "E"], "marks": ["2,1", "3,1", "4,1"]}}]},
- {"id": "5.6",
-  "level": 5,
-  "title": "Vymeň značky",
-  "concept": "inverzia, ak/inak, plot",
-  "text": "V rade sú niektoré políčka označené. Karel prejde celý rad a všetko vymení: kde značka bola, tam nebude, a naopak.",
-  "hint": "Vyrob si príkaz Vymen: ak je pod tebou značka, zmaž ju, inak ju namaľuj. Potom: päťkrát Vymen a krok, a na poslednom políčku ešte raz Vymen.",
-  "run": "Naopak",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "marks": ["1,1", "3,1", "4,1"]}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "marks": ["2,1", "5,1", "6,1"]}}]},
- {"id": "5.7",
-  "level": 5,
-  "type": "bug",
-  "title": "Nájdi chybu 2",
-  "concept": "o jedno menej",
-  "text": "Program má pozbierať tehly ako v úlohe 5.1, ale Karel jednu nechá ležať a zastaví o políčko skôr. Prečo? Oprav ho.",
-  "hint": "Spočítaj na obrázku kroky medzi prvým a posledným políčkom. Koľkokrát má cyklus bežať?",
-  "run": "Zbieraj",
-  "program": "prikaz Zbieraj\n    opakuj 4 krat\n        ak je tehla\n        tak\n            zdvihni\n        koniec\n        krok\n    koniec\nkoniec\n\nZbieraj",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"3,1": 1, "6,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"]}}]},
- {"id": "6.1",
-  "level": 6,
-  "title": "Až po stenu",
-  "concept": "kym je volno",
-  "text": "Karel ide dopredu, kým nenarazí na stenu. Program má fungovať v miestnosti akejkoľvek šírky.",
-  "hint": "Neopakuj šesťkrát. Opakuj, kým sa dá vykročiť.",
-  "run": "Ku_stene",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [6, 2, "E"]}}, {"pre": {"w": 9, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 9, "h": 3, "karel": [9, 2, "E"]}}, {"pre": {"w": 4, "h": 5, "karel": [2, 1, "N"]}, "post": {"w": 4, "h": 5, "karel": [2, 5, "N"]}}]},
- {"id": "6.2",
-  "level": 6,
-  "title": "Na značku",
-  "concept": "kym nie je znacka",
-  "text": "Niekde pred Karlom je značka. Karel má na nej zastaviť.",
-  "hint": "Otázka znacka sa pýta, či Karel stojí na značke. Kráčaj, kým na nej nestojíš.",
-  "run": "Na_znacku",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "marks": ["5,1"]}, "post": {"w": 6, "h": 3, "karel": [5, 1, "E"], "marks": ["5,1"]}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "marks": ["2,1"]}, "post": {"w": 6, "h": 3, "karel": [2, 1, "E"], "marks": ["2,1"]}}, {"pre": {"w": 8, "h": 3, "karel": [1, 1, "E"], "marks": ["8,1"]}, "post": {"w": 8, "h": 3, "karel": [8, 1, "E"], "marks": ["8,1"]}}]},
- {"id": "6.3",
-  "level": 6,
-  "title": "Zbúraj stĺpik",
-  "concept": "kym je tehla",
-  "text": "Pred Karlom je stĺpik z neznámeho počtu tehál. Zbúraj ho celý.",
-  "hint": "Dvíhaj, kým je pred tebou tehla.",
-  "run": "Zburaj_stlpik",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 5}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 2}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 8}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}]},
- {"id": "6.4",
-  "level": 6,
-  "title": "Zbúraj múr",
-  "concept": "kym v kym",
-  "text": "Pred Karlom je múr zo stĺpikov. Nevieme, koľko ich je ani aké sú vysoké. Zbúraj celý múr.",
-  "hint": "Kým je pred tebou tehla: zbúraj stĺpik (to už vieš) a urob krok.",
-  "run": "Zburaj_mur",
-  "maps": [{"pre": {"w": 3, "h": 6, "karel": [2, 1, "N"], "bricks": {"2,2": 3, "2,3": 3, "2,4": 3, "2,5": 3}}, "post": {"w": 3, "h": 6, "karel": [2, 5, "N"]}}, {"pre": {"w": 3, "h": 5, "karel": [2, 1, "N"], "bricks": {"2,2": 2, "2,3": 4, "2,4": 1}}, "post": {"w": 3, "h": 5, "karel": [2, 4, "N"]}}, {"pre": {"w": 3, "h": 7, "karel": [2, 1, "N"], "bricks": {"2,2": 3, "2,3": 1, "2,4": 2, "2,5": 5, "2,6": 1}}, "post": {"w": 3, "h": 7, "karel": [2, 6, "N"]}}]},
- {"id": "6.5",
-  "level": 6,
-  "title": "Oprav dlhý chodník",
-  "concept": "kym a ak spolu",
-  "text": "Chodník vedie až k stene, má neznámu dĺžku a neznáme diery. Oprav ho celý a skonči na jeho konci.",
-  "hint": "Vonku: kým nie je stena. Vnútri: ak nie je tehla, polož. Potom krok.",
-  "run": "Oprav_dlhy",
-  "maps": [{"pre": {"w": 8, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "5,1": 1, "7,1": 1, "8,1": 1}}, "post": {"w": 8, "h": 3, "karel": [8, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1, "7,1": 1, "8,1": 1}}}, {"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "3,1": 1}}, "post": {"w": 5, "h": 3, "karel": [5, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1}}}, {"pre": {"w": 10, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "6,1": 1, "9,1": 1}}, "post": {"w": 10, "h": 3, "karel": [10, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1, "7,1": 1, "8,1": 1, "9,1": 1, "10,1": 1}}}]},
- {"id": "6.6",
-  "level": 6,
-  "title": "Obehni miestnosť",
-  "concept": "vlastný príkaz v opakovaní",
-  "text": "Karel obehne miestnosť pozdĺž stien, v každom rohu namaľuje značku a skončí tam, kde začal. Miestnosť môže mať akúkoľvek veľkosť.",
-  "hint": "Ako 4.3, ale namiesto troch krokov použi svoj príkaz Ku_stene.",
-  "run": "Dokola",
-  "maps": [{"pre": {"w": 5, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 5, "h": 4, "karel": [1, 1, "N"], "marks": ["1,1", "1,4", "5,4", "5,1"]}}, {"pre": {"w": 3, "h": 3, "karel": [1, 1, "N"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "N"], "marks": ["1,1", "1,3", "3,1", "3,3"]}}, {"pre": {"w": 7, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 7, "h": 4, "karel": [1, 1, "N"], "marks": ["1,1", "1,4", "7,1", "7,4"]}}]},
- {"id": "6.7",
-  "level": 6,
-  "title": "Tam a späť",
-  "concept": "vlastný príkaz dvakrát",
-  "text": "Karel dôjde k stene, namaľuje tam značku a vráti sa presne tam, kde začal, otočený tak ako na začiatku. Pre akúkoľvek šírku miestnosti.",
-  "hint": "Ku_stene, značka, čelom vzad, Ku_stene, čelom vzad.",
-  "run": "Tam_a_spat",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [1, 2, "E"], "marks": ["6,2"]}}, {"pre": {"w": 9, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 9, "h": 3, "karel": [1, 2, "E"], "marks": ["9,2"]}}, {"pre": {"w": 3, "h": 5, "karel": [3, 1, "N"]}, "post": {"w": 3, "h": 5, "karel": [3, 1, "N"], "marks": ["3,5"]}}]},
- {"id": "6.8",
-  "level": 6,
-  "title": "Prelož stĺpik za seba",
-  "concept": "kym s otáčaním",
-  "text": "Pred Karlom je stĺpik neznámej výšky. Prelož ho celý za Karla.",
-  "hint": "Kým je pred tebou tehla: zdvihni, otoč sa čelom vzad, polož, otoč sa späť.",
-  "run": "Preloz",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 4}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,1": 4}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 1}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,1": 1}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 7}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,1": 7}}}]},
- {"id": "6.9",
-  "level": 6,
-  "title": "Zvýš chodník",
-  "concept": "kym po tehlách",
-  "text": "Karel stojí na chodníku z tehál, ktorý vedie až k stene. Zvýš celý chodník o jednu tehlu (okrem prvej, na ktorej Karel stojí) a skonči na jeho konci.",
-  "hint": "Kým nie je stena: polož tehlu pred seba a vylez na ňu.",
-  "run": "Zvys",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1}}, "post": {"w": 6, "h": 3, "karel": [6, 1, "E"], "bricks": {"1,1": 1, "2,1": 2, "3,1": 2, "4,1": 2, "5,1": 2, "6,1": 2}}}, {"pre": {"w": 4, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1}}, "post": {"w": 4, "h": 3, "karel": [4, 1, "E"], "bricks": {"1,1": 1, "2,1": 2, "3,1": 2, "4,1": 2}}}, {"pre": {"w": 9, "h": 3, "karel": [1, 1, "E"], "bricks": {"1,1": 1, "2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "6,1": 1, "7,1": 1, "8,1": 1, "9,1": 1}}, "post": {"w": 9, "h": 3, "karel": [9, 1, "E"], "bricks": {"1,1": 1, "2,1": 2, "3,1": 2, "4,1": 2, "5,1": 2, "6,1": 2, "7,1": 2, "8,1": 2, "9,1": 2}}}]},
- {"id": "7.1",
-  "level": 7,
-  "title": "Zbieraj až po stenu",
-  "concept": "výzva",
-  "text": "Na ceste k stene ležia tehly, nevieme koľko ani kde. Karel ich všetky pozbiera a skončí pri stene.",
-  "hint": "Spoj 5.1 a 6.1.",
-  "run": "Zbieraj_vsetko",
-  "maps": [{"pre": {"w": 7, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 1, "4,1": 1, "5,1": 1}}, "post": {"w": 7, "h": 3, "karel": [7, 1, "E"]}}, {"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1}}, "post": {"w": 5, "h": 3, "karel": [5, 1, "E"]}}, {"pre": {"w": 9, "h": 3, "karel": [1, 1, "E"], "bricks": {"9,1": 1}}, "post": {"w": 9, "h": 3, "karel": [9, 1, "E"]}}]},
- {"id": "7.2",
-  "level": 7,
-  "title": "Ohrada okolo Karla",
-  "concept": "výzva",
-  "text": "Karel stojí v strede. Postav okolo neho ohradu: na každom zo štyroch susedných políčok stĺpik z dvoch tehál.",
-  "hint": "Jedna strana: dve tehly a otočka. Strany sú štyri.",
-  "run": "Ohrada",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"]}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 2, "1,2": 2, "2,1": 2, "3,2": 2}}}]},
- {"id": "7.3",
-  "level": 7,
-  "title": "Bludisko",
-  "concept": "výzva: pravidlo pravej ruky",
-  "text": "Karel je v bludisku a niekde v ňom je značka. Nájdi ju. Program nesmie závisieť od tvaru bludiska.",
-  "hint": "Drž sa pravou rukou steny: otoč sa doprava; kým je pred tebou stena, otáčaj sa doľava; krok. A to celé, kým nestojíš na značke.",
-  "run": "Bludisko",
-  "maps": [{"pre": {"w": 5, "h": 4, "karel": [1, 1, "N"], "blocked": ["2,1", "2,2", "4,2", "4,3"], "marks": ["5,4"]}, "post": {"w": 5, "h": 4, "karel": [5, 4, "N"], "blocked": ["2,1", "2,2", "4,2", "4,3"], "marks": ["5,4"]}}, {"pre": {"w": 4, "h": 4, "karel": [1, 1, "N"], "blocked": ["2,1", "2,2", "2,3"], "marks": ["4,1"]}, "post": {"w": 4, "h": 4, "karel": [4, 1, "E"], "marks": ["4,1"], "blocked": ["2,1", "2,2", "2,3"]}}, {"pre": {"w": 6, "h": 3, "karel": [1, 1, "N"], "blocked": ["2,1", "4,2", "4,3"], "marks": ["6,3"]}, "post": {"w": 6, "h": 3, "karel": [6, 3, "N"], "marks": ["6,3"], "blocked": ["2,1", "4,2", "4,3"]}}, {"pre": {"w": 5, "h": 5, "karel": [3, 3, "N"], "blocked": ["2,2", "3,2", "4,2", "2,4", "3,4", "4,4", "4,3"], "marks": ["1,1"]}, "post": {"w": 5, "h": 5, "karel": [1, 1, "W"], "marks": ["1,1"], "blocked": ["2,2", "2,4", "3,2", "3,4", "4,2", "4,3", "4,4"]}}]},
- {"id": "7.4",
-  "level": 7,
-  "title": "Pozbieraj pole",
-  "concept": "výzva: prechod po riadkoch",
-  "text": "Pole má dva riadky tehál. Karel pozbiera všetky a skončí vľavo v druhom riadku, otočený k ľavej stene.",
-  "hint": "Ako kombajn: prvý riadok tam, druhý späť. Príkaz Riadok: štyrikrát zdvihni a krok. Potom otočka hore, krok, otočka doľava, a znova Riadok.",
-  "run": "Pole",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [1, 1, "E"], "bricks": {"2,1": 1, "3,1": 1, "4,1": 1, "5,1": 1, "1,2": 1, "2,2": 1, "3,2": 1, "4,2": 1}}, "post": {"w": 5, "h": 3, "karel": [1, 2, "W"]}}]},
- {"id": "7.5",
-  "level": 7,
-  "title": "Rám okolo miestnosti",
-  "concept": "výzva: zovšeobecnenie 4.6",
-  "text": "Karel označí všetky políčka pri stenách, celý rám miestnosti, a skončí tam, kde začal. Pre miestnosť akejkoľvek veľkosti.",
-  "hint": "Jedna strana: kým sa dá vykročiť, značka a krok. Štyri strany, medzi nimi otočka doprava. Pozor: rohové políčko nechaj ďalšej strane, inak ho označíš dvakrát a to je chyba.",
-  "run": "Ram",
-  "maps": [{"pre": {"w": 5, "h": 4, "karel": [1, 1, "N"]}, "post": {"w": 5, "h": 4, "karel": [1, 1, "N"], "marks": ["1,1", "1,2", "1,3", "1,4", "2,4", "3,4", "4,4", "5,4", "5,3", "5,2", "5,1", "4,1", "3,1", "2,1"]}}, {"pre": {"w": 3, "h": 3, "karel": [1, 1, "N"]}, "post": {"w": 3, "h": 3, "karel": [1, 1, "N"], "marks": ["1,1", "1,2", "1,3", "2,1", "2,3", "3,1", "3,2", "3,3"]}}, {"pre": {"w": 6, "h": 5, "karel": [1, 1, "N"]}, "post": {"w": 6, "h": 5, "karel": [1, 1, "N"], "marks": ["1,1", "1,2", "1,3", "1,4", "1,5", "2,1", "2,5", "3,1", "3,5", "4,1", "4,5", "5,1", "5,5", "6,1", "6,2", "6,3", "6,4", "6,5"]}}]},
- {"id": "7.6",
-  "level": 7,
-  "title": "Šachovnica",
-  "concept": "výzva: vzor s posunom",
-  "text": "Karel vyfarbí miestnosť 4 × 4 ako šachovnicu: každé druhé políčko, a každý ďalší riadok posunutý o jedno. Skončí vľavo hore v druhom políčku.",
-  "hint": "Príkaz Riadok: značka, dva kroky, značka. Na konci riadku sa Karel otočí hore, krok, a otočí sa do protismeru. Raz doľava a raz doprava, podľa toho, kam ide. Posun sa urobí sám.",
-  "run": "Sachovnica",
-  "maps": [{"pre": {"w": 4, "h": 4, "karel": [1, 1, "E"]}, "post": {"w": 4, "h": 4, "karel": [2, 4, "W"], "marks": ["1,1", "3,1", "2,2", "4,2", "1,3", "3,3", "2,4", "4,4"]}}]},
- {"id": "8.1",
-  "level": 8,
-  "type": "trace",
-  "title": "Maratón",
-  "concept": "rekurzia bez konca",
-  "text": "Program nemá koniec: Maraton volá sám seba. Nespúšťaj hneď. Uhádni, čo Karel urobí a ako to skončí. Potom spusti a sleduj počítadlo krokov nad miestnosťou.",
-  "hint": "Krok, a potom znova Maraton, čiže krok, a potom znova Maraton... Kedy sa to zastaví?",
-  "expect": "error",
-  "run": "Maraton",
-  "program": "prikaz Maraton\n    krok\n    Maraton\nkoniec\n\nMaraton",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [6, 2, "E"]}}]},
- {"id": "8.2",
-  "level": 8,
-  "type": "trace",
-  "title": "Strážca brány",
-  "concept": "rekurzia bez konca",
-  "text": "Uhádni, čo urobí tento program, a ako sa skončí. Až potom spusti. Tlačidlo Zastav je pod miestnosťou.",
-  "hint": "Dva kroky, čelom vzad, a znova od začiatku. Kde bude Karel po prvom kole? A po druhom?",
-  "expect": "infinite",
-  "run": "Strazca",
-  "program": "prikaz Dvojkrok\n    krok\n    krok\nkoniec\n\nprikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Strazca\n    Dvojkrok\n    Celom_vzad\n    Strazca\nkoniec\n\nStrazca",
-  "maps": [{"pre": {"w": 5, "h": 3, "karel": [2, 2, "E"]}, "post": {"w": 5, "h": 3, "karel": [2, 2, "E"]}}]},
- {"id": "8.3",
-  "level": 8,
-  "title": "K stene rekurzívne",
-  "concept": "zastavovacia podmienka",
-  "text": "Karel dôjde k stene ako v 6.1, ale bez kym: príkaz Ku_stene má zavolať sám seba.",
-  "hint": "Ku_stene urobí krok a zavolá sám seba, ale len ak sa dá vykročiť. Otázka volno obalí obidva riadky: krok aj volanie Ku_stene. Keď je pred Karlom stena, neurobí nič a všetko sa skončí.",
-  "run": "Ku_stene",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [6, 2, "E"]}}, {"pre": {"w": 9, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 9, "h": 3, "karel": [9, 2, "E"]}}, {"pre": {"w": 4, "h": 5, "karel": [2, 1, "N"]}, "post": {"w": 4, "h": 5, "karel": [2, 5, "N"]}}]},
- {"id": "8.4",
-  "level": 8,
-  "title": "Zbúraj stĺpik rekurzívne",
-  "concept": "zastavovacia podmienka",
-  "text": "Zbúraj stĺpik neznámej výšky (ako 6.3), ale rekurziou namiesto kym.",
-  "hint": "Ak je pred tebou tehla: zdvihni a zavolaj sa znova.",
-  "run": "Zburaj",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 5}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 2}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 8}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"]}}]},
- {"id": "8.5",
-  "level": 8,
-  "title": "Výlet",
-  "concept": "práca pri návrate",
-  "text": "Karel dôjde k stene, namaľuje tam značku a vráti sa tam, kde začal, otočený ako na začiatku. Bez kym a bez druhého pochodu k stene: stačí jeden príkaz Vylet, ktorý volá sám seba.",
-  "hint": "Cestu späť urobí rekurzia pri návrate, cúvaním. Ak je voľno: krok, Vylet, Cuvni. Inak: značka. Riadok Cuvni sa vykoná až vtedy, keď sa vnútorný Vylet skončí.",
-  "run": "Vylet",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [1, 2, "E"], "marks": ["6,2"]}}, {"pre": {"w": 9, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 9, "h": 3, "karel": [1, 2, "E"], "marks": ["9,2"]}}, {"pre": {"w": 4, "h": 5, "karel": [2, 1, "N"]}, "post": {"w": 4, "h": 5, "karel": [2, 1, "N"], "marks": ["2,5"]}}]},
- {"id": "8.6",
-  "level": 8,
-  "title": "Do polovice",
-  "concept": "rekurzia ako počítadlo",
-  "text": "Karel má zastaviť v polovici cesty k stene, otočený čelom vzad. Pre miestnosť akejkoľvek šírky, bez počítania: rekurziou.",
-  "hint": "Trik: k stene ide po dvoch krokoch, a späť po jednom, pri návrate z rekurzie. Použi opatrný krok, aby druhý krok nenarazil, keď je políčok nepárny počet. Polovica: opatrný krok, opatrný krok, ak je stena tak čelom vzad, inak Polovica. A za tým krok, ktorý sa robí pri návrate.",
-  "run": "Polovica",
-  "maps": [{"pre": {"w": 7, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 7, "h": 3, "karel": [4, 2, "W"]}}, {"pre": {"w": 5, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 5, "h": 3, "karel": [3, 2, "W"]}}, {"pre": {"w": 10, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 10, "h": 3, "karel": [5, 2, "W"]}}]},
- {"id": "9.1",
-  "level": 9,
-  "title": "Rozdaj stĺpik na dve kopy",
-  "concept": "svet ako pamäť",
-  "text": "Pred Karlom je stĺpik neznámej výšky. Rozober ho a z každej tehly urob dve: jednu polož naľavo, druhú dozadu. Bez počítania.",
-  "hint": "Kým je pred tebou tehla: zdvihni, vľavo, polož, vľavo, polož, a dvoma vľavo naspäť dopredu.",
-  "run": "Rozdaj",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 3}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"1,2": 3, "2,1": 3}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 1}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"1,2": 1, "2,1": 1}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 6}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"1,2": 6, "2,1": 6}}}]},
- {"id": "9.2",
-  "level": 9,
-  "app": "old",
-  "title": "Spočítaj a postav",
-  "concept": "premenná ako počítadlo",
-  "text": "Karel dôjde k stene, otočí sa čelom vzad a postaví pred sebou stĺpik vysoký presne toľko, koľko urobil krokov. Pre miestnosť akejkoľvek šírky.",
-  "hint": "Počítaj kroky do premennej: kroky začína na nule a po každom kroku sa zväčší o jeden. Potom udelej kroky krat poloz.",
-  "run": "Spocitaj",
-  "maps": [{"pre": {"w": 6, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 6, "h": 3, "karel": [6, 2, "W"], "bricks": {"5,2": 5}}}, {"pre": {"w": 9, "h": 3, "karel": [1, 2, "E"]}, "post": {"w": 9, "h": 3, "karel": [9, 2, "W"], "bricks": {"8,2": 8}}}, {"pre": {"w": 4, "h": 5, "karel": [2, 1, "N"]}, "post": {"w": 4, "h": 5, "karel": [2, 5, "S"], "bricks": {"2,4": 4}}}]},
- {"id": "9.3",
-  "level": 9,
-  "app": "old",
-  "title": "Kopíruj stĺpik",
-  "concept": "spočítaj a obnov",
-  "text": "Pred Karlom je stĺpik neznámej výšky. Postav za Karlom rovnako vysoký stĺpik a pôvodný nechaj tak, ako bol.",
-  "hint": "Rozober stĺpik a počítaj. Potom ho postav znova a ten istý počet polož aj za seba.",
-  "run": "Kopiruj",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 3}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 3, "2,1": 3}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 1}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,1": 1, "2,3": 1}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,3": 6}}, "post": {"w": 3, "h": 3, "karel": [2, 2, "N"], "bricks": {"2,1": 6, "2,3": 6}}}]},
- {"id": "9.4",
-  "level": 9,
-  "app": "old",
-  "title": "Dvojnásobok",
-  "concept": "výraz s premennou",
-  "text": "Pred Karlom je stĺpik. Urob ho dvakrát vyšší.",
-  "hint": "Spočítaj tehly ako v 9.3. Potom si vypočítaj dvojnásobok do novej premennej a polož toľko tehál.",
-  "run": "Dvojnasobok",
-  "maps": [{"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 2}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 4}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 1}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 2}}}, {"pre": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 4}}, "post": {"w": 3, "h": 3, "karel": [2, 1, "N"], "bricks": {"2,2": 8}}}]},
- {"id": "9.5",
-  "level": 9,
-  "app": "old",
-  "title": "Stred miestnosti",
-  "concept": "delenie dvoma",
-  "text": "Karel nájde stred miestnosti akejkoľvek veľkosti a označí ho.",
-  "hint": "Najprv stred jednej steny, potom stred druhej. Príkaz Stred_steny: spočítaj kroky k stene, otoč sa, vráť sa o polovicu. Použi ho dvakrát, medzi tým vpravo.",
-  "run": "Stred",
-  "maps": [{"pre": {"w": 7, "h": 5, "karel": [1, 1, "E"]}, "post": {"w": 7, "h": 5, "karel": [4, 3, "S"], "marks": ["4,3"]}}, {"pre": {"w": 5, "h": 5, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 5, "karel": [3, 3, "S"], "marks": ["3,3"]}}, {"pre": {"w": 8, "h": 6, "karel": [1, 1, "E"]}, "post": {"w": 8, "h": 6, "karel": [5, 4, "S"], "marks": ["5,4"]}}]},
- {"id": "9.6",
-  "level": 9,
-  "app": "old",
-  "title": "Špirála",
-  "concept": "premenná sa zmenšuje",
-  "text": "Karel prejde celú miestnosť 5 × 5 po špirále: popri stenách doľava a stále dovnútra, každé políčko označí a skončí v strede. Nesmie prejsť po žiadnom políčku dvakrát.",
-  "hint": "Špirála sú ramená a otočky doľava. Rameno je n krát (krok, značka). Počítaj kroky, nie políčka: prvé rameno má 4 kroky, lebo štartové políčko označíš ešte pred ním. Prvé tri ramená majú po 4 kroky, potom vždy dve ramená po 3, dve po 2 a dve po 1. Premenná n začína na 4; v cykle ju zmenši o jeden a urob dve ramená, kým je n väčšie ako 1.",
-  "run": "Spirala",
-  "maps": [{"pre": {"w": 5, "h": 5, "karel": [1, 1, "E"]}, "post": {"w": 5, "h": 5, "karel": [3, 3, "N"], "marks": ["1,1", "2,1", "3,1", "4,1", "5,1", "1,2", "2,2", "3,2", "4,2", "5,2", "1,3", "2,3", "3,3", "4,3", "5,3", "1,4", "2,4", "3,4", "4,4", "5,4", "1,5", "2,5", "3,5", "4,5", "5,5"]}}]}
-]
+  "levels": [
+    {
+      "id": 1,
+      "title": "Úroveň 1: Postupnosť príkazov",
+      "intro": "Program je zoznam príkazov. Karel ich robí zhora nadol, jeden po druhom. Program zabalíme do príkazu s menom a na poslednom riadku ho zavoláme. Karel vykoná to, čo je mimo príkazov, zhora nadol.",
+      "concept": "prikaz Meno\n    krok\n    vlavo\nkoniec\n\nMeno\n\nPosledný riadok príkaz zavolá. Tlačidlo Spusti."
+    },
+    {
+      "id": 2,
+      "title": "Úroveň 2: Tehly a značky",
+      "intro": "Tehla je vec, ktorú Karel kladie a dvíha pred sebou. Značka je farba, ktorú maľuje pod seba. Najčastejšia chyba: dieťa čaká, že Karel položí tehlu tam, kde stojí.",
+      "concept": "poloz     tehla pred Karla\nzdvihni    tehla spred Karla (musí tam byť)\noznac     značka pod Karla\nodznac    zmaž značku pod Karlom"
+    },
+    {
+      "id": 3,
+      "title": "Úroveň 3: Vlastné príkazy",
+      "intro": "Karla učíme nové slová. Nový príkaz zložíme z tých, ktoré už pozná, a potom ho používame ako každý iný. Toto je najdôležitejšia myšlienka celého programovania: rozdeliť veľkú úlohu na menšie, pomenované kusy.",
+      "concept": "prikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Cuvni\n    Celom_vzad\n    krok\n    Celom_vzad\nkoniec"
+    },
+    {
+      "id": 4,
+      "title": "Úroveň 4: Opakovanie s počtom",
+      "intro": "Keď vieme vopred, koľkokrát sa má niečo urobiť, nepíšeme to viackrát. Napíšeme to raz a povieme koľkokrát. Cykly sa dajú vnárať: opakovanie v opakovaní. A pozor na plotový problém: tri medzery medzi štyrmi stĺpikmi.",
+      "concept": "opakuj 6 krat\n    krok\nkoniec"
+    },
+    {
+      "id": 5,
+      "title": "Úroveň 5: Rozhodovanie",
+      "intro": "Karel sa vie pozrieť pred seba a podľa toho sa rozhodnúť. Podmienka je otázka s odpoveďou áno alebo nie: je pred tebou tehla? je pred tebou stena? stojíš na značke?",
+      "concept": "ak je tehla\ntak\n    zdvihni\ninak\n    oznac\nkoniec\n\nČasť inak sa môže vynechať."
+    },
+    {
+      "id": 6,
+      "title": "Úroveň 6: Opakovanie s podmienkou",
+      "intro": "Keď nevieme vopred, koľkokrát sa má niečo urobiť, opakujeme, kým platí podmienka. Toto je prvý program, ktorý funguje v miestnosti akejkoľvek veľkosti. Pri každej úlohe sú ďalšie mapy: program má na všetkých fungovať bez zmeny.",
+      "concept": "kym nie je mur\n    krok\nkoniec\n\nPozor: ak sa podmienka nikdy nezmení, Karel neskončí. Vtedy Zastav."
+    },
+    {
+      "id": 7,
+      "title": "Úroveň 7: Výzvy",
+      "intro": "Všetko dokopy. Tu už nie je nič nové, len skladanie toho, čo dieťa vie. Ak sa zasekne, nech si úlohu najprv rozdelí na vlastné príkazy a každý vyskúša samostatne.",
+      "concept": null
+    },
+    {
+      "id": 8,
+      "title": "Úroveň 8: Rekurzia (nadstavba)",
+      "intro": "Príkaz môže použiť sám seba. Volá sa to rekurzia a Karel tak začne odznova, akoby ho niekto zavolal znova. Bez zastavovacej podmienky to nikdy neskončí, preto prvé dve úlohy sú hádanky. S podmienkou ak je rekurzia iný spôsob, ako napísať cyklus. A má jednu zvláštnu vlastnosť: čo je v príkaze za rekurzívnym volaním, sa vykoná až pri návrate, a to toľkokrát, koľkokrát sa príkaz zavolal. Rekurzia patrí v ŠVP na 2. stupeň; táto úroveň je tu pre dieťa, ktoré sa pýta ďalej.",
+      "concept": "prikaz Ku_stene\n    ak je volno\n    tak\n        krok\n        Ku_stene\n    koniec\nkoniec"
+    },
+    {
+      "id": 9,
+      "title": "Úroveň 9: Premenné a pamäť (nadstavba)",
+      "intro": "Táto úroveň beží na karelrobot.cz, nový Karel premenné zatiaľ nemá (úloha 9.1 je bez premenných, tá ide v Karlovi). Karel vie počítať. Premenná je číslo s menom: vytvorí sa a mení rovnakým zápisom lokalni promenna meno = hodnota. Dá sa použiť ako počet opakovaní a v podmienkach. Delenie zaokrúhľuje nadol. Premenná musí byť vnútri príkazu; globálne premenné (globalni promenna mimo príkazov) sa vnútri príkazu nedajú meniť, preto ich nepoužívame. Prvá úloha ukazuje, že pamäťou môže byť aj samotný svet, bez čísla. Premenné patria v ŠVP na 2. stupeň.",
+      "app": "old",
+      "concept": "lokalni promenna kroky = 0\nlokalni promenna kroky = kroky + 1\nudelej kroky krat\n    krok\n*udelej\nkdyz je kroky == 3\ndokud je kroky > 0"
+    }
+  ],
+  "concepts": [
+    {
+      "name": "Vykonávateľ a stav sveta",
+      "desc": "Robot robí presne to, čo dostane. Svet má stav PRED a PO; program je cesta medzi nimi.",
+      "tasks": [
+        "1.1"
+      ]
+    },
+    {
+      "name": "Postupnosť a poradie",
+      "desc": "Program je zoznam príkazov zhora nadol. Zmena poradia mení výsledok.",
+      "tasks": [
+        "1.1",
+        "1.2",
+        "1.3",
+        "1.5",
+        "1.6",
+        "1.7",
+        "1.9",
+        "2.3"
+      ]
+    },
+    {
+      "name": "Relatívny smer",
+      "desc": "Vľavo a vpravo sú z pohľadu robota. Čelom vzad sú dve otočky, vpravo sú tri vľavo.",
+      "tasks": [
+        "1.2",
+        "1.4",
+        "1.6",
+        "1.8",
+        "1.9",
+        "3.2",
+        "3.6"
+      ]
+    },
+    {
+      "name": "Chyby a ladenie",
+      "desc": "Karel ohlási chybu a zastaví sa (múr pred ním, tehla za stenou, nič na zdvihnutie, dvojitá značka). Čítanie chyby, krokovanie, hľadanie chyby v cudzom programe.",
+      "tasks": [
+        "2.1",
+        "2.6",
+        "5.5",
+        "5.7"
+      ]
+    },
+    {
+      "name": "Čítanie programu",
+      "desc": "Predpovedať, čo program urobí, bez spustenia. Opak písania; rovnako dôležité.",
+      "tasks": [
+        "1.5",
+        "1.8",
+        "2.10",
+        "3.10",
+        "4.6"
+      ]
+    },
+    {
+      "name": "Stav prostredia",
+      "desc": "Tehly (aj na sebe), značky, steny. Kam sa kladie tehla a kam značka; čo je pred robotom a čo pod ním.",
+      "tasks": [
+        "2.1",
+        "2.2",
+        "2.4",
+        "2.5",
+        "2.7",
+        "2.8",
+        "2.9",
+        "4.4"
+      ]
+    },
+    {
+      "name": "Abstrakcia: vlastný príkaz",
+      "desc": "Pomenovať postupnosť a používať meno ako nové slovo. Meno hovorí, čo príkaz robí.",
+      "tasks": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.9"
+      ]
+    },
+    {
+      "name": "Dekompozícia",
+      "desc": "Rozdeliť veľkú úlohu na pomenované malé (Cuvni, Ku_stene, Prekazka, Riadok) a poskladať ich.",
+      "tasks": [
+        "3.3",
+        "3.5",
+        "3.7",
+        "3.9",
+        "4.5",
+        "4.9",
+        "4.11",
+        "6.6",
+        "7.4"
+      ]
+    },
+    {
+      "name": "Opakovanie s počtom",
+      "desc": "Napísať raz a povedať koľkokrát. Vnorené cykly: opakovanie v opakovaní.",
+      "tasks": [
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "4.5",
+        "4.6"
+      ]
+    },
+    {
+      "name": "Rozpoznanie vzoru",
+      "desc": "Vidieť, čo sa v postupnosti opakuje, a zabaliť to do cyklu alebo príkazu.",
+      "tasks": [
+        "3.5",
+        "3.7",
+        "4.2",
+        "4.7",
+        "4.11"
+      ]
+    },
+    {
+      "name": "Plotový problém",
+      "desc": "N dielikov medzi N+1 stĺpikmi: cyklus a jeden krok navyše pred ním alebo po ňom.",
+      "tasks": [
+        "4.7",
+        "4.8",
+        "5.6"
+      ]
+    },
+    {
+      "name": "Podmienka ak, negácia",
+      "desc": "Otázka s odpoveďou áno/nie o svete pred robotom alebo pod ním; slová nie je obracajú otázku.",
+      "tasks": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.5"
+      ]
+    },
+    {
+      "name": "Ak, inak",
+      "desc": "Dve vetvy, vykoná sa práve jedna.",
+      "tasks": [
+        "5.4",
+        "5.6"
+      ]
+    },
+    {
+      "name": "Cyklus s podmienkou",
+      "desc": "Opakuj, kým platí. Nevieme vopred koľkokrát. Ak sa podmienka nikdy nezmení, nekončí.",
+      "tasks": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.8",
+        "6.9"
+      ]
+    },
+    {
+      "name": "Zovšeobecnenie",
+      "desc": "Program, ktorý funguje pre miestnosť akejkoľvek veľkosti a pre neznámy počet vecí. Rozdiel medzi 4.3 a 6.6.",
+      "tasks": [
+        "6.1",
+        "6.4",
+        "6.5",
+        "6.6",
+        "7.1",
+        "7.5"
+      ]
+    },
+    {
+      "name": "Skladanie štruktúr",
+      "desc": "Podmienka v cykle, cyklus v cykle, vlastný príkaz v cykle.",
+      "tasks": [
+        "5.1",
+        "6.4",
+        "6.5",
+        "6.6",
+        "7.1",
+        "7.4"
+      ]
+    },
+    {
+      "name": "Algoritmické vzory",
+      "desc": "K stene, na značku, tam a späť, obehni miestnosť, pravidlo pravej ruky, prechod poľa po riadkoch, inverzia.",
+      "tasks": [
+        "6.1",
+        "6.2",
+        "6.7",
+        "6.6",
+        "7.3",
+        "7.4",
+        "5.6"
+      ]
+    },
+    {
+      "name": "Stavanie tvarov",
+      "desc": "Chodník, stĺpik, múr, schody, stupne víťazov, uhlopriečka, rám. Tvar ako výsledok pravidla.",
+      "tasks": [
+        "2.4",
+        "2.7",
+        "4.2",
+        "4.4",
+        "4.5",
+        "4.9",
+        "4.10",
+        "7.2",
+        "7.5"
+      ]
+    },
+    {
+      "name": "Robustnosť",
+      "desc": "Program, ktorý nespadne: opatrný krok, otázka pred krokom, správny počet opakovaní.",
+      "tasks": [
+        "5.3",
+        "5.5",
+        "5.7"
+      ]
+    },
+    {
+      "name": "Rekurzia",
+      "desc": "Príkaz, ktorý použije sám seba. Bez zastavovacej podmienky beží donekonečna; s podmienkou nahradí cyklus.",
+      "tasks": [
+        "8.1",
+        "8.2",
+        "8.3",
+        "8.4"
+      ]
+    },
+    {
+      "name": "Rekurzia ako pamäť",
+      "desc": "Čo je v príkaze za rekurzívnym volaním, robí sa pri návrate, toľkokrát, koľko bolo volaní. Karel si tak pamätá počet krokov bez čísla.",
+      "tasks": [
+        "8.5",
+        "8.6"
+      ]
+    },
+    {
+      "name": "Svet ako pamäť",
+      "desc": "Stĺpik, značka alebo tehla môžu byť pamäťou programu: kým tam niečo je, je čo robiť; značka pamätá miesto.",
+      "tasks": [
+        "6.2",
+        "6.7",
+        "6.8",
+        "9.1"
+      ]
+    },
+    {
+      "name": "Premenné a počítanie",
+      "desc": "Číslo s menom: spočítať kroky alebo tehly, deliť dvoma, násobiť, použiť ako počet opakovaní alebo v podmienke.",
+      "tasks": [
+        "9.2",
+        "9.3",
+        "9.4",
+        "9.5",
+        "9.6"
+      ]
+    },
+    {
+      "name": "Vzory: šachovnica, špirála",
+      "desc": "Zložitý obrazec ako výsledok jednoduchého pravidla, ktoré sa opakuje s malou zmenou.",
+      "tasks": [
+        "7.6",
+        "9.6"
+      ]
+    },
+    {
+      "name": "Vynechané",
+      "desc": "Triedenie, stred bez premenných (značky ako počítadlo), bludisko so slepými uličkami, šachovnica ľubovoľnej veľkosti. Úlohy pre 2. stupeň, niektoré aj pre strednú školu.",
+      "tasks": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1.1",
+      "level": 1,
+      "title": "Tri kroky",
+      "concept": "prvý program",
+      "text": "Napíš program, po ktorom Karel urobí tri kroky dopredu.",
+      "hint": "Program musí mať meno a musí končiť slovom koniec. Medzi tým sú tri riadky.",
+      "run": "Tri_kroky",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.2",
+      "level": 1,
+      "title": "Do rohu",
+      "concept": "kroky a otočka",
+      "text": "Dostaň Karla z ľavého dolného rohu do pravého horného rohu. Na konci sa má pozerať hore.",
+      "hint": "Najprv doprava až po stenu. Potom sa otoč. Vľavo, alebo vpravo? Predstav si, že si Karel.",
+      "run": "Do_rohu",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              4,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.3",
+      "level": 1,
+      "title": "Okolo prekážky",
+      "concept": "obchádzka",
+      "text": "Pred Karlom chýba políčko, je tam diera (stena). Dostaň ho na políčko za dierou, aby sa na konci znova pozeral doprava.",
+      "hint": "Hore, dva kroky doprava, dole, a nezabudni sa na konci otočiť späť.",
+      "run": "Obchadzka",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "blocked": [
+              "2,1"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "E"
+            ],
+            "blocked": [
+              "2,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.4",
+      "level": 1,
+      "title": "Čelom vzad",
+      "concept": "dve otočky",
+      "text": "Otoč Karla čelom vzad. Stojí na mieste, na konci sa pozerá dole namiesto hore.",
+      "hint": "Jedna otočka je štvrť kruhu. Koľko ich treba na pol kruhu?",
+      "run": "Celom_vzad",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "S"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.5",
+      "level": 1,
+      "type": "trace",
+      "title": "Čo urobí Karel?",
+      "concept": "čítanie programu",
+      "text": "Nič nepíš. Prečítaj program, prejdi ho prstom po obrázku a nakresli, kde Karel skončí a kam sa bude pozerať. Až potom to over v Karlovi.",
+      "hint": "Po každom riadku si povedz: kde stojí, kam pozerá. Otočka nemení políčko, len smer.",
+      "run": "Hadanka",
+      "program": "prikaz Hadanka\n    krok\n    krok\n    vlavo\n    krok\n    vlavo\n    krok\nkoniec\n\nHadanka",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              2,
+              2,
+              "W"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.6",
+      "level": 1,
+      "title": "Písmeno L",
+      "concept": "cesta s jednou otočkou",
+      "text": "Karel stojí vľavo hore a pozerá dole. Prejde po písmene L: dole až k stene a potom doprava až do rohu. Na konci sa pozerá doprava.",
+      "hint": "Tri kroky dole. Karel pozerá dole, takže doprava je pre neho vlavo. Potom tri kroky.",
+      "run": "Elko",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              4,
+              "S"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.7",
+      "level": 1,
+      "title": "Cikcak",
+      "concept": "striedanie otočiek",
+      "text": "Karel prejde cikcak ako na obrázku: krok, hore, krok, dole, a skončí na treťom políčku spodného radu, otočený doprava. Použi presne štyri kroky.",
+      "hint": "Po každom kroku príde otočka: vlavo, vpravo, vpravo, vlavo.",
+      "run": "Cikcak",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.8",
+      "level": 1,
+      "type": "trace",
+      "title": "Kam sa bude pozerať?",
+      "concept": "otočky sa sčítavajú",
+      "text": "Nič nepíš. Karel sa len otáča na mieste. Prečítaj program a uhádni, kam sa bude pozerať na konci. Potom over v Karlovi.",
+      "hint": "Otáčaj sa spolu s ním: pravá ruka, pravá, pravá, ľavá, ľavá.",
+      "run": "Otocky",
+      "program": "prikaz Otocky\n    vpravo\n    vpravo\n    vpravo\n    vlavo\n    vlavo\nkoniec\n\nOtocky",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "1.9",
+      "level": 1,
+      "title": "Späť domov",
+      "concept": "cesta s dvoma otočkami",
+      "text": "Karel je v pravom hornom rohu a pozerá doľava. Dostaň ho do ľavého dolného rohu tak, aby sa na konci pozeral doprava.",
+      "hint": "Dva kroky doľava, otočka, dva kroky dole, otočka. Ktorá otočka to je, keď Karel pozerá doľava a má ísť dole?",
+      "run": "Domov",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              3,
+              3,
+              "W"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.1",
+      "level": 2,
+      "title": "Zdvihni tehlu",
+      "concept": "zdvihni",
+      "text": "V pravom dolnom rohu leží tehla. Karel ju má zdvihnúť a postaviť sa na jej miesto.",
+      "hint": "Karel dvíha tehlu spred seba. Koľko krokov musí urobiť, aby bola tehla priamo pred ním?",
+      "run": "Zober",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "4,1": 1
+            }
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.2",
+      "level": 2,
+      "title": "Dve tehly do rohov",
+      "concept": "poloz, otáčanie",
+      "text": "Karel položí tehlu do ľavého dolného rohu a do ľavého horného rohu a skončí v pravom hornom rohu.",
+      "hint": "Karel stojí vedľa rohu a pozerá naň, lebo tehlu kladie pred seba. Prvý riadok je poloz. Potom sa otoč hore.",
+      "run": "Dve_tehly",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              2,
+              1,
+              "W"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              4,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "1,4": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.3",
+      "level": 2,
+      "title": "Prenes tehlu",
+      "concept": "zdvihni a poloz",
+      "text": "Tehla leží na treťom políčku. Karel ju má preniesť na koniec radu, k pravej stene.",
+      "hint": "Krok, zdvihni, a potom choď tak ďaleko, aby bolo posledné políčko pred tebou.",
+      "run": "Prenes",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "3,1": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "5,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.4",
+      "level": 2,
+      "title": "Zaplň dieru v chodníku",
+      "concept": "kráčanie po tehlách",
+      "text": "Karel stojí na chodníku z tehál. V strede chýba jedna. Doplň ju a prejdi na koniec chodníka.",
+      "hint": "Z tehly na tehlu sa kráča normálne. Do diery netreba zliezť, stačí ju pred sebou zaplniť.",
+      "run": "Oprav",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "4,1": 1,
+              "5,1": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.5",
+      "level": 2,
+      "title": "Značky",
+      "concept": "oznac",
+      "text": "Karel má namaľovať značku na druhé a štvrté políčko a skončiť na štvrtom.",
+      "hint": "Značka sa maľuje pod Karla. Najprv tam musí dôjsť.",
+      "run": "Znacky",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1",
+              "4,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.6",
+      "level": 2,
+      "type": "bug",
+      "title": "Nájdi chybu",
+      "concept": "chyba pri zdvihni",
+      "text": "Niekto napísal program na úlohu 2.1, ale Karel hlási chybu. Spúšťaj ho po jednom riadku tlačidlom Krok, nájdi riadok, kde sa to pokazí, a oprav program.",
+      "hint": "Kde stojí Karel po treťom kroku? Čo má pred sebou?",
+      "run": "Zober",
+      "program": "prikaz Zober\n    krok\n    krok\n    krok\n    zdvihni\nkoniec\n\nZober",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "4,1": 1
+            }
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.7",
+      "level": 2,
+      "title": "Schodík",
+      "concept": "vyliezť o jednu",
+      "text": "Postav dva schody: prvý z jednej tehly, druhý z dvoch, a skonči na tom vyššom.",
+      "hint": "Polož, vylez. Z prvého schodu polož dve tehly na ďalšie políčko a vylez.",
+      "run": "Schodik",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.8",
+      "level": 2,
+      "title": "Značka a tehla spolu",
+      "concept": "značka pod, tehla pred",
+      "text": "Karel označí políčko, na ktorom stojí, položí pred seba tehlu, vylezie na ňu a označí aj to políčko.",
+      "hint": "Štyri príkazy: značka, tehla, krok, značka.",
+      "run": "Znacka_a_tehla",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1
+            },
+            "marks": [
+              "1,1",
+              "2,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.9",
+      "level": 2,
+      "title": "Tehla za Karla",
+      "concept": "otočiť sa s tehlou",
+      "text": "Pred Karlom leží tehla. Karel ju má preložiť na políčko za sebou. Skončí otočený k nej.",
+      "hint": "Zdvihni, otoč sa čelom vzad (dve otočky), polož.",
+      "run": "Za_seba",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "3,1": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "W"
+            ],
+            "bricks": {
+              "1,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2.10",
+      "level": 2,
+      "type": "trace",
+      "title": "Koľko tehál?",
+      "concept": "čítanie programu s tehlami",
+      "text": "Nič nepíš. Prečítaj program a nakresli, koľko tehál bude na konci pred Karlom a kde Karel skončí. Potom over v Karlovi.",
+      "hint": "Počítaj na prstoch: položil, položil, zdvihol, položil. A potom si spomeň, o koľko vie Karel vyliezť.",
+      "expect": "error",
+      "run": "Kolko",
+      "program": "prikaz Kolko\n    poloz\n    poloz\n    zdvihni\n    poloz\n    krok\nkoniec\n\nKolko",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.1",
+      "level": 3,
+      "title": "Dvojkrok",
+      "concept": "nový príkaz",
+      "text": "Nauč Karla nové slovo Dvojkrok: dva kroky dopredu. Potom ho spusti.",
+      "hint": "Je to to isté ako v úrovni 1, len sa nad menom zamysli: meno hovorí, čo príkaz robí.",
+      "run": "Dvojkrok",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.2",
+      "level": 3,
+      "title": "Vpravo z troch vľavo",
+      "concept": "skladanie",
+      "text": "Predstav si, že Karel zabudol slovo vpravo. Nauč ho nový príkaz Vpravo3, ktorý ho otočí doprava len pomocou vlavo.",
+      "hint": "Otoč sa doľava a sleduj, kam pozeráš. A ešte raz. A ešte raz.",
+      "run": "Vpravo3",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.3",
+      "level": 3,
+      "title": "Cúvanie",
+      "concept": "príkaz v príkaze",
+      "text": "Nauč Karla cúvať o jedno políčko: príkaz Cuvni. Karel sa na konci pozerá tam, kam na začiatku.",
+      "hint": "Najprv si urob príkaz Celom_vzad z úrovne 1. Cuvni je potom: otoč sa, krok, otoč sa späť.",
+      "run": "Cuvni",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.4",
+      "level": 3,
+      "title": "Skok koňom",
+      "concept": "vlastný pohyb",
+      "text": "Karel má skočiť ako kôň v šachu: dve políčka dopredu, jedno doprava.",
+      "hint": "Dvojkrok už máš. Potom otočka a krok.",
+      "run": "Kun",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              2,
+              3,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.5",
+      "level": 3,
+      "title": "Chodník za pochodu",
+      "concept": "opakované volanie",
+      "text": "Postav chodník z troch tehál a skonči na poslednej. Napíš si na to vlastný príkaz Poloz_a_chod a použi ho trikrát.",
+      "hint": "Poloz_a_chod je to, čo si robil klávesmi v úlohe 0.2: polož tehlu a vylez na ňu. Malý príkaz raz, veľký ho zavolá trikrát.",
+      "run": "Chodnik",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.6",
+      "level": 3,
+      "title": "Úkrok",
+      "concept": "pohyb bez zmeny smeru",
+      "text": "Nauč Karla úkrok doprava: posunie sa o jedno políčko vpravo, ale na konci sa pozerá tam, kam predtým.",
+      "hint": "Otoč sa doprava, krok, otoč sa späť doľava.",
+      "run": "Ukrok",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              3,
+              2,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.7",
+      "level": 3,
+      "title": "Štvorec z jedného slova",
+      "concept": "jeden príkaz štyrikrát",
+      "text": "Karel obehne miestnosť dookola a skončí tam, kde začal. Slovo krok napíš v programe len dvakrát.",
+      "hint": "Nauč Karla slovo Strana: dva kroky a otočka doľava. Štvorec sú štyri strany.",
+      "run": "Stvorec",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.8",
+      "level": 3,
+      "title": "Chodník so značkami",
+      "concept": "príkaz z troch krokov",
+      "text": "Postav chodník z dvoch tehál a každú tehlu, na ktorej Karel stojí, označ. Skonči na druhej tehle. Vyrob si na to príkaz Kus a použi ho dvakrát.",
+      "hint": "Kus je: polož tehlu, vylez na ňu, označ.",
+      "run": "Chodnik",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 1
+            },
+            "marks": [
+              "2,1",
+              "3,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.9",
+      "level": 3,
+      "title": "Výlet tam a späť",
+      "concept": "príkaz v príkaze",
+      "text": "Karel urobí dva kroky, otočí sa čelom vzad, vráti sa a znova sa otočí čelom vzad. Skončí presne tam, kde začal, otočený rovnako. Príkaz Celom_vzad si vyrob a použi ho dvakrát.",
+      "hint": "Celom_vzad sú dve otočky doľava. Vylet: krok, krok, Celom_vzad, krok, krok, Celom_vzad.",
+      "run": "Vylet",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3.10",
+      "level": 3,
+      "type": "trace",
+      "title": "Štyri skoky",
+      "concept": "čítanie vlastného príkazu",
+      "text": "Nič nepíš. Skok je krok a otočka doľava. Uhádni, kde Karel skončí po štyroch skokoch a kam sa bude pozerať. Potom over v Karlovi.",
+      "hint": "Prejdi prstom po obrázku: krok, otočka; krok, otočka; a tak ďalej.",
+      "run": "Styri",
+      "program": "prikaz Skok\n    krok\n    vlavo\nkoniec\n\nprikaz Styri\n    Skok\n    Skok\n    Skok\n    Skok\nkoniec\n\nStyri",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.1",
+      "level": 4,
+      "title": "Šesť krokov",
+      "concept": "opakuj N krat",
+      "text": "Karel má urobiť šesť krokov. Napíš slovo krok v programe len raz.",
+      "hint": "Opakovanie začína riadkom opakuj 6 krat a končí riadkom koniec. Medzi ne patrí to, čo sa opakuje.",
+      "run": "Sest_krokov",
+      "maps": [
+        {
+          "pre": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              7,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.2",
+      "level": 4,
+      "title": "Dlhý chodník",
+      "concept": "opakovanie dvoch príkazov",
+      "text": "Postav chodník z piatich tehál a skonči na poslednej. Použi opakovanie.",
+      "hint": "Čo sa opakuje? Polož a krok. Koľkokrát? Toľko, koľko je tehál.",
+      "run": "Dlhy_chodnik",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.3",
+      "level": 4,
+      "title": "Obehni štvorec",
+      "concept": "opakovanie v opakovaní",
+      "text": "Karel obehne miestnosť pozdĺž stien a v každom rohu namaľuje značku. Skončí tam, kde začal.",
+      "hint": "Jedna strana štvorca je: značka, tri kroky, otočka doprava. A strany sú štyri.",
+      "run": "Stvorec",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,4",
+              "4,4",
+              "4,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.4",
+      "level": 4,
+      "title": "Stĺpik",
+      "concept": "tehly na seba",
+      "text": "Postav pred Karlom stĺpik z troch tehál na sebe.",
+      "hint": "Karel kladie tehly stále na to isté políčko pred sebou. Kladú sa na seba.",
+      "run": "Stlpik",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.5",
+      "level": 4,
+      "title": "Múr",
+      "concept": "cúvanie a stĺpiky",
+      "text": "Postav múr: štyri stĺpiky po tri tehly v jednom rade. Karel skončí pod múrom, otočený k nemu.",
+      "hint": "Ak Karel pri stavaní cúva, nezastavia si cestu. Zober si Cuvni z úrovne 3 a Stlpik z predošlej úlohy. Jedna časť múru je: cúvni, postav stĺpik. Štyrikrát.",
+      "run": "Postav_mur",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 6,
+            "karel": [
+              2,
+              5,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 6,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 3,
+              "2,3": 3,
+              "2,4": 3,
+              "2,5": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.6",
+      "level": 4,
+      "type": "trace",
+      "title": "Čo namaľuje Karel?",
+      "concept": "čítanie vnorených cyklov",
+      "text": "Nič nepíš. Prečítaj program a nakresli, ktoré políčka budú na konci označené a kde Karel skončí. Potom over v Karlovi.",
+      "hint": "Vnútorné opakovanie urob celé, až potom otočka. Koľkokrát sa vykoná oznac dokopy?",
+      "run": "Hadanka",
+      "program": "prikaz Hadanka\n    opakuj 4 krat\n        opakuj 3 krat\n            oznac\n            krok\n        koniec\n        vpravo\n    koniec\nkoniec\n\nHadanka",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,2",
+              "1,3",
+              "1,4",
+              "2,4",
+              "3,4",
+              "4,4",
+              "4,3",
+              "4,2",
+              "4,1",
+              "3,1",
+              "2,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.7",
+      "level": 4,
+      "title": "Uhlopriečka",
+      "concept": "vzor v cykle, plotový problém",
+      "text": "Karel označí uhlopriečku miestnosti: políčka 1,1 · 2,2 · 3,3 · 4,4. Skončí v pravom hornom rohu.",
+      "hint": "Čo sa opakuje? Značka, krok doprava, krok hore (a späť do pôvodného smeru). Štyri značky, ale len tri presuny.",
+      "run": "Uhlopriecka",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              4,
+              "E"
+            ],
+            "marks": [
+              "1,1",
+              "2,2",
+              "3,3",
+              "4,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.8",
+      "level": 4,
+      "title": "Každé druhé políčko",
+      "concept": "plotový problém",
+      "text": "Karel označí prvé, tretie a piate políčko radu a skončí na piatom.",
+      "hint": "Značka a dva kroky, značka a dva kroky, značka. Koľko je v tom opakovaní a čo ostáva za ním?",
+      "run": "Kazde_druhe",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ],
+            "marks": [
+              "1,1",
+              "3,1",
+              "5,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.9",
+      "level": 4,
+      "title": "Stupne víťazov",
+      "concept": "úkrok a stĺpiky",
+      "text": "Postav stupne víťazov: vedľa seba stĺpiky vysoké 2, 3 a 1. Karel skončí pod posledným stĺpikom, otočený k nemu.",
+      "hint": "Karel stavia zdola, každý stĺpik pred sebou, a medzi nimi robí Ukrok z úlohy 3.6. Dve tehly, úkrok, tri tehly, úkrok, jedna tehla.",
+      "run": "Stupne",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              3,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "1,2": 2,
+              "2,2": 3,
+              "3,2": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.10",
+      "level": 4,
+      "title": "Schody",
+      "concept": "dekompozícia a cúvanie",
+      "text": "Postav schody: stĺpiky vysoké 3, 2, 1 za sebou. Karel skončí pod najnižším schodom, otočený k schodom.",
+      "hint": "Stavaj od najvyššieho a cúvaj, aby ťa schody neuväznili: tri tehly, Cuvni, dve tehly, Cuvni, jedna tehla.",
+      "run": "Schody",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              2,
+              3,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,4": 3,
+              "2,3": 2,
+              "2,2": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "4.11",
+      "level": 4,
+      "title": "Prekážkový beh",
+      "concept": "vzor a vlastný príkaz v cykle",
+      "text": "V chodbe sú tri prekážky (chýbajúce políčka). Karel sa má dostať na koniec chodby. Napíš príkaz Prekazka pre jednu prekážku a zopakuj ho.",
+      "hint": "Jedna prekážka je obchádzka z úlohy 1.3: hore, ponad, dole. Po nej stojí Karel presne pred ďalšou.",
+      "run": "Beh",
+      "maps": [
+        {
+          "pre": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "blocked": [
+              "2,1",
+              "4,1",
+              "6,1"
+            ]
+          },
+          "post": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              7,
+              1,
+              "E"
+            ],
+            "blocked": [
+              "2,1",
+              "4,1",
+              "6,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.1",
+      "level": 5,
+      "title": "Zdvihni, ak tam je",
+      "concept": "ak je tehla",
+      "text": "Na ceste ležia tehly, ale nevieme kde. Karel prejde päť políčok a každú tehlu, ktorú stretne, zdvihne.",
+      "hint": "Pred každým krokom sa opýtaj: je pred tebou tehla? Ak áno, zdvihni. Ak nie, nič. Potom krok.",
+      "run": "Zbieraj",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "3,1": 1,
+              "5,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "6,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "4,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.2",
+      "level": 5,
+      "title": "Oprav chodník",
+      "concept": "ak nie je tehla",
+      "text": "Chodník má diery na neznámych miestach. Karel prejde po ňom na koniec a každú dieru zaplní.",
+      "hint": "Opak úlohy 5.1: ak pred tebou tehla nie je, polož ju. Potom krok.",
+      "run": "Oprav_chodnik",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "4,1": 1,
+              "6,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "3,1": 1,
+              "5,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.3",
+      "level": 5,
+      "title": "Pozdĺž steny",
+      "concept": "ak je mur",
+      "text": "Karel urobí šesť krokov, ale vždy, keď má pred sebou stenu, sa najprv otočí doľava.",
+      "hint": "Otázka je: je pred tebou stena? Ak áno, vlavo. Krok je až za otázkou, robí sa vždy.",
+      "run": "Pozdlz_steny",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              4,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.4",
+      "level": 5,
+      "title": "Tehla alebo značka",
+      "concept": "ak … tak … inak",
+      "text": "Karel prejde štyri políčka. Ak je pred ním tehla, zdvihne ju. Ak nie, namaľuje pod seba značku.",
+      "hint": "Slovo inak znamená: v opačnom prípade. Po tak je jedna vec, po inak druhá, a vždy sa urobí len jedna z nich.",
+      "run": "Tehla_alebo_znacka",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "4,1": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1",
+              "4,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.5",
+      "level": 5,
+      "title": "Opatrný krok",
+      "concept": "ak je volno",
+      "text": "Karel má urobiť päť krokov a po každom kroku označiť políčko, ale chodba má pred ním len tri políčka. Napíš opatrný krok: kročí a označí, len ak sa dá vykročiť. Skús to najprv bez otázky a prečítaj chybu, ktorú Karel ohlási.",
+      "hint": "Otázka volno sa pýta: dá sa vykročiť? Krok aj značka patria dovnútra otázky, nie za ňu.",
+      "run": "Opatrne",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1",
+              "3,1",
+              "4,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.6",
+      "level": 5,
+      "title": "Vymeň značky",
+      "concept": "inverzia, ak/inak, plot",
+      "text": "V rade sú niektoré políčka označené. Karel prejde celý rad a všetko vymení: kde značka bola, tam nebude, a naopak.",
+      "hint": "Vyrob si príkaz Vymen: ak je pod tebou značka, zmaž ju, inak ju namaľuj. Potom: päťkrát Vymen a krok, a na poslednom políčku ešte raz Vymen.",
+      "run": "Naopak",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "marks": [
+              "1,1",
+              "3,1",
+              "4,1"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1",
+              "5,1",
+              "6,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "5.7",
+      "level": 5,
+      "type": "bug",
+      "title": "Nájdi chybu 2",
+      "concept": "o jedno menej",
+      "text": "Program má pozbierať tehly ako v úlohe 5.1, ale Karel jednu nechá ležať a zastaví o políčko skôr. Prečo? Oprav ho.",
+      "hint": "Spočítaj na obrázku kroky medzi prvým a posledným políčkom. Koľkokrát má cyklus bežať?",
+      "run": "Zbieraj",
+      "program": "prikaz Zbieraj\n    opakuj 4 krat\n        ak je tehla\n        tak\n            zdvihni\n        koniec\n        krok\n    koniec\nkoniec\n\nZbieraj",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "3,1": 1,
+              "6,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.1",
+      "level": 6,
+      "title": "Až po stenu",
+      "concept": "kym je volno",
+      "text": "Karel ide dopredu, kým nenarazí na stenu. Program má fungovať v miestnosti akejkoľvek šírky.",
+      "hint": "Neopakuj šesťkrát. Opakuj, kým sa dá vykročiť.",
+      "run": "Ku_stene",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              2,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              9,
+              2,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              5,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.2",
+      "level": 6,
+      "title": "Na značku",
+      "concept": "kym nie je znacka",
+      "text": "Niekde pred Karlom je značka. Karel má na nej zastaviť.",
+      "hint": "Otázka znacka sa pýta, či Karel stojí na značke. Kráčaj, kým na nej nestojíš.",
+      "run": "Na_znacku",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "marks": [
+              "5,1"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ],
+            "marks": [
+              "5,1"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "E"
+            ],
+            "marks": [
+              "2,1"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 8,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "marks": [
+              "8,1"
+            ]
+          },
+          "post": {
+            "w": 8,
+            "h": 3,
+            "karel": [
+              8,
+              1,
+              "E"
+            ],
+            "marks": [
+              "8,1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.3",
+      "level": 6,
+      "title": "Zbúraj stĺpik",
+      "concept": "kym je tehla",
+      "text": "Pred Karlom je stĺpik z neznámeho počtu tehál. Zbúraj ho celý.",
+      "hint": "Dvíhaj, kým je pred tebou tehla.",
+      "run": "Zburaj_stlpik",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 5
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 2
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 8
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.4",
+      "level": 6,
+      "title": "Zbúraj múr",
+      "concept": "kym v kym",
+      "text": "Pred Karlom je múr zo stĺpikov. Nevieme, koľko ich je ani aké sú vysoké. Zbúraj celý múr.",
+      "hint": "Kým je pred tebou tehla: zbúraj stĺpik (to už vieš) a urob krok.",
+      "run": "Zburaj_mur",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 6,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 3,
+              "2,3": 3,
+              "2,4": 3,
+              "2,5": 3
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 6,
+            "karel": [
+              2,
+              5,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 2,
+              "2,3": 4,
+              "2,4": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              2,
+              4,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 7,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 3,
+              "2,3": 1,
+              "2,4": 2,
+              "2,5": 5,
+              "2,6": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 7,
+            "karel": [
+              2,
+              6,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.5",
+      "level": 6,
+      "title": "Oprav dlhý chodník",
+      "concept": "kym a ak spolu",
+      "text": "Chodník vedie až k stene, má neznámu dĺžku a neznáme diery. Oprav ho celý a skonči na jeho konci.",
+      "hint": "Vonku: kým nie je stena. Vnútri: ak nie je tehla, polož. Potom krok.",
+      "run": "Oprav_dlhy",
+      "maps": [
+        {
+          "pre": {
+            "w": 8,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "5,1": 1,
+              "7,1": 1,
+              "8,1": 1
+            }
+          },
+          "post": {
+            "w": 8,
+            "h": 3,
+            "karel": [
+              8,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1,
+              "7,1": 1,
+              "8,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "3,1": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 10,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "6,1": 1,
+              "9,1": 1
+            }
+          },
+          "post": {
+            "w": 10,
+            "h": 3,
+            "karel": [
+              10,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1,
+              "7,1": 1,
+              "8,1": 1,
+              "9,1": 1,
+              "10,1": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.6",
+      "level": 6,
+      "title": "Obehni miestnosť",
+      "concept": "vlastný príkaz v opakovaní",
+      "text": "Karel obehne miestnosť pozdĺž stien, v každom rohu namaľuje značku a skončí tam, kde začal. Miestnosť môže mať akúkoľvek veľkosť.",
+      "hint": "Ako 4.3, ale namiesto troch krokov použi svoj príkaz Ku_stene.",
+      "run": "Dokola",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,4",
+              "5,4",
+              "5,1"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,3",
+              "3,1",
+              "3,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 7,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 7,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,4",
+              "7,1",
+              "7,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.7",
+      "level": 6,
+      "title": "Tam a späť",
+      "concept": "vlastný príkaz dvakrát",
+      "text": "Karel dôjde k stene, namaľuje tam značku a vráti sa presne tam, kde začal, otočený tak ako na začiatku. Pre akúkoľvek šírku miestnosti.",
+      "hint": "Ku_stene, značka, čelom vzad, Ku_stene, čelom vzad.",
+      "run": "Tam_a_spat",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ],
+            "marks": [
+              "6,2"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ],
+            "marks": [
+              "9,2"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              3,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 5,
+            "karel": [
+              3,
+              1,
+              "N"
+            ],
+            "marks": [
+              "3,5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.8",
+      "level": 6,
+      "title": "Prelož stĺpik za seba",
+      "concept": "kym s otáčaním",
+      "text": "Pred Karlom je stĺpik neznámej výšky. Prelož ho celý za Karla.",
+      "hint": "Kým je pred tebou tehla: zdvihni, otoč sa čelom vzad, polož, otoč sa späť.",
+      "run": "Preloz",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 4
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,1": 4
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 7
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,1": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "6.9",
+      "level": 6,
+      "title": "Zvýš chodník",
+      "concept": "kym po tehlách",
+      "text": "Karel stojí na chodníku z tehál, ktorý vedie až k stene. Zvýš celý chodník o jednu tehlu (okrem prvej, na ktorej Karel stojí) a skonči na jeho konci.",
+      "hint": "Kým nie je stena: polož tehlu pred seba a vylez na ňu.",
+      "run": "Zvys",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1
+            }
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 2,
+              "3,1": 2,
+              "4,1": 2,
+              "5,1": 2,
+              "6,1": 2
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1
+            }
+          },
+          "post": {
+            "w": 4,
+            "h": 3,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 2,
+              "3,1": 2,
+              "4,1": 2
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "6,1": 1,
+              "7,1": 1,
+              "8,1": 1,
+              "9,1": 1
+            }
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              9,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "1,1": 1,
+              "2,1": 2,
+              "3,1": 2,
+              "4,1": 2,
+              "5,1": 2,
+              "6,1": 2,
+              "7,1": 2,
+              "8,1": 2,
+              "9,1": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.1",
+      "level": 7,
+      "title": "Zbieraj až po stenu",
+      "concept": "výzva",
+      "text": "Na ceste k stene ležia tehly, nevieme koľko ani kde. Karel ich všetky pozbiera a skončí pri stene.",
+      "hint": "Spoj 5.1 a 6.1.",
+      "run": "Zbieraj_vsetko",
+      "maps": [
+        {
+          "pre": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "4,1": 1,
+              "5,1": 1
+            }
+          },
+          "post": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              7,
+              1,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              5,
+              1,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "9,1": 1
+            }
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              9,
+              1,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.2",
+      "level": 7,
+      "title": "Ohrada okolo Karla",
+      "concept": "výzva",
+      "text": "Karel stojí v strede. Postav okolo neho ohradu: na každom zo štyroch susedných políčok stĺpik z dvoch tehál.",
+      "hint": "Jedna strana: dve tehly a otočka. Strany sú štyri.",
+      "run": "Ohrada",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 2,
+              "1,2": 2,
+              "2,1": 2,
+              "3,2": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.3",
+      "level": 7,
+      "title": "Bludisko",
+      "concept": "výzva: pravidlo pravej ruky",
+      "text": "Karel je v bludisku a niekde v ňom je značka. Nájdi ju. Program nesmie závisieť od tvaru bludiska.",
+      "hint": "Drž sa pravou rukou steny: otoč sa doprava; kým je pred tebou stena, otáčaj sa doľava; krok. A to celé, kým nestojíš na značke.",
+      "run": "Bludisko",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "blocked": [
+              "2,1",
+              "2,2",
+              "4,2",
+              "4,3"
+            ],
+            "marks": [
+              "5,4"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              5,
+              4,
+              "N"
+            ],
+            "blocked": [
+              "2,1",
+              "2,2",
+              "4,2",
+              "4,3"
+            ],
+            "marks": [
+              "5,4"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "blocked": [
+              "2,1",
+              "2,2",
+              "2,3"
+            ],
+            "marks": [
+              "4,1"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              4,
+              1,
+              "E"
+            ],
+            "marks": [
+              "4,1"
+            ],
+            "blocked": [
+              "2,1",
+              "2,2",
+              "2,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "blocked": [
+              "2,1",
+              "4,2",
+              "4,3"
+            ],
+            "marks": [
+              "6,3"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              3,
+              "N"
+            ],
+            "marks": [
+              "6,3"
+            ],
+            "blocked": [
+              "2,1",
+              "4,2",
+              "4,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              3,
+              3,
+              "N"
+            ],
+            "blocked": [
+              "2,2",
+              "3,2",
+              "4,2",
+              "2,4",
+              "3,4",
+              "4,4",
+              "4,3"
+            ],
+            "marks": [
+              "1,1"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "W"
+            ],
+            "marks": [
+              "1,1"
+            ],
+            "blocked": [
+              "2,2",
+              "2,4",
+              "3,2",
+              "3,4",
+              "4,2",
+              "4,3",
+              "4,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.4",
+      "level": 7,
+      "title": "Pozbieraj pole",
+      "concept": "výzva: prechod po riadkoch",
+      "text": "Pole má dva riadky tehál. Karel pozbiera všetky a skončí vľavo v druhom riadku, otočený k ľavej stene.",
+      "hint": "Ako kombajn: prvý riadok tam, druhý späť. Príkaz Riadok: štyrikrát zdvihni a krok. Potom otočka hore, krok, otočka doľava, a znova Riadok.",
+      "run": "Pole",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "E"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "3,1": 1,
+              "4,1": 1,
+              "5,1": 1,
+              "1,2": 1,
+              "2,2": 1,
+              "3,2": 1,
+              "4,2": 1
+            }
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "W"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.5",
+      "level": 7,
+      "title": "Rám okolo miestnosti",
+      "concept": "výzva: zovšeobecnenie 4.6",
+      "text": "Karel označí všetky políčka pri stenách, celý rám miestnosti, a skončí tam, kde začal. Pre miestnosť akejkoľvek veľkosti.",
+      "hint": "Jedna strana: kým sa dá vykročiť, značka a krok. Štyri strany, medzi nimi otočka doprava. Pozor: rohové políčko nechaj ďalšej strane, inak ho označíš dvakrát a to je chyba.",
+      "run": "Ram",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,2",
+              "1,3",
+              "1,4",
+              "2,4",
+              "3,4",
+              "4,4",
+              "5,4",
+              "5,3",
+              "5,2",
+              "5,1",
+              "4,1",
+              "3,1",
+              "2,1"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,2",
+              "1,3",
+              "2,1",
+              "2,3",
+              "3,1",
+              "3,2",
+              "3,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 6,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "1,2",
+              "1,3",
+              "1,4",
+              "1,5",
+              "2,1",
+              "2,5",
+              "3,1",
+              "3,5",
+              "4,1",
+              "4,5",
+              "5,1",
+              "5,5",
+              "6,1",
+              "6,2",
+              "6,3",
+              "6,4",
+              "6,5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "7.6",
+      "level": 7,
+      "title": "Šachovnica",
+      "concept": "výzva: vzor s posunom",
+      "text": "Karel vyfarbí miestnosť 4 × 4 ako šachovnicu: každé druhé políčko, a každý ďalší riadok posunutý o jedno. Skončí vľavo hore v druhom políčku.",
+      "hint": "Príkaz Riadok: značka, dva kroky, značka. Na konci riadku sa Karel otočí hore, krok, a otočí sa do protismeru. Raz doľava a raz doprava, podľa toho, kam ide. Posun sa urobí sám.",
+      "run": "Sachovnica",
+      "maps": [
+        {
+          "pre": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 4,
+            "karel": [
+              2,
+              4,
+              "W"
+            ],
+            "marks": [
+              "1,1",
+              "3,1",
+              "2,2",
+              "4,2",
+              "1,3",
+              "3,3",
+              "2,4",
+              "4,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.1",
+      "level": 8,
+      "type": "trace",
+      "title": "Maratón",
+      "concept": "rekurzia bez konca",
+      "text": "Program nemá koniec: Maraton volá sám seba. Nespúšťaj hneď. Uhádni, čo Karel urobí a ako to skončí. Potom spusti a sleduj počítadlo krokov nad miestnosťou.",
+      "hint": "Krok, a potom znova Maraton, čiže krok, a potom znova Maraton... Kedy sa to zastaví?",
+      "expect": "error",
+      "run": "Maraton",
+      "program": "prikaz Maraton\n    krok\n    Maraton\nkoniec\n\nMaraton",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              2,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.2",
+      "level": 8,
+      "type": "trace",
+      "title": "Strážca brány",
+      "concept": "rekurzia bez konca",
+      "text": "Uhádni, čo urobí tento program, a ako sa skončí. Až potom spusti. Tlačidlo Zastav je pod miestnosťou.",
+      "hint": "Dva kroky, čelom vzad, a znova od začiatku. Kde bude Karel po prvom kole? A po druhom?",
+      "expect": "infinite",
+      "run": "Strazca",
+      "program": "prikaz Dvojkrok\n    krok\n    krok\nkoniec\n\nprikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Strazca\n    Dvojkrok\n    Celom_vzad\n    Strazca\nkoniec\n\nStrazca",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "E"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.3",
+      "level": 8,
+      "title": "K stene rekurzívne",
+      "concept": "zastavovacia podmienka",
+      "text": "Karel dôjde k stene ako v 6.1, ale bez kym: príkaz Ku_stene má zavolať sám seba.",
+      "hint": "Ku_stene urobí krok a zavolá sám seba, ale len ak sa dá vykročiť. Otázka volno obalí obidva riadky: krok aj volanie Ku_stene. Keď je pred Karlom stena, neurobí nič a všetko sa skončí.",
+      "run": "Ku_stene",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              2,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              9,
+              2,
+              "E"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              5,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.4",
+      "level": 8,
+      "title": "Zbúraj stĺpik rekurzívne",
+      "concept": "zastavovacia podmienka",
+      "text": "Zbúraj stĺpik neznámej výšky (ako 6.3), ale rekurziou namiesto kym.",
+      "hint": "Ak je pred tebou tehla: zdvihni a zavolaj sa znova.",
+      "run": "Zburaj",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 5
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 2
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 8
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.5",
+      "level": 8,
+      "title": "Výlet",
+      "concept": "práca pri návrate",
+      "text": "Karel dôjde k stene, namaľuje tam značku a vráti sa tam, kde začal, otočený ako na začiatku. Bez kym a bez druhého pochodu k stene: stačí jeden príkaz Vylet, ktorý volá sám seba.",
+      "hint": "Cestu späť urobí rekurzia pri návrate, cúvaním. Ak je voľno: krok, Vylet, Cuvni. Inak: značka. Riadok Cuvni sa vykoná až vtedy, keď sa vnútorný Vylet skončí.",
+      "run": "Vylet",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ],
+            "marks": [
+              "6,2"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ],
+            "marks": [
+              "9,2"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "marks": [
+              "2,5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8.6",
+      "level": 8,
+      "title": "Do polovice",
+      "concept": "rekurzia ako počítadlo",
+      "text": "Karel má zastaviť v polovici cesty k stene, otočený čelom vzad. Pre miestnosť akejkoľvek šírky, bez počítania: rekurziou.",
+      "hint": "Trik: k stene ide po dvoch krokoch, a späť po jednom, pri návrate z rekurzie. Použi opatrný krok, aby druhý krok nenarazil, keď je políčok nepárny počet. Polovica: opatrný krok, opatrný krok, ak je stena tak čelom vzad, inak Polovica. A za tým krok, ktorý sa robí pri návrate.",
+      "run": "Polovica",
+      "maps": [
+        {
+          "pre": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 7,
+            "h": 3,
+            "karel": [
+              4,
+              2,
+              "W"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 3,
+            "karel": [
+              3,
+              2,
+              "W"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 10,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 10,
+            "h": 3,
+            "karel": [
+              5,
+              2,
+              "W"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.1",
+      "level": 9,
+      "title": "Rozdaj stĺpik na dve kopy",
+      "concept": "svet ako pamäť",
+      "text": "Pred Karlom je stĺpik neznámej výšky. Rozober ho a z každej tehly urob dve: jednu polož naľavo, druhú dozadu. Bez počítania.",
+      "hint": "Kým je pred tebou tehla: zdvihni, vľavo, polož, vľavo, polož, a dvoma vľavo naspäť dopredu.",
+      "run": "Rozdaj",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 3
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "1,2": 3,
+              "2,1": 3
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "1,2": 1,
+              "2,1": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 6
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "1,2": 6,
+              "2,1": 6
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.2",
+      "level": 9,
+      "app": "old",
+      "title": "Spočítaj a postav",
+      "concept": "premenná ako počítadlo",
+      "text": "Karel dôjde k stene, otočí sa čelom vzad a postaví pred sebou stĺpik vysoký presne toľko, koľko urobil krokov. Pre miestnosť akejkoľvek šírky.",
+      "hint": "Počítaj kroky do premennej: kroky začína na nule a po každom kroku sa zväčší o jeden. Potom udelej kroky krat poloz.",
+      "run": "Spocitaj",
+      "maps": [
+        {
+          "pre": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 6,
+            "h": 3,
+            "karel": [
+              6,
+              2,
+              "W"
+            ],
+            "bricks": {
+              "5,2": 5
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              1,
+              2,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 9,
+            "h": 3,
+            "karel": [
+              9,
+              2,
+              "W"
+            ],
+            "bricks": {
+              "8,2": 8
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              1,
+              "N"
+            ]
+          },
+          "post": {
+            "w": 4,
+            "h": 5,
+            "karel": [
+              2,
+              5,
+              "S"
+            ],
+            "bricks": {
+              "2,4": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.3",
+      "level": 9,
+      "app": "old",
+      "title": "Kopíruj stĺpik",
+      "concept": "spočítaj a obnov",
+      "text": "Pred Karlom je stĺpik neznámej výšky. Postav za Karlom rovnako vysoký stĺpik a pôvodný nechaj tak, ako bol.",
+      "hint": "Rozober stĺpik a počítaj. Potom ho postav znova a ten istý počet polož aj za seba.",
+      "run": "Kopiruj",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 3
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 3,
+              "2,1": 3
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,1": 1,
+              "2,3": 1
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,3": 6
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              2,
+              "N"
+            ],
+            "bricks": {
+              "2,1": 6,
+              "2,3": 6
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.4",
+      "level": 9,
+      "app": "old",
+      "title": "Dvojnásobok",
+      "concept": "výraz s premennou",
+      "text": "Pred Karlom je stĺpik. Urob ho dvakrát vyšší.",
+      "hint": "Spočítaj tehly ako v 9.3. Potom si vypočítaj dvojnásobok do novej premennej a polož toľko tehál.",
+      "run": "Dvojnasobok",
+      "maps": [
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 2
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 4
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 1
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 2
+            }
+          }
+        },
+        {
+          "pre": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 4
+            }
+          },
+          "post": {
+            "w": 3,
+            "h": 3,
+            "karel": [
+              2,
+              1,
+              "N"
+            ],
+            "bricks": {
+              "2,2": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.5",
+      "level": 9,
+      "app": "old",
+      "title": "Stred miestnosti",
+      "concept": "delenie dvoma",
+      "text": "Karel nájde stred miestnosti akejkoľvek veľkosti a označí ho.",
+      "hint": "Najprv stred jednej steny, potom stred druhej. Príkaz Stred_steny: spočítaj kroky k stene, otoč sa, vráť sa o polovicu. Použi ho dvakrát, medzi tým vpravo.",
+      "run": "Stred",
+      "maps": [
+        {
+          "pre": {
+            "w": 7,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 7,
+            "h": 5,
+            "karel": [
+              4,
+              3,
+              "S"
+            ],
+            "marks": [
+              "4,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              3,
+              3,
+              "S"
+            ],
+            "marks": [
+              "3,3"
+            ]
+          }
+        },
+        {
+          "pre": {
+            "w": 8,
+            "h": 6,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 8,
+            "h": 6,
+            "karel": [
+              5,
+              4,
+              "S"
+            ],
+            "marks": [
+              "5,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "9.6",
+      "level": 9,
+      "app": "old",
+      "title": "Špirála",
+      "concept": "premenná sa zmenšuje",
+      "text": "Karel prejde celú miestnosť 5 × 5 po špirále: popri stenách doľava a stále dovnútra, každé políčko označí a skončí v strede. Nesmie prejsť po žiadnom políčku dvakrát.",
+      "hint": "Špirála sú ramená a otočky doľava. Rameno je n krát (krok, značka). Počítaj kroky, nie políčka: prvé rameno má 4 kroky, lebo štartové políčko označíš ešte pred ním. Prvé tri ramená majú po 4 kroky, potom vždy dve ramená po 3, dve po 2 a dve po 1. Premenná n začína na 4; v cykle ju zmenši o jeden a urob dve ramená, kým je n väčšie ako 1.",
+      "run": "Spirala",
+      "maps": [
+        {
+          "pre": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              1,
+              1,
+              "E"
+            ]
+          },
+          "post": {
+            "w": 5,
+            "h": 5,
+            "karel": [
+              3,
+              3,
+              "N"
+            ],
+            "marks": [
+              "1,1",
+              "2,1",
+              "3,1",
+              "4,1",
+              "5,1",
+              "1,2",
+              "2,2",
+              "3,2",
+              "4,2",
+              "5,2",
+              "1,3",
+              "2,3",
+              "3,3",
+              "4,3",
+              "5,3",
+              "1,4",
+              "2,4",
+              "3,4",
+              "4,4",
+              "5,4",
+              "1,5",
+              "2,5",
+              "3,5",
+              "4,5",
+              "5,5"
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }

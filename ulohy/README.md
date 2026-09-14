@@ -7,7 +7,7 @@ The task sheet: 79 tasks in 10 levels for 3. ročník, published next to the app
   every map gets its own "Otvor v Karlovi" link (`../#m=…&l=sk`). Tasks of type
   `trace` (read the program, guess PO) and `bug` (fix the program) carry the program
   in `program` and the link adds `&p=…`. Tasks with `app: "old"` still run on
-  karelrobot.cz (manual control, variables; see msm-claude/karel#6) and offer a
+  karelrobot.cz (variables; see msm-claude/karel#6) and offer a
   `.karel` save file instead of a link.
 - `solutions.json` — one solution and explanation per task id. Read by the tests,
   not by the page.

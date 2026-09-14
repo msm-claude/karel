@@ -22,7 +22,7 @@ export interface TaskMap {
 export interface Task {
   id: string;
   level: number;
-  type?: 'manual' | 'trace' | 'bug';
+  type?: 'trace' | 'bug';
   app?: 'old';
   title: string;
   concept: string;

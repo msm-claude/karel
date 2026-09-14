@@ -29,7 +29,7 @@ describe('task sheet data', () => {
 
 describe('Karel-app solutions turn PRED into PO', () => {
   for (const t of DATA.tasks) {
-    if (t.app === 'old' || t.type === 'manual') continue;
+    if (t.app === 'old') continue;
     it(`${t.id} ${t.title}`, () => {
       const program = parse(SOL[t.id]!.solution, sk);
       t.maps.forEach((m, i) => {
