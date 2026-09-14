@@ -132,7 +132,11 @@ const LAYOUT = { labels: true } as const;
 
 /** A small compass rose under the rotate buttons: the red needle and the letter point where north is on the map. */
 function drawCompass(): void {
-  const [ux, uy] = northOnScreen(view);
+  // the rose is a plan view, so it shows the room's true turn (a multiple of 45°), not the flattened
+  // isometric angle: in the default view north is the top-right corner, straight up-right
+  const [px, py] = northOnScreen(view);
+  const ux = Math.sign(px) * Math.SQRT1_2;
+  const uy = Math.sign(py) * Math.SQRT1_2;
   const angle = (Math.atan2(uy, ux) * 180) / Math.PI + 90; // the needle is drawn pointing up
   const lx = (ux * 29).toFixed(1);
   const ly = (uy * 29).toFixed(1);
