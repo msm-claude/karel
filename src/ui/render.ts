@@ -87,7 +87,7 @@ export function rotated(world: World, view: View): { rw: number; rh: number; map
 }
 
 export interface RenderOptions {
-  /** number the tiles like a chessboard: columns 1..w along the south edge, rows 1..h (from the bottom) along the east edge */
+  /** number the tiles like a chessboard: columns 1..w and rows 1..h (from the bottom), always on the two front edges */
   labels?: boolean;
   labelColor?: string;
   /** how many brick levels the fit reserves room for; the app keeps 10 (the cap), a static picture can pass what it holds */
@@ -335,19 +335,28 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     return [sx(i, j), sy(i, j) - FZ + (ni + nj > 0 ? FZ * 1.7 : 0)];
   };
 
+  // does the world direction (dx, dy) point toward the viewer?
+  const toward = (dx: number, dy: number): boolean => {
+    const [i0, j0] = map(0, 0);
+    const [i1, j1] = map(dx, dy);
+    return i1 - i0 + (j1 - j0) > 0;
+  };
+
   if (opts.labels) {
-    // like a chessboard: columns 1..w along the south edge, rows 1..h (from the bottom) along the east edge;
-    // the numbers stay on their edges when the room turns
+    // like a chessboard: columns 1..w and rows 1..h (from the bottom), always on the two front edges so
+    // brick stacks never cover them; which edges those are depends on the view
+    const south = toward(0, 1);
+    const east = toward(1, 0);
     ctx.fillStyle = opts.labelColor ?? P.karelDark;
     ctx.font = `600 ${Math.max(9, Math.round(W * 0.34))}px system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (let x = 0; x < world.w; x++) {
-      const [px, py] = outside(x, world.h - 1, 0, 1, 0.7);
+      const [px, py] = outside(x, south ? world.h - 1 : 0, 0, south ? 1 : -1, 0.7);
       ctx.fillText(String(x + 1), px, py);
     }
     for (let y = 0; y < world.h; y++) {
-      const [px, py] = outside(world.w - 1, y, 1, 0, 0.7);
+      const [px, py] = outside(east ? world.w - 1 : 0, y, east ? 1 : -1, 0, 0.7);
       ctx.fillText(String(world.h - y), px, py);
     }
   }
