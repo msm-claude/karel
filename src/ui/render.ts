@@ -96,8 +96,6 @@ export interface RenderOptions {
   ghost?: boolean;
   /** world tile to highlight on the floor (the one under the pointer) */
   hover?: [number, number] | null;
-  /** draw a small arrow outside the north edge of the room, pointing north, with this letter at the tip */
-  compass?: string;
 }
 
 export interface Layout {
@@ -336,58 +334,34 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     const [i1, j1] = map(dx, dy);
     return i1 - i0 + (j1 - j0) > 0;
   };
-  const quiet = opts.labelColor ?? '#5b6b7a'; // the same dim ink the pages use for secondary text
-
   if (opts.labels) {
     // like a chessboard: columns 1..w and rows 1..h (from the bottom), always on the two front edges so
     // brick stacks never cover them; which edges those are depends on the view. Each number sits on the
     // ground on its own tile's diagonal, clear of the floor's side face.
     const south = toward(0, 1);
     const east = toward(1, 0);
-    ctx.fillStyle = quiet;
-    ctx.font = `600 ${Math.max(8, Math.round(W * 0.27))}px system-ui, sans-serif`;
+    ctx.fillStyle = opts.labelColor ?? P.karelDark;
+    ctx.font = `600 ${Math.max(9, Math.round(W * 0.32))}px system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (let x = 0; x < world.w; x++) {
-      const [px, py] = outside(x, south ? world.h - 1 : 0, 0, south ? 1 : -1, 1.45);
+      const [px, py] = outside(x, south ? world.h - 1 : 0, 0, south ? 1 : -1, 1.3);
       ctx.fillText(String(x + 1), px, py);
     }
     for (let y = 0; y < world.h; y++) {
-      const [px, py] = outside(east ? world.w - 1 : 0, y, east ? 1 : -1, 0, 1.45);
+      const [px, py] = outside(east ? world.w - 1 : 0, y, east ? 1 : -1, 0, 1.3);
       ctx.fillText(String(world.h - y), px, py);
     }
   }
+}
 
-  if (opts.compass) {
-    // a flat pointer lying on the ground a little way outside the middle of the north edge, aimed north,
-    // so it lines up with the room's grid in every view; the word for north sits beyond its tip
-    const mx = (world.w - 1) / 2;
-    const base = opts.labels && toward(0, -1) ? 2.2 : 1.1; // tiles outside the edge: past the numbers when they share the edge
-    const len = 0.75;
-    const at = (along: number, across: number): [number, number] => outside(mx + across, 0, 0, -1, base + along);
-    const [tx, ty] = at(len, 0);
-    const [lx, ly] = at(0, -0.22);
-    const [rx, ry] = at(0, 0.22);
-    const [nx, ny] = at(0.18, 0);
-    ctx.fillStyle = quiet;
-    ctx.beginPath();
-    ctx.moveTo(tx, ty);
-    ctx.lineTo(lx, ly);
-    ctx.lineTo(nx, ny);
-    ctx.lineTo(rx, ry);
-    ctx.closePath();
-    ctx.fill();
-    const [bx, by] = at(0, 0);
-    const dx = tx - bx;
-    const dy = ty - by;
-    const d = Math.hypot(dx, dy);
-    const ux = dx / d;
-    const uy = dy / d;
-    ctx.font = '600 11px system-ui, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const half = ctx.measureText(opts.compass).width / 2;
-    const push = 6 + half * Math.abs(ux) + 7 * Math.abs(uy); // the word's centre sits clear of the tip in any direction
-    ctx.fillText(opts.compass, tx + ux * push, ty + uy * push);
-  }
+/** Unit vector of world north on screen for a view: the direction a compass needle drawn over the map should take. */
+export function northOnScreen(view: View): [number, number] {
+  const { map } = rotated({ w: 2, h: 2 } as World, view);
+  const [i0, j0] = map(0, 0);
+  const [i1, j1] = map(0, -1);
+  const dx = i1 - i0 - (j1 - j0);
+  const dy = (i1 - i0 + (j1 - j0)) / 2;
+  const d = Math.hypot(dx, dy);
+  return [dx / d, dy / d];
 }

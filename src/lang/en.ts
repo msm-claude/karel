@@ -71,7 +71,7 @@ export const en: Locale = {
     karel: 'Karel',
     steps: 'steps',
     view: 'view',
-    north: 'North',
+    compassNorth: 'N',
     position: 'position',
     direction: 'direction',
     dirs: 'east,north,west,south',

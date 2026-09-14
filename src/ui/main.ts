@@ -8,7 +8,7 @@ import { allKeywordWords, isLocaleId, locales, normalize, type Locale, type Loca
 import { Driver } from './driver';
 import { Editor } from './editor';
 import { mountLangSwitch, resolveLocale } from './header';
-import { pickTile, renderWorld, type View } from './render';
+import { northOnScreen, pickTile, renderWorld, type View } from './render';
 
 const DEFAULT_ROOM = '1.10x8.2,5,0.2AB7A8A2zA5EGCAz10A10A3ABCEHI2A8ABAB9A';
 const DEFAULT_PROGRAM: Record<LocaleId, string> = {
@@ -130,8 +130,29 @@ function t(key: string): string {
 // what the renderer and the hit test must agree on
 const LAYOUT = { labels: true } as const;
 
+/** A small compass rose under the rotate buttons: the red needle and the letter point where north is on the map. */
+function drawCompass(): void {
+  const [ux, uy] = northOnScreen(view);
+  const angle = (Math.atan2(uy, ux) * 180) / Math.PI + 90; // the needle is drawn pointing up
+  const lx = (ux * 29).toFixed(1);
+  const ly = (uy * 29).toFixed(1);
+  $('compass').innerHTML =
+    `<svg viewBox="-32 -32 64 64" aria-label="${t('compassNorth')}">` +
+    `<circle cx="3" cy="3" r="21" fill="var(--ink)"/>` +
+    `<circle r="21" fill="#fff" stroke="var(--ink)" stroke-width="2"/>` +
+    `<g transform="rotate(${angle.toFixed(1)})" stroke-linecap="round">` +
+    `<path d="M0 -17.5v3M0 14.5v3M-17.5 0h3M14.5 0h3" stroke="var(--dim)" stroke-width="1.5"/>` +
+    `<polygon points="0,-15 4.5,0 0,3 -4.5,0" fill="var(--red)"/>` +
+    `<polygon points="0,15 4.5,0 0,-3 -4.5,0" fill="#b7c1cb"/>` +
+    `<circle r="1.8" fill="var(--ink)"/>` +
+    `</g>` +
+    `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central" font-family="Chakra Petch, system-ui, sans-serif" font-size="11" font-weight="700" fill="var(--ink)">${t('compassNorth')}</text>` +
+    `</svg>`;
+}
+
 function draw(): void {
-  renderWorld(canvas, world, view, undefined, { ...LAYOUT, compass: t('north'), ...(editing ? { ghost: true, hover } : {}) });
+  renderWorld(canvas, world, view, undefined, { ...LAYOUT, ...(editing ? { ghost: true, hover } : {}) });
+  drawCompass();
   canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
