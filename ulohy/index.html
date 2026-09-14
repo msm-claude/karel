@@ -6,60 +6,23 @@
 <link rel="icon" href="../favicon-ulohy.svg">
 <link rel="apple-touch-icon" href="../apple-touch-icon-ulohy.png">
 <title>Karel – úlohy</title>
-<style>
-  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: #1f2328; line-height: 1.5; margin: 0; background: #fff; }
-  main { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
-  a { color: #0969da; }
-  h1 { font-size: 28px; margin: 0 0 6px; }
-  .sub { color: #59636e; margin: 0 0 20px; }
-  h2 { font-size: 22px; margin: 44px 0 8px; }
-  h3 { font-size: 17px; margin: 0; }
-  .toc { font-size: 14px; columns: 2; column-gap: 32px; }
-  .toc ol { list-style: none; padding: 0; margin: 0; }
-  .toc > ol > li { break-inside: avoid; margin-bottom: 8px; }
-  .toc > ol > li > a { font-weight: 600; }
-  .toc ol ol { padding-left: 14px; }
-  .toc a { text-decoration: none; }
-  .toc a:hover { text-decoration: underline; }
-  @media (max-width: 640px) { .toc { columns: 1; } }
-  pre { background: #f6f8fa; border-radius: 6px; padding: 12px; margin: 0; font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; overflow: auto; }
-  .box { background: #f6f8fa; border-radius: 6px; padding: 10px 14px; margin: 12px 0; }
-  .box h4 { margin: 0 0 6px; font-size: 13px; color: #59636e; }
-  .box pre { padding: 0; }
-  .task { border-top: 1px solid #d1d9e0; padding: 18px 0 6px; margin-top: 14px; }
-  .task header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
-  .num { color: #59636e; font-weight: 600; }
-  .tag { font-size: 12px; background: #eef1f4; color: #59636e; border-radius: 12px; padding: 1px 9px; }
-  .tag.type { background: #fff8c5; color: #7d4e00; }
-  .note { border-left: 3px solid #d1d9e0; color: #59636e; padding: 4px 12px; margin: 10px 0; font-size: 14px; }
-  .worlds { margin: 10px 0; }
-  .pair { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-  .pair.map { margin-top: 10px; }
-  .world { text-align: center; }
-  .lbl { font-size: 13px; color: #59636e; margin-bottom: 2px; }
-  canvas.map { display: block; width: 320px; height: 200px; max-width: 100%; }
-  .q { display: flex; align-items: center; justify-content: center; border: 1px dashed #d1d9e0; border-radius: 6px; color: #8b949e; font-size: 28px; }
-  .dl { display: inline-block; margin: 4px auto 0; font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid #d1d9e0; border-radius: 6px; background: #f6f8fa; color: #1f2328; cursor: pointer; text-decoration: none; }
-  .dl:hover { background: #eef1f4; }
-  .code { position: relative; margin: 10px 0; }
-  .mapbox { position: relative; display: block; border-radius: 6px; transition: background .15s; }
-  .mapbox:hover { background: #f6f8fa; }
-  .mapbox .cp { opacity: 0; transition: opacity .15s; }
-  .mapbox:hover .cp, .mapbox .cp:focus-visible { opacity: 1; }
-  @media (hover: none) { .mapbox .cp { opacity: 1; } }
-  .cp { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 2px 8px; border: 1px solid #d1d9e0; border-radius: 6px; background: #fff; cursor: pointer; }
-  .cp.ok { background: #dafbe1; }
-  details { margin: 6px 0; }
-  summary { cursor: pointer; color: #0969da; font-size: 14px; }
-  .why { color: #59636e; font-size: 14px; margin: 4px 0 0; }
-  @media print { .dl, .cp { display: none; } .task { break-inside: avoid; } }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./ulohy.css">
 </head>
 <body>
+<header class="top">
+  <a class="brand" href="../"><i></i>Karel</a>
+  <nav>
+    <a href="./">Zadania</a>
+    <a class="pill" href="../app/">Otvoriť Karla</a>
+  </nav>
+</header>
 <main>
 <h1>Úlohy pre Karla</h1>
 <p class="sub">Programovanie s robotom Karlom v <a href="../app/">aplikácii Karel</a>.</p>
-<nav class="toc" id="toc"></nav>
+<nav class="toc panel" id="toc"></nav>
 <div id="content"></div>
 </main>
 <script type="module" src="./ulohy.ts"></script>
