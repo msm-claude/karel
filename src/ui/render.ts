@@ -51,6 +51,17 @@ export const OVERWORLD: Palette = {
 
 type Pt = [number, number];
 
+/** A drawn block: its footprint and height, plus the projection its faces were drawn with (for patches on them). */
+interface Block {
+  pt: (a: number, b: number, z: number) => Pt;
+  a0: number;
+  a1: number;
+  b0: number;
+  b1: number;
+  z0: number;
+  z1: number;
+}
+
 function hash(...n: number[]): number {
   let h = 2166136261;
   for (const v of n) {
@@ -60,10 +71,11 @@ function hash(...n: number[]): number {
   return ((h >>> 0) % 1000) / 1000;
 }
 
+/** Lighten (f > 0) or darken (f < 0) a #rrggbb colour; returns #rrggbb so the result can be shaded again. */
 function shade(hex: string, f: number): string {
   const n = parseInt(hex.slice(1), 16);
-  const c = (v: number) => Math.max(0, Math.min(255, Math.round(v * (1 + f))));
-  return `rgb(${c((n >> 16) & 255)},${c((n >> 8) & 255)},${c(n & 255)})`;
+  const c = (v: number) => Math.max(0, Math.min(255, Math.round(v * (1 + f)))).toString(16).padStart(2, '0');
+  return `#${c((n >> 16) & 255)}${c((n >> 8) & 255)}${c(n & 255)}`;
 }
 
 /** Rotate world coordinates into view space. Returns rotated size and the mapping. */
@@ -162,7 +174,6 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
   ctx.clearRect(0, 0, cssW, cssH);
 
   const { W, H, FZ, ox, oy, rw, rh, map, inv } = layout(cssW, cssH, world, view, opts);
-  const Z = W * 0.62; // Karel's unit height
   const BZ = W * 0.31; // one brick: half a unit, so tall stacks stay readable
   const sx = (i: number, j: number) => ox + (i - j) * W;
   const sy = (i: number, j: number) => oy + (i + j) * H;
@@ -197,18 +208,26 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     if (edged) poly([c(0, 0), c(1, 0), c(1, 1), c(0, 1)], 'transparent', P.edge);
   }
 
-  function box(i: number, j: number, hw: number, z0: number, z1: number, cols: [string, string, string], seed: number, edged = true): void {
+  /** A block over a in [a0, a1], b in [b0, b1] (tile units around the centre of tile (i, j); a tile is ±0.5), z0..z1 px. */
+  function block(i: number, j: number, a0: number, a1: number, b0: number, b1: number, z0: number, z1: number, cols: [string, string, string], seed: number, edged: boolean): Block {
     const cx = sx(i, j);
     const cy = sy(i, j);
-    const hh = hw / 2;
-    const L: Pt = [cx - hw, cy];
-    const T: Pt = [cx, cy - hh];
-    const R: Pt = [cx + hw, cy];
-    const B: Pt = [cx, cy + hh];
-    const up = (p: Pt, z: number): Pt => [p[0], p[1] - z];
-    face(up(L, z1), [B[0] - L[0], B[1] - L[1]], [0, z1 - z0], cols[1], seed, 1, edged);
-    face(up(B, z1), [R[0] - B[0], R[1] - B[1]], [0, z1 - z0], cols[2], seed, 2, edged);
-    face(up(L, z1), [T[0] - L[0], T[1] - L[1]], [B[0] - L[0], B[1] - L[1]], cols[0], seed, 0, edged);
+    const pt = (a: number, b: number, z: number): Pt => [cx + (a - b) * W, cy + (a + b) * H - z];
+    const L = pt(a0, b1, z1);
+    const B = pt(a1, b1, z1);
+    const R = pt(a1, b0, z1);
+    const T = pt(a0, b0, z1);
+    const dz: Pt = [0, z1 - z0];
+    face(L, [B[0] - L[0], B[1] - L[1]], dz, cols[1], seed, 1, edged);
+    face(B, [R[0] - B[0], R[1] - B[1]], dz, cols[2], seed, 2, edged);
+    face(L, [T[0] - L[0], T[1] - L[1]], [B[0] - L[0], B[1] - L[1]], cols[0], seed, 0, edged);
+    return { pt, a0, a1, b0, b1, z0, z1 };
+  }
+
+  /** A block with a square footprint of half-width hw (screen px) centred on the tile. */
+  function box(i: number, j: number, hw: number, z0: number, z1: number, cols: [string, string, string], seed: number, edged = true): void {
+    const h = hw / (2 * W);
+    block(i, j, -h, h, -h, h, z0, z1, cols, seed, edged);
   }
 
   function hoverAt(i: number, j: number, z: number): void {
@@ -227,48 +246,66 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     poly([[cx - w2, cy], [cx, cy - w2 / 2], [cx + w2, cy], [cx, cy + w2 / 2]], P.markInner);
   }
 
-  /** band on a visible box face: side 1 = front-left, 2 = front-right; u along the face, z in px */
-  function band(cx: number, cy: number, hw: number, side: 1 | 2, u0: number, u1: number, z0: number, z1: number, color: string): void {
-    const a: Pt = side === 1 ? [cx - hw, cy] : [cx, cy + hw / 2];
-    const b: Pt = side === 1 ? [cx, cy + hw / 2] : [cx + hw, cy];
-    const p = (t: number, zz: number): Pt => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t - zz];
-    poly([p(u0, z0), p(u1, z0), p(u1, z1), p(u0, z1)], color);
+  /**
+   * A flat patch on a block's visible side face: side 1 faces south (+b), 2 faces east (+a). The face is a grid of
+   * `cols` x `rows` cells; the patch covers cells [c, c + cw) from the left as drawn and [r, r + rh) from the top.
+   */
+  function pix(bx: Block, side: 1 | 2, c: number, r: number, color: string, cols: number, rows: number, cw = 1, rh = 1): void {
+    const zt = bx.z1 - ((bx.z1 - bx.z0) * r) / rows;
+    const zb = bx.z1 - ((bx.z1 - bx.z0) * (r + rh)) / rows;
+    const u0 = c / cols;
+    const u1 = (c + cw) / cols;
+    const p = side === 1 ? (u: number, z: number) => bx.pt(bx.a0 + (bx.a1 - bx.a0) * u, bx.b1, z) : (u: number, z: number) => bx.pt(bx.a1, bx.b1 - (bx.b1 - bx.b0) * u, z);
+    poly([p(u0, zt), p(u1, zt), p(u1, zb), p(u0, zb)], color);
   }
 
-  function karelAt(i: number, j: number, z: number, rel: number, onMark: boolean): void {
+  /**
+   * Karel: a blocky figure in 8:12:12 proportions (head, torso, legs), 32 units tall, standing on z. Steel body,
+   * visor with two eyes on the head, chest plate on the front, hands and boots dark. rel is his facing in view space:
+   * 0 east (+a), 1 north (-b), 2 west (-a), 3 south (+b). Side 1 (south) and 2 (east) are the visible faces.
+   */
+  function karelAt(i: number, j: number, z: number, rel: number): void {
+    const U = W / 32; // one unit, so his height is one tile width (the 1.04 headroom in layout)
     const steel: [string, string, string] = [P.karelTop, P.karelLeft, P.karelRight];
-    const cx = sx(i, j);
-    const cy = sy(i, j);
-    const base = onMark ? P.mark : P.karelDark;
-    box(i, j, W * 0.44, z, z + Z * 0.14, [base, base, base], 9001, true);
-    const bz0 = z + Z * 0.14;
-    const bz1 = bz0 + Z * 0.98;
-    const bw = W * 0.46;
-    const dv: Pt = rel === 0 ? [1, 0] : rel === 1 ? [0, -1] : rel === 2 ? [-1, 0] : [0, 1];
-    box(i, j, bw, bz0, bz1, steel, 9002, true);
-    // visible faces: 1 looks south (0,1), 2 looks east (1,0); chest plate on the front, vents on the back
-    for (const side of [1, 2] as const) {
-      const n: Pt = side === 1 ? [0, 1] : [1, 0];
-      const dot = n[0] * dv[0] + n[1] * dv[1];
-      band(cx, cy, bw, side, 0, 1, bz0 + Z * 0.3, bz0 + Z * 0.3 + 1.2, '#3b444a'); // waist seam
-      if (dot > 0) {
-        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.4, bz0 + Z * 0.66, P.karelAccent);
-        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.4, bz0 + Z * 0.4 + 1.2, '#8a2f10');
-      } else if (dot < 0) {
-        band(cx, cy, bw, side, 0.15, 0.85, bz0 + Z * 0.38, bz0 + Z * 0.7, '#3b444a');
-        for (let k = 0; k < 3; k++) band(cx, cy, bw, side, 0.22, 0.78, bz0 + Z * (0.43 + k * 0.09), bz0 + Z * (0.46 + k * 0.09), '#1e2427');
-      }
+    const legs: [string, string, string] = [shade(P.karelTop, -0.18), shade(P.karelLeft, -0.18), shade(P.karelRight, -0.18)];
+    const fwd: Pt = rel === 0 ? [1, 0] : rel === 1 ? [0, -1] : rel === 2 ? [-1, 0] : [0, 1];
+    const alongA = fwd[0] !== 0;
+    // a part centred `f` units forward and `s` units to the side, with half extents hf (forward) and hs (side), z0..z1 units
+    const part = (f: number, s: number, hf: number, hs: number, z0: number, z1: number, cols: [string, string, string], seed: number): Block => {
+      const ca = alongA ? f * fwd[0] : s;
+      const cb = alongA ? s : f * fwd[1];
+      const ha = alongA ? hf : hs;
+      const hb = alongA ? hs : hf;
+      const t = U / W;
+      return block(i, j, (ca - ha) * t, (ca + ha) * t, (cb - hb) * t, (cb + hb) * t, z + z0 * U, z + z1 * U, cols, seed, true);
+    };
+    const front: 0 | 1 | 2 = rel === 3 ? 1 : rel === 0 ? 2 : 0;
+    const back: 0 | 1 | 2 = rel === 1 ? 1 : rel === 2 ? 2 : 0;
+    const arm = (s: number): void => {
+      const a = part(0, s, 2, 2, 12, 24, steel, 9007 + s);
+      for (const side of [1, 2] as const) pix(a, side, 0, 3, P.karelDark, 1, 4); // hand
+    };
+    // painter's order: the far arm, legs, torso, head, then the near arm (+side points toward the viewer on both axes)
+    arm(-6);
+    for (const s of [-2, 2]) {
+      const leg = part(0, s, 2, 2, 0, 12, legs, 9011 + s);
+      for (const side of [1, 2] as const) pix(leg, side, 0, 11, P.karelDark, 1, 12); // boot
     }
-    const hw = W * 0.36;
-    const hz0 = bz1 + Z * 0.06;
-    const hh = Z * 0.5;
-    box(i, j, hw, hz0, hz0 + hh, steel, 9003, true);
-    for (const side of [1, 2] as const) band(cx, cy, hw, side, 0, 1, hz0 + hh * 0.3, hz0 + hh * 0.62, P.visor);
-    const f = rel === 0 ? 2 : rel === 3 ? 1 : 0;
-    if (f) {
-      band(cx, cy, hw, f, 0.16, 0.42, hz0 + hh * 0.36, hz0 + hh * 0.56, P.karelEye);
-      band(cx, cy, hw, f, 0.58, 0.84, hz0 + hh * 0.36, hz0 + hh * 0.56, P.karelEye);
+    const torso = part(0, 0, 2, 4, 12, 24, steel, 9021);
+    for (const side of [1, 2] as const) pix(torso, side, 0, 11, '#3b444a', 1, 12); // belt
+    if (front) {
+      pix(torso, front, 1, 3, P.karelAccent, 8, 12, 6, 5); // chest plate
+      pix(torso, front, 1, 3, '#8a2f10', 8, 12, 6, 0.4);
+    } else if (back) {
+      for (let k = 0; k < 3; k++) pix(torso, back, 2, 3 + k * 2, '#1e2427', 8, 12, 4, 1); // vents
     }
+    const head = part(0, 0, 4, 4, 24, 32, steel, 9031);
+    for (const side of [1, 2] as const) if (side !== back) pix(head, side, 0, 3, P.visor, 1, 8, 1, 2);
+    if (front) {
+      pix(head, front, 1, 3, P.karelEye, 8, 8, 2, 2);
+      pix(head, front, 5, 3, P.karelEye, 8, 8, 2, 2);
+    }
+    arm(6);
   }
 
   // ground plate
@@ -317,7 +354,7 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
         z += BZ;
       }
       if (t.mark) markAt(i, j, z);
-      if (i === ki && j === kj) karelAt(i, j, z, rel, t.mark);
+      if (i === ki && j === kj) karelAt(i, j, z, rel);
       ctx.globalAlpha = 1;
     }
   }
