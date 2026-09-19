@@ -135,8 +135,8 @@ export function layout(cssW: number, cssH: number, world: World, view: View, opt
   const maxLevels = opts.levels ?? 10; // bricks per tile cap
   const pad = opts.labels ? 0.84 : 0.92; // room for the numbers
   // vertical extent in tile widths: the floor diamonds span (rw + rh) / 2, plus the floor's thickness at the
-  // front, plus at the back the floor's thickness, the tallest stack and Karel on top of it (1.04, see karelAt)
-  const above = 0.28 + maxLevels * 0.31 + 1.04;
+  // front, plus at the back the floor's thickness, the tallest stack and Karel on top of it (1.1 + a little, see karelAt)
+  const above = 0.28 + maxLevels * 0.31 + 1.14;
   const total = (rw + rh) / 2 + above + 0.28;
   const W = Math.min((cssW / (rw + rh)) * pad, (cssH / total) * pad, 52);
   const H = W / 2;
@@ -265,18 +265,22 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
    * 0 east (+a), 1 north (-b), 2 west (-a), 3 south (+b). Side 1 (south) and 2 (east) are the visible faces.
    */
   function karelAt(i: number, j: number, z: number, rel: number): void {
-    const U = W / 32; // one unit, so his height is one tile width (the 1.04 headroom in layout)
+    // Steve proportions stretched for a small tile: 32 units tall = 1.1 tile widths (the 1.14 headroom in layout), the
+    // body 1.75x wider than Steve so he reads at map size, the head only 1.25x so it stays narrower than the shoulders
+    const U = (W / 32) * 1.1;
+    const UW = U * 1.75;
+    const UH = U * 1.25;
     const steel: [string, string, string] = [P.karelTop, P.karelLeft, P.karelRight];
     const legs: [string, string, string] = [shade(P.karelTop, -0.18), shade(P.karelLeft, -0.18), shade(P.karelRight, -0.18)];
     const fwd: Pt = rel === 0 ? [1, 0] : rel === 1 ? [0, -1] : rel === 2 ? [-1, 0] : [0, 1];
     const alongA = fwd[0] !== 0;
     // a part centred `f` units forward and `s` units to the side, with half extents hf (forward) and hs (side), z0..z1 units
-    const part = (f: number, s: number, hf: number, hs: number, z0: number, z1: number, cols: [string, string, string], seed: number): Block => {
+    const part = (f: number, s: number, hf: number, hs: number, z0: number, z1: number, cols: [string, string, string], seed: number, hu = UW): Block => {
       const ca = alongA ? f * fwd[0] : s;
       const cb = alongA ? s : f * fwd[1];
       const ha = alongA ? hf : hs;
       const hb = alongA ? hs : hf;
-      const t = U / W;
+      const t = hu / W;
       return block(i, j, (ca - ha) * t, (ca + ha) * t, (cb - hb) * t, (cb + hb) * t, z + z0 * U, z + z1 * U, cols, seed, true);
     };
     const front: 0 | 1 | 2 = rel === 3 ? 1 : rel === 0 ? 2 : 0;
@@ -299,7 +303,7 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     } else if (back) {
       for (let k = 0; k < 3; k++) pix(torso, back, 2, 3 + k * 2, '#1e2427', 8, 12, 4, 1); // vents
     }
-    const head = part(0, 0, 4, 4, 24, 32, steel, 9031);
+    const head = part(0, 0, 4, 4, 24, 32, steel, 9031, UH);
     for (const side of [1, 2] as const) if (side !== back) pix(head, side, 0, 3, P.visor, 1, 8, 1, 2);
     if (front) {
       pix(head, front, 1, 3, P.karelEye, 8, 8, 2, 2);

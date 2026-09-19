@@ -13,7 +13,7 @@ describe('layout', () => {
         for (const view of [0, 1, 2, 3] as View[])
           it(`${w}x${h} in ${cw}x${ch}, ${levels} bricks, view ${view}: everything inside`, () => {
             const L = layout(cw, ch, emptyWorld(w, h), view, { levels });
-            const top = L.oy - L.H - L.FZ - levels * 0.31 * L.W - 1.04 * L.W; // Karel's head on the back corner's stack
+            const top = L.oy - L.H - L.FZ - levels * 0.31 * L.W - 1.14 * L.W; // Karel's head on the back corner's stack
             const bottom = L.oy + (L.rw + L.rh - 1) * L.H + L.FZ; // the front corner's floor edge
             expect(top).toBeGreaterThanOrEqual(0);
             expect(bottom).toBeLessThanOrEqual(ch);
