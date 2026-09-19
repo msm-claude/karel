@@ -91,7 +91,6 @@ Layout: `src/core` (world rules, lexer, parser, generator interpreter, link
 encoding; pure, no DOM), `src/lang` (keyword and message tables per language),
 `src/ui` (canvas renderer, run driver, CodeMirror editor, page wiring),
 `tasks/` (the task sheet, a second Vite entry).
-Dependencies point one way: `ui → lang → core`. `design/mockups` holds the
-static HTML mockups the look was picked from.
+Dependencies point one way: `ui → lang → core`.
 
 Deploys to GitHub Pages on every push to `main` (`.github/workflows/pages.yml`).
