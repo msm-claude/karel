@@ -51,7 +51,7 @@
     "6": {
       "title": "Úroveň 6: Opakovanie s podmienkou",
       "intro": "Keď nevieme vopred, koľkokrát sa má niečo urobiť, opakujeme, kým platí podmienka. Toto je prvý program, ktorý funguje v miestnosti akejkoľvek veľkosti. Pri každej úlohe sú ďalšie mapy: program má na všetkých fungovať bez zmeny.",
-      "concept": "kym nie je mur\n    krok\nkoniec\n\nPozor: ak sa podmienka nikdy nezmení, Karel neskončí. Vtedy Zastav."
+      "concept": "kym nie je mur\n    krok\nkoniec\n\nPozor: ak sa podmienka nikdy nezmení, Karel neskončí. Vtedy ho zastav tlačidlom Spusti: počas behu sa zmení na Zastav."
     },
     "7": {
       "title": "Úroveň 7: Výzvy",
@@ -451,7 +451,7 @@
     "8.2": {
       "title": "Strážca brány",
       "concept": "rekurzia bez konca",
-      "text": "Uhádni, čo urobí tento program, a ako sa skončí. Až potom spusti. Tlačidlo Zastav je pod miestnosťou.",
+      "text": "Uhádni, čo urobí tento program, a ako sa skončí. Až potom spusti. Zastavíš ho tým istým tlačidlom pod miestnosťou: počas behu sa zmení na Zastav.",
       "hint": "Dva kroky, čelom vzad, a znova od začiatku. Kde bude Karel po prvom kole? A po druhom?"
     },
     "8.3": {

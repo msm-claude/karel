@@ -51,7 +51,7 @@
     "6": {
       "title": "Level 6: Repeating with a condition",
       "intro": "When we do not know in advance how many times something has to be done, we repeat while the condition holds. This is the first program that works in a room of any size. Each task has more maps: the program has to work on all of them without any change.",
-      "concept": "while is not wall\n    step\nend\n\nWatch out: if the condition never changes, Karel will not stop. Then press Stop."
+      "concept": "while is not wall\n    step\nend\n\nWatch out: if the condition never changes, Karel will not stop. Then press Run again: while running it reads Stop."
     },
     "7": {
       "title": "Level 7: Challenges",
@@ -451,7 +451,7 @@
     "8.2": {
       "title": "The gatekeeper",
       "concept": "recursion with no end",
-      "text": "Guess what this program does and how it ends. Only then run it. The Stop button is below the room.",
+      "text": "Guess what this program does and how it ends. Only then run it. The same button below the room stops it: while running it reads Stop.",
       "hint": "Two steps, turn around, and again from the start. Where will Karel be after the first round? And after the second one?"
     },
     "8.3": {

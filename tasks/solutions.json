@@ -253,7 +253,7 @@
   },
   "8.2": {
     "solution": "prikaz Dvojkrok\n    krok\n    krok\nkoniec\n\nprikaz Celom_vzad\n    vlavo\n    vlavo\nkoniec\n\nprikaz Strazca\n    Dvojkrok\n    Celom_vzad\n    Strazca\nkoniec\n\nStrazca",
-    "why": "Sám neskončí. Karel chodí medzi políčkami 2 a 4 tam a späť, kým nestlačíš Zastav. Nenarazí, tak nepríde chyba z miestnosti; po dlhom čase Karel ohlási, že príkaz volá sám seba príliš hlboko. Program, ktorý sám neskončí, je chyba programátora, nie Karla."
+    "why": "Sám neskončí. Karel chodí medzi políčkami 2 a 4 tam a späť, kým ho nezastavíš. Nenarazí, tak nepríde chyba z miestnosti; po dlhom čase Karel ohlási, že príkaz volá sám seba príliš hlboko. Program, ktorý sám neskončí, je chyba programátora, nie Karla."
   },
   "8.3": {
     "solution": "prikaz Ku_stene\n    ak je volno\n    tak\n        krok\n        Ku_stene\n    koniec\nkoniec\n\nKu_stene",

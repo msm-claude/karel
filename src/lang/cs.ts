@@ -61,7 +61,7 @@ export const cs: Locale = {
     room: 'Místnost',
     reference: 'Příkazy',
     run: 'Spusť',
-    stepOnce: 'Krok',
+    stepOnce: 'Dále',
     stop: 'Zastav',
     speed: 'Rychlost',
     reset: 'Reset',
