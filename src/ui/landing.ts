@@ -18,7 +18,7 @@ const BODY = `prikaz murik
 koniec
 
 murik
-vlavo
+vpravo
 oznac`;
 
 const canvas = document.getElementById('cv') as HTMLCanvasElement;
