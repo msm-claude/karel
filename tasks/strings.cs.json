@@ -51,7 +51,7 @@
     "6": {
       "title": "Úroveň 6: Opakování s podmínkou",
       "intro": "Když nevíme dopředu, kolikrát se má něco udělat, opakujeme, dokud platí podmínka. To je první program, který funguje v místnosti jakékoli velikosti. U každé úlohy jsou další mapy: program má na všech fungovat beze změny.",
-      "concept": "dokud neni zed\n    krok\nkonec\n\nPozor: když se podmínka nikdy nezmění, Karel neskončí. Tehdy Zastav."
+      "concept": "dokud neni zed\n    krok\nkonec\n\nPozor: když se podmínka nikdy nezmění, Karel neskončí. Tehdy ho zastav tlačítkem Spusť: během běhu se změní na Zastav."
     },
     "7": {
       "title": "Úroveň 7: Výzvy",
@@ -451,7 +451,7 @@
     "8.2": {
       "title": "Strážce brány",
       "concept": "rekurze bez konce",
-      "text": "Uhodni, co udělá tenhle program a jak skončí. Až potom spusť. Tlačítko Zastav je pod místností.",
+      "text": "Uhodni, co udělá tenhle program a jak skončí. Až potom spusť. Zastavíš ho tím samým tlačítkem pod místností: během běhu se změní na Zastav.",
       "hint": "Dva kroky, čelem vzad, a znovu od začátku. Kde bude Karel po prvním kole? A po druhém?"
     },
     "8.3": {

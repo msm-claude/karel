@@ -101,8 +101,9 @@ const driver = new Driver({
   },
   onState(state) {
     editor.setReadOnly(state === 'running');
-    $<HTMLButtonElement>('stop').disabled = state === 'idle' || state === 'finished';
+    // one button: Run while idle, Stop while the program is going
     $<HTMLButtonElement>('run').classList.toggle('down', state === 'running');
+    $('run').querySelector('span')!.textContent = t(state === 'running' ? 'stop' : 'run');
   },
 });
 
@@ -175,9 +176,8 @@ function draw(): void {
 
 function applyLocaleText(): void {
   $('share').textContent = t('share');
-  $('run').querySelector('span')!.textContent = t('run');
+  $('run').querySelector('span')!.textContent = t(driver.state === 'running' ? 'stop' : 'run');
   $('step').querySelector('span')!.textContent = t('stepOnce');
-  $('stop').querySelector('span')!.textContent = t('stop');
   $('speedSlot').querySelector('span')!.textContent = t('speed');
   $('reset').querySelector('span')!.textContent = t('reset');
   $('reset').querySelector('small')!.textContent = t('resetHint');
@@ -254,6 +254,7 @@ function arm(): boolean {
   return true;
 }
 
+/** Run is a toggle: stops a going program (stepping continues from there), otherwise resets the room and runs from the top. */
 function onRun(): void {
   if (driver.state === 'running') {
     driver.pause();
@@ -261,9 +262,8 @@ function onRun(): void {
     draw();
     return;
   }
-  if (driver.state === 'idle' || driver.state === 'finished') {
-    if (!arm()) return;
-  }
+  resetWorld();
+  if (!arm()) return;
   statusKey = 'running';
   driver.start();
   draw();
@@ -416,7 +416,6 @@ async function upload(file: File): Promise<void> {
 
 $('run').addEventListener('click', onRun);
 $('step').addEventListener('click', onStep);
-$('stop').addEventListener('click', onStop);
 $('reset').addEventListener('click', resetWorld);
 $('rotL').addEventListener('click', () => rotate(1));
 $('rotR').addEventListener('click', () => rotate(-1));

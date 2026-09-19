@@ -164,6 +164,13 @@ canvas {
 .slot.run small {
   color: #e8ffd8;
 }
+/* while the program runs the same slot reads Stop: a warmer shade, still pressed in */
+.slot.run.down {
+  background: #c9762b;
+}
+.slot.run.down small {
+  color: #ffe9d2;
+}
 .slot.wide {
   width: 170px;
 }

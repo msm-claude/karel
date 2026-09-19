@@ -59,7 +59,7 @@ export const en: Locale = {
     room: 'Room',
     reference: 'Words',
     run: 'Run',
-    stepOnce: 'Step',
+    stepOnce: 'Next',
     stop: 'Stop',
     speed: 'Speed',
     reset: 'Reset',

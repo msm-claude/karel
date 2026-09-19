@@ -59,7 +59,7 @@ export const sk: Locale = {
     room: 'Miestnosť',
     reference: 'Príkazy',
     run: 'Spusti',
-    stepOnce: 'Krok',
+    stepOnce: 'Ďalej',
     stop: 'Zastav',
     speed: 'Rýchlosť',
     reset: 'Reset',
