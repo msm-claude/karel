@@ -285,12 +285,13 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     };
     const front: 0 | 1 | 2 = rel === 3 ? 1 : rel === 0 ? 2 : 0;
     const back: 0 | 1 | 2 = rel === 1 ? 1 : rel === 2 ? 2 : 0;
+    // arms 2.8 units square (30% slimmer than Steve's 4), flush with the torso's side
     const arm = (s: number): void => {
-      const a = part(0, s, 2, 2, 12, 24, steel, 9007 + s);
+      const a = part(0, s * 5.4, 1.4, 1.4, 12, 24, steel, 9007 + s);
       for (const side of [1, 2] as const) pix(a, side, 0, 3, P.karelDark, 1, 4); // hand
     };
     // painter's order: the far arm, legs, torso, head, then the near arm (+side points toward the viewer on both axes)
-    arm(-6);
+    arm(-1);
     for (const s of [-2, 2]) {
       const leg = part(0, s, 2, 2, 0, 12, legs, 9011 + s);
       for (const side of [1, 2] as const) pix(leg, side, 0, 11, P.karelDark, 1, 12); // boot
@@ -309,7 +310,7 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
       pix(head, front, 1, 3, P.karelEye, 8, 8, 2, 2);
       pix(head, front, 5, 3, P.karelEye, 8, 8, 2, 2);
     }
-    arm(6);
+    arm(1);
   }
 
   // ground plate
