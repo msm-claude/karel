@@ -12,9 +12,19 @@ export interface DriverEvents {
   onState(state: DriverState): void;
 }
 
-/** speed 1..5 -> ms between ticks; 5 = as fast as the frame allows */
-const DELAYS = [0, 700, 350, 150, 50, 0] as const;
-const TICKS_PER_FRAME_AT_MAX = 40;
+/**
+ * speed 1..MAX_SPEED -> pace of one tick. A delay of 0 means "per animation frame": 5 runs one tick a frame
+ * (~60 ticks/s, still watchable), 6 empties the generator as fast as the frames allow.
+ */
+const PACE = [
+  { delay: 700, perFrame: 1 },
+  { delay: 350, perFrame: 1 },
+  { delay: 150, perFrame: 1 },
+  { delay: 50, perFrame: 1 },
+  { delay: 0, perFrame: 1 },
+  { delay: 0, perFrame: 40 },
+] as const;
+export const MAX_SPEED = PACE.length;
 
 export class Driver {
   private gen: Generator<Tick, RunResult, void> | null = null;
@@ -33,7 +43,7 @@ export class Driver {
   }
 
   setSpeed(s: number): void {
-    this._speed = Math.max(1, Math.min(5, Math.round(s)));
+    this._speed = Math.max(1, Math.min(MAX_SPEED, Math.round(s)));
   }
 
   /** Arm a fresh run. Does not advance. */
@@ -72,11 +82,11 @@ export class Driver {
 
   private schedule(): void {
     this.cancelTimer();
-    const delay = DELAYS[this._speed] ?? 150;
+    const { delay, perFrame } = PACE[this._speed - 1] ?? PACE[2]!;
     if (delay === 0) {
       const id = requestAnimationFrame(() => {
         this.timer = null;
-        for (let k = 0; k < TICKS_PER_FRAME_AT_MAX; k++) if (!this.advance()) return;
+        for (let k = 0; k < perFrame; k++) if (!this.advance()) return;
         if (this._state === 'running') this.schedule();
       });
       this.timer = { kind: 'raf', id };

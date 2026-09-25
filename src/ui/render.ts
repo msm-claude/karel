@@ -194,17 +194,33 @@ export function renderWorld(canvas: HTMLCanvasElement, world: World, view: View,
     }
   }
 
+  // The texture is the expensive part of a frame (a face is one fill, its noise up to n*n more), and on a big map
+  // a cell is a pixel or two: drop to a coarser grid as the tiles shrink, and to none at all once it cannot be seen.
+  const NOISE = W >= 30 ? 4 : W >= 16 ? 2 : 0;
+  const SHADES = [-0.06, 0.05, -0.11] as const;
+
   function face(o: Pt, du: Pt, dv: Pt, color: string, seed: number, faceId: number, edged: boolean): void {
     const c = (u: number, v: number): Pt => [o[0] + u * du[0] + v * dv[0], o[1] + u * du[1] + v * dv[1]];
     poly([c(0, 0), c(1, 0), c(1, 1), c(0, 1)], color);
-    const n = 4;
-    for (let a = 0; a < n; a++)
-      for (let b = 0; b < n; b++) {
-        const r = hash(seed, faceId, a, b);
-        if (r < 0.55) continue;
-        const f = r < 0.75 ? -0.06 : r < 0.9 ? 0.05 : -0.11;
-        poly([c(a / n, b / n), c((a + 1) / n, b / n), c((a + 1) / n, (b + 1) / n), c(a / n, (b + 1) / n)], shade(color, f));
-      }
+    const n = NOISE;
+    // one path per shade instead of one per cell: same picture, a third of the fills
+    for (let g = 0; n > 0 && g < SHADES.length; g++) {
+      let any = false;
+      ctx!.beginPath();
+      for (let a = 0; a < n; a++)
+        for (let b = 0; b < n; b++) {
+          const r = hash(seed, faceId, a, b);
+          if (r < 0.55 || (r < 0.75 ? 0 : r < 0.9 ? 1 : 2) !== g) continue;
+          const q = [c(a / n, b / n), c((a + 1) / n, b / n), c((a + 1) / n, (b + 1) / n), c(a / n, (b + 1) / n)];
+          ctx!.moveTo(q[0]![0], q[0]![1]);
+          for (let k = 1; k < 4; k++) ctx!.lineTo(q[k]![0], q[k]![1]);
+          ctx!.closePath();
+          any = true;
+        }
+      if (!any) continue;
+      ctx!.fillStyle = shade(color, SHADES[g]!);
+      ctx!.fill();
+    }
     if (edged) poly([c(0, 0), c(1, 0), c(1, 1), c(0, 1)], 'transparent', P.edge);
   }
 

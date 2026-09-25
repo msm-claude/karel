@@ -5,7 +5,7 @@ import { parse, ParseError } from '../core/parser';
 import { translate } from '../core/translate';
 import { cloneWorld, emptyWorld, MAX_BRICKS, MAX_SIZE, resizeWorld, tileAt, turnRight, type World } from '../core/world';
 import { allKeywordWords, isLocaleId, locales, normalize, type Locale, type LocaleId } from '../lang/index';
-import { Driver } from './driver';
+import { Driver, MAX_SPEED } from './driver';
 import { Editor } from './editor';
 import { mountLangSwitch, resolveLocale } from './header';
 import { northOnScreen, pickTile, renderWorld, type View } from './render';
@@ -61,6 +61,7 @@ let view: View = 0;
 let steps = 0;
 let statusKey: 'ready' | 'running' | 'stopped' | 'done' = 'ready';
 let statusLine: number | null = null;
+let runLine: number | null = null; // the editor marker, applied once a frame like everything else
 let errorText: string | null = null;
 // room editing: on while the Room tab is open; clicks on the floor edit what is drawn and make it the room
 type Tool = 'brickAdd' | 'brickRemove' | 'mark' | 'hole' | 'karel';
@@ -80,7 +81,7 @@ const driver = new Driver({
     world = tick.world;
     steps = tick.steps;
     statusLine = tick.pos.line;
-    editor.setRunLine(tick.pos.line);
+    runLine = tick.pos.line;
     draw();
   },
   onEnd(result) {
@@ -89,12 +90,12 @@ const driver = new Driver({
     if (result.ok) {
       statusKey = 'done';
       statusLine = null;
-      editor.setRunLine(null);
+      runLine = null;
     } else {
       statusKey = 'stopped';
       statusLine = result.pos.line;
       errorText = locale.runtime[result.code] ?? result.code;
-      editor.setRunLine(null);
+      runLine = null;
       editor.setErrorLine(result.pos.line);
     }
     draw();
@@ -117,7 +118,7 @@ const editor = new Editor($('ed'), hashParams.p || hashParams.m ? '' : (localSto
   }
   errorText = null;
   editor.setErrorLine(null);
-  editor.setRunLine(null);
+  runLine = null;
   scheduleSave();
   draw();
 });
@@ -155,9 +156,30 @@ function drawCompass(): void {
     `</svg>`;
 }
 
+// A tick can land many times a frame at the top speeds, and a full canvas pass plus the HUD is far too much work
+// to repeat that often. Everything asks for a frame instead; the frame draws once, from whatever the state is then.
+let frame: number | null = null;
 function draw(): void {
+  if (frame !== null) return;
+  frame = requestAnimationFrame(() => {
+    frame = null;
+    paint();
+  });
+}
+
+let compassKey = '';
+let shownRunLine: number | null = null;
+function paint(): void {
   renderWorld(canvas, world, view, undefined, { ...LAYOUT, ...(editing ? { ghost: true, hover } : {}) });
-  drawCompass();
+  if (runLine !== shownRunLine) {
+    shownRunLine = runLine;
+    editor.setRunLine(runLine);
+  }
+  const key = `${view}.${locale.id}`; // the rose only turns with the view
+  if (key !== compassKey) {
+    compassKey = key;
+    drawCompass();
+  }
   canvas.classList.toggle('edit', editing);
   const dirs = t('dirs').split(',');
   const views = t('views').split(',');
@@ -230,7 +252,7 @@ function resetWorld(): void {
   statusKey = 'ready';
   statusLine = null;
   errorText = null;
-  editor.setRunLine(null);
+  runLine = null;
   editor.setErrorLine(null);
   draw();
 }
@@ -281,7 +303,7 @@ function onStep(): void {
 function onStop(): void {
   driver.stop();
   statusKey = 'stopped';
-  editor.setRunLine(null);
+  runLine = null;
   draw();
 }
 
@@ -429,7 +451,11 @@ $('tabs').addEventListener('click', (e) => {
   if (!b) return;
   for (const x of $('tabs').querySelectorAll('button')) x.classList.toggle('on', x === b);
   for (const x of document.querySelectorAll<HTMLElement>('.tab')) x.classList.toggle('on', x.id === `tab-${b.dataset['tab']}`);
+  const wasEditing = editing;
   editing = b.dataset['tab'] === 'room';
+  // Opening the room always starts from the reset state: edits capture the drawn world, so editing a half-run
+  // room would otherwise freeze Karel mid-program as the room's starting position.
+  if (editing && !wasEditing) resetWorld();
   if (!editing) hover = null;
   if (b.dataset['tab'] === 'program') editor.focus();
   draw();
@@ -523,9 +549,10 @@ new ResizeObserver(() => draw()).observe(canvas);
 
 // ---- boot
 
+speedInput.max = String(MAX_SPEED);
 speedInput.value = (() => {
   const v = Number(localStorage.getItem(LS.speed) ?? 3);
-  return String(v >= 1 && v <= 5 ? v : 3);
+  return String(v >= 1 && v <= MAX_SPEED ? v : 3);
 })();
 driver.setSpeed(Number(speedInput.value));
 applyLocaleText();
